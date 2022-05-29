@@ -6,15 +6,22 @@
     display: flex;
     list-style-type: none;
     margin-right: 1.5em;
-}
 
-.nav-list li {
-    margin-right: 1.5em;
-    font-family: 'Karla', sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-}
+    li {
+        margin-right: 0.5em;
+        font-family: 'Karla', sans-serif;
+        font-weight: 500;
+        font-size: 18px;
+        padding: 0.2em 0.5em;
+        border-radius: 10px;
+        transition: background-color 0.1s ease-in-out;
 
+        &:hover,
+        &:focus {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+}
 
 @media (max-width: 800px) {
 
@@ -27,11 +34,17 @@
         top: 6em;
         width: 100vw;
         background-color: #384d70;
-        transition: display 0.5s ease-in-out;
         color: white;
 
         li {
-            margin: 1.5em 0;
+            margin: 0;
+            padding: 1.5em;
+            border-radius: 0;
+
+            &:hover,
+            &:focus {
+                background-color: #475671;
+            }
         }
     }
 

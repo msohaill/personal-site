@@ -24,23 +24,33 @@
   color: var(--clr-nav-hov);
 }
 
-.nav-theme:hover,
-.nav-theme:focus {
-  color: var(--clr-nav-hov);
-}
+.nav-theme {
+  &:hover,
+  &:focus {
+    color: var(--clr-nav-hov);
+  }
 
-.nav-theme:active {
-  transition: transform 0.2s ease-out;
-  transform: translateY(-5px);
+  &:active {
+    transition: transform 0.2s ease-out;
+    transform: translateY(-5px);
+  }
 }
 
 .nav-menu {
   margin-left: 1.5em;
   display: none;
+
+  &:hover,
+  &:focus {
+    color: var(--clr-nav-hov);
+  }
 }
 
-.nav-menu:hover {
-  color: var(--clr-nav-hov);
+@media (max-width: 800px) {
+  .nav-link:focus,
+  .nav-link:hover {
+    color: inherit
+  }
 }
 
 .App-logo {
