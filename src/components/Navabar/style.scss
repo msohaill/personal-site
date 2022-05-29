@@ -1,0 +1,41 @@
+.nav-bar {
+    justify-content: flex-end;
+    margin: 0;
+}
+.nav-list {
+    display: flex;
+    list-style-type: none;
+    margin-right: 1.5em;
+}
+
+.nav-list li {
+    margin-right: 1.5em;
+    font-family: 'Karla', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+
+@media (max-width: 800px) {
+
+    .nav-list {
+        flex-direction: column;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        bottom: 100%;
+        width: 100vw;
+        background-color: #384d70;
+        transition: transform 0.5s ease-in-out;
+        z-index: -1;
+        color: white;
+
+        li {
+            margin: 1.5em 0;
+        }
+    }
+
+    .nav-menu {
+        display: flex;
+    }
+}
