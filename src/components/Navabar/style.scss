@@ -19,15 +19,15 @@
 @media (max-width: 800px) {
 
     .nav-list {
+        display: none;
         flex-direction: column;
         margin: 0;
         position: absolute;
         left: 0;
-        bottom: 100%;
+        top: 6em;
         width: 100vw;
         background-color: #384d70;
-        transition: transform 0.5s ease-in-out;
-        z-index: -1;
+        transition: display 0.5s ease-in-out;
         color: white;
 
         li {

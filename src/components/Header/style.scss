@@ -1,19 +1,11 @@
-.header-wrapper {
-    height: 6em;
-    width: 100%;
-    max-width: 1500px;
-    position: fixed;
-    z-index: 1000;
-}
-
 header {
-    position: relative;
+    position: fixed;
     justify-content: space-between;
     padding: 50px 12.5%;
     height: 6em;
     width: 100%;
     max-width: 1500px;
-    z-index: initial;
+    z-index: 1000;
     background-color: var(--clr-bg);
     transition: background-color 0.2s linear, color 0.2s linear;
 }
