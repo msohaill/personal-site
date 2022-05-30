@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
-import { Masonry } from '@mui/lab';
+import MyMasonry from '../Masonry';
 
 const shuffleArray = (arr: any[]) => {
   let i = arr.length - 1;
@@ -30,17 +30,16 @@ const Photos = () => {
     <div className={`page ${theme} center`}>
       <Header showMain={false} />
       <main className='content'>
-        <Masonry id='gallery' columns={{ xs: 1, sm: 2, lg: 3 }} spacing={1}>
+        <MyMasonry cols={{ small: 1, medium: 2, large: 3 }} spacing={7}>
           {images.map((item, i) => (
             <img
               src={item}
-              height='default'
               alt={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
               key={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
-              loading={i < 5 ? 'eager' : 'lazy'}
+              loading='eager'
             />
           ))}
-        </Masonry>
+        </MyMasonry>
       </main>
     </div>
   );
