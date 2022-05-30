@@ -3,21 +3,7 @@ import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
 import Masonry from '../Masonry';
 
-const shuffleArray = (arr: any[]) => {
-  let i = arr.length - 1;
-  for (; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-  }
-  return arr;
-};
-
-const r = require.context('./assets/images/gallery', false, /\.(png|jpe?g|svg)$/i);
-const images = shuffleArray(r.keys().map(r)) as string[];
-
-const Photos = () => {
+const Photos = ({ images }: { images: React.ReactNode[] }) => {
   const { theme } = useContext(ThemeContext);
 
   window.onscroll = () => {
@@ -31,14 +17,7 @@ const Photos = () => {
       <Header showMain={false} />
       <main className='content'>
         <Masonry cols={window.innerWidth < 800 ? 1 : window.innerWidth < 1200 ? 2 : 3} spacing={7}>
-          {images.map((item) => (
-            <img
-              src={item}
-              alt={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
-              key={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
-              loading='eager'
-            />
-          ))}
+          {images}
         </Masonry>
       </main>
     </div>
