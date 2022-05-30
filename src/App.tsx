@@ -14,9 +14,9 @@ const App = () => {
   };
 
   return (
-    <div className={`app ${theme} center`}>
+    <div className={`page ${theme} center`}>
       <Header showMain={true} />
-      <div className='App-header'>
+      <main className='content center'>
         <img src={logo} className='App-logo' alt='logo' />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -24,7 +24,7 @@ const App = () => {
         <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
           Learn React
         </a>
-      </div>
+      </main>
     </div>
   );
 };

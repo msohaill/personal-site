@@ -1,8 +1,11 @@
 import logo from '../../logo.svg';
-import '../../App.scss';
 import { useContext } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
+import { Masonry } from '@mui/lab';
+
+const r = require.context('../../assets/images/gallery', false, /\.(png|jpe?g|svg)$/);
+const images = r.keys().map(r) as string[];
 
 const Photos = () => {
   const { theme } = useContext(ThemeContext);
@@ -14,17 +17,20 @@ const Photos = () => {
   };
 
   return (
-    <div className={`app ${theme} center`}>
+    <div className={`page ${theme} center`}>
       <Header showMain={false} />
-      <div className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Yo this is photos <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </div>
+      <main className='content'>
+        <Masonry columns={{ xs: 1, sm: 2, lg: 3 }} spacing={1}>
+          {images.map((item) => (
+            <img
+              src={`${item}?w=248&fit=crop&auto=format`}
+              srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              alt={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
+              loading='lazy'
+            />
+          ))}
+        </Masonry>
+      </main>
     </div>
   );
 };

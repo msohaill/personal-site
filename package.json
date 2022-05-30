@@ -22,6 +22,8 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@mui/lab": "^5.0.0-alpha.83",
+    "@types/webpack-env": "^1.17.0",
     "husky": "^8.0.1",
     "lint-staged": "^12.4.2",
     "prettier": "^2.6.2",
