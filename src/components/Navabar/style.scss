@@ -15,8 +15,6 @@
     font-weight: 500;
     font-size: 18px;
     padding: 0.2em 0.5em;
-    border-radius: 10px;
-    transition: background-color 0.1s ease-in-out;
 
     &:hover,
     &:focus {
@@ -44,6 +42,7 @@
     font-weight: 500;
     font-size: 18px;
     border-left: 2px solid var(--clr-fg);
+    transition: border-color 0.2s linear;
 }
 
 @media (max-width: 800px) {
@@ -68,7 +67,6 @@
     .nav-link {
         margin: 0;
         padding: 1.5em;
-        border-radius: 0;
 
         &:hover,
         &:focus {
