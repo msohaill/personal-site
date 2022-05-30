@@ -1,13 +1,20 @@
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Photos from './components/Photos';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/Theme';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <ThemeProvider>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />} />
+        <Route path='/photos' element={<Photos />} />
+      </Routes>
+    </BrowserRouter>
   </ThemeProvider>
 );
 

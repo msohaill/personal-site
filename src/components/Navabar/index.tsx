@@ -2,6 +2,7 @@ import './style.scss';
 import { NightsStayRounded, WbTwilightRounded, Menu } from '@mui/icons-material';
 import { useContext, useState } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -27,9 +28,9 @@ const Navbar = () => {
           <li className='nav-link'>contact</li>
         </a>
         <li className='nav-divider'></li>
-        <a>
+        <Link to='/photos'>
           <li className='nav-link photos-link'>photos</li>
-        </a>
+        </Link>
       </ul>
       <button className='nav-theme' type='button' onClick={toggleTheme}>
         {theme === 'dark' ? <WbTwilightRounded /> : <NightsStayRounded />}
