@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
 import { Masonry } from '@mui/lab';
-import Image from 'next/image';
 
 const r = require.context('../../assets/images/gallery', false, /\.(png|jpe?g|svg)$/i);
 const images = r.keys().map(r) as string[];
@@ -22,11 +21,11 @@ const Photos = () => {
       <main className='content'>
         <Masonry columns={{ xs: 1, sm: 2, lg: 3 }} spacing={1}>
           {images.map((item) => (
-            <Image
+            <img
               src={`${item}?w=248&fit=crop&auto=format`}
+              srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
               loading='eager'
-              layout='fill'
             />
           ))}
         </Masonry>
