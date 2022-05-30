@@ -3,7 +3,21 @@ import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
 import Masonry from '../Masonry';
 
-const Photos = ({ images }: { images: string[] }) => {
+const shuffleArray = (arr: any[]) => {
+  let i = arr.length - 1;
+  for (; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  return arr;
+};
+
+const r = require.context('./assets/images/gallery', false, /\.(png|jpe?g|svg)$/i);
+const images = shuffleArray(r.keys().map(r)) as string[];
+
+const Photos = () => {
   const { theme } = useContext(ThemeContext);
 
   window.onscroll = () => {
