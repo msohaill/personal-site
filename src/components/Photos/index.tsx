@@ -15,7 +15,7 @@ const Photos = () => {
 
   return (
     <div className={`app ${theme} center`}>
-      <Header />
+      <Header showMain={false} />
       <div className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
         <p>

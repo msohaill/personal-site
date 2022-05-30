@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <div className={`app ${theme} center`}>
-      <Header />
+      <Header showMain={true} />
       <div className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
         <p>

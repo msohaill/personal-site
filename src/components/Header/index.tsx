@@ -4,7 +4,7 @@ import siteLogoActive from '../../assets/images/site-logo-active.png';
 import './style.scss';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ showMain }: { showMain: boolean }) => {
   return (
     <header className='center'>
       <Link to='/'>
@@ -16,7 +16,7 @@ const Header = () => {
           onMouseOut={(e) => (e.currentTarget.src = siteLogo)}
         />
       </Link>
-      <Navbar />
+      <Navbar showMain={showMain} />
     </header>
   );
 };
