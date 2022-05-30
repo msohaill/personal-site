@@ -14,20 +14,21 @@ const Navbar = () => {
   return (
     <nav className='center nav-bar'>
       <ul className='nav-list' style={{ display: navVisible ? 'flex' : undefined }}>
-        <a className='nav-link'>
-          <li>experience</li>
+        <a>
+          <li className='nav-link'>experience</li>
         </a>
-        <a className='nav-link'>
-          <li>projects</li>
+        <a>
+          <li className='nav-link'>projects</li>
         </a>
-        <a className='nav-link'>
-          <li>skills</li>
+        <a>
+          <li className='nav-link'>skills</li>
         </a>
-        <a className='nav-link'>
-          <li>contact</li>
+        <a>
+          <li className='nav-link'>contact</li>
         </a>
-        <a className='nav-link'>
-          <li>photos</li>
+        <li className='nav-divider'></li>
+        <a>
+          <li className='nav-link photos-link'>photos</li>
         </a>
       </ul>
       <button className='nav-theme' type='button' onClick={toggleTheme}>

@@ -10,24 +10,19 @@
 .dark {
   --clr-bg: #282c34;
   --clr-fg: #fff;
-  --clr-nav-hov: #af4d54;
+  --clr-nav-hov: rgba(255, 255, 255, 0.05);
 }
 
 .light {
   --clr-bg: rgb(242, 242, 242);
   --clr-fg: #394e71;
-  --clr-nav-hov: #af4d54;
-}
-
-.nav-link:hover,
-.nav-link:focus {
-  color: var(--clr-nav-hov);
+  --clr-nav-hov: rgba(0, 0, 0, 0.05);
 }
 
 .nav-theme {
   &:hover,
   &:focus {
-    color: var(--clr-nav-hov);
+    color: #af4d54;
   }
 
   &:active {
@@ -42,14 +37,7 @@
 
   &:hover,
   &:focus {
-    color: var(--clr-nav-hov);
-  }
-}
-
-@media (max-width: 800px) {
-  .nav-link:focus,
-  .nav-link:hover {
-    color: inherit
+    color: #af4d54;
   }
 }
 
