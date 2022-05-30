@@ -1,30 +1,19 @@
-import React, { useState } from 'react';
 import './styles.scss';
 
-type MasonryArg = {
-  children: React.ReactNode[];
-  cols: number | { small: number; medium: number; large: number };
-  spacing: number;
-};
-
-const Masonry = ({ children, cols, spacing }: MasonryArg) => {
-  let resCols: number;
-  if (typeof cols === 'number') resCols = cols;
-  else resCols = window.innerWidth < 800 ? cols.small : window.innerWidth < 1200 ? cols.medium : cols.large;
-
+const Masonry = ({ children, cols, spacing }: { children: React.ReactNode[]; cols: number; spacing: number }) => {
   const createGroups = <T,>(arr: T[], numGroups: number) => {
     const perGroup = Math.ceil(arr.length / numGroups);
     return new Array(numGroups).fill('').map((_, i) => arr.slice(i * perGroup, (i + 1) * perGroup));
   };
 
-  const splitImages = createGroups(children, resCols);
+  const splitImages = createGroups(children, cols);
 
   return (
     <div id='gallery' className='masonry-container' style={{ gap: spacing }}>
-      {Array(resCols)
+      {Array(cols)
         .fill('')
         .map((_, index) => (
-          <div key={index} className='masonry-column' style={{ gap: spacing, width: `${100 / resCols}%` }}>
+          <div key={index} className='masonry-column' style={{ gap: spacing, width: `${100 / cols}%` }}>
             {splitImages[index]}
           </div>
         ))}
