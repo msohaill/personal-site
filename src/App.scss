@@ -19,28 +19,6 @@
   --clr-nav-hov: rgba(0, 0, 0, 0.05);
 }
 
-.nav-theme {
-  &:hover,
-  &:focus {
-    color: #af4d54;
-  }
-
-  &:active {
-    transition: transform 0.2s ease-out;
-    transform: translateY(-5px);
-  }
-}
-
-.nav-menu {
-  margin-left: 1.5em;
-  display: none;
-
-  &:hover,
-  &:focus {
-    color: #af4d54;
-  }
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;

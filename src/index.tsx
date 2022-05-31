@@ -5,6 +5,7 @@ import Photos from './components/Photos';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+const imagesData = require('./image-data.json');
 
 const shuffleArray = (arr: any[]) => {
   let i = arr.length - 1;
@@ -18,17 +19,20 @@ const shuffleArray = (arr: any[]) => {
 };
 
 const r = require.context('./assets/images/gallery', false, /\.(png|jpe?g|svg)$/i);
-const imageSrcs = shuffleArray(r.keys().map(r)) as string[];
+const imageDetails = (shuffleArray(r.keys().map(r)) as string[]).map((src) => ({
+  src: src,
+  ...imagesData[src.substring(src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')],
+}));
 
-const images = imageSrcs.map((item) => (
+const images = imageDetails.map((image) => (
   <div className='img-container'>
     <img
-      src={item}
-      alt={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
-      key={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
+      src={image.src}
+      alt={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
+      key={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
       loading='eager'
     />
-    <p className='img-info'>This is cool | 021122 | montreal</p>
+    <p className='img-info'>{`${image.caption} | ${image.location} | ${image.date}`}</p>
   </div>
 ));
 
