@@ -1,4 +1,4 @@
-import './styles.scss';
+import './style.scss';
 
 const Masonry = ({ children, cols, spacing }: { children: React.ReactNode[]; cols: number; spacing: number }) => {
   const createGroups = <T,>(arr: T[], numGroups: number) => {

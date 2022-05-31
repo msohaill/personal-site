@@ -21,12 +21,15 @@ const r = require.context('./assets/images/gallery', false, /\.(png|jpe?g|svg)$/
 const imageSrcs = shuffleArray(r.keys().map(r)) as string[];
 
 const images = imageSrcs.map((item) => (
-  <img
-    src={item}
-    alt={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
-    key={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
-    loading='eager'
-  />
+  <div className='img-container'>
+    <img
+      src={item}
+      alt={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
+      key={item.substring(item.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/, '$2')}
+      loading='eager'
+    />
+    <p className='img-info'>This is cool | 021122 | montreal</p>
+  </div>
 ));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
