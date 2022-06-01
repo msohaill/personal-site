@@ -28,7 +28,7 @@ const images = imageDetails.map((image) => (
   <div className='img-container'>
     <img
       src={image.src}
-      alt={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
+      alt={image.caption}
       key={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
       loading='eager'
     />
