@@ -26,7 +26,7 @@ const App = () => {
       },
       body: new URLSearchParams({
         grant_type: 'refresh_token',
-        refresh_token: process.env.REACT_APP_refresh_token as string,
+        refresh_token: process.env.REACT_APP_REFRESH_TOKEN as string,
       }),
     });
     const token = (await tokenResponse.json())['access_token'];
