@@ -15,16 +15,16 @@ const Navbar = ({ showMain }: { showMain: boolean }) => {
   return (
     <nav className='center nav-bar'>
       <ul className='nav-list' style={{ display: showMain ? (navVisible ? 'flex' : undefined) : 'none' }}>
-        <a href=''>
+        <a href='/#'>
           <li className='nav-link'>experience</li>
         </a>
-        <a href=''>
+        <a href='/#'>
           <li className='nav-link'>projects</li>
         </a>
-        <a href=''>
+        <a href='/#'>
           <li className='nav-link'>skills</li>
         </a>
-        <a href=''>
+        <a href='/#'>
           <li className='nav-link'>contact</li>
         </a>
         <li className='nav-divider'></li>

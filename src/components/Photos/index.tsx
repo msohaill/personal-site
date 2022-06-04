@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
+import Footer from '../Footer';
 import Masonry from '../Masonry';
 
 const Photos = ({ images }: { images: React.ReactNode[] }) => {
@@ -20,6 +21,7 @@ const Photos = ({ images }: { images: React.ReactNode[] }) => {
           {images}
         </Masonry>
       </main>
+      <Footer />
     </div>
   );
 };
