@@ -1,0 +1,39 @@
+h1 {
+  font-size: 50pt;
+  font-weight: 800;
+  letter-spacing: -2px;
+}
+
+.about-name {
+  color: #af4d54;
+}
+
+.about {
+  flex-direction: column;
+}
+
+.about-desc {
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 25pt;
+}
+
+#text-caret {
+  margin-left: 2px;
+  animation: blinker 0.7s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  h1 {
+    font-size: 28pt;
+  }
+  .about-desc {
+    font-size: 18pt;
+  }
+}

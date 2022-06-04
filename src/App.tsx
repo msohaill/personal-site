@@ -1,9 +1,9 @@
-import logo from './logo.svg';
 import './App.scss';
 import { useContext } from 'react';
 import { ThemeContext } from './contexts/Theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import About from './components/About';
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
@@ -17,12 +17,11 @@ const App = () => {
   return (
     <div className={`page ${theme} center`}>
       <Header showMain={true} />
+
       <main className='content center'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
+        <About />
       </main>
+
       <Footer />
     </div>
   );

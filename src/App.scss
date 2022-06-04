@@ -5,15 +5,16 @@
   color: var(--clr-fg);
   flex-direction: column;
   justify-content: flex-start;
+  transition: color 0.2s linear, background-color 0.2s linear;
 }
 
 .dark {
   --clr-bg: #282c34;
-  --clr-fg: #fff;
+  --clr-fg: rgb(242, 242, 242);
 }
 
 .light {
-  --clr-bg: #e8e8e8;
+  --clr-bg: rgb(242, 242, 242);
   --clr-fg: #394e71;
 }
 
@@ -29,12 +30,11 @@
 }
 
 .content {
-  padding: 150px 20px;
+  padding: 175px 20px;
   min-height: 100vh;
   width: 100%;
   flex-direction: column;
   justify-content: flex-start;
-  color: white;
 }
 
 .App-link {
