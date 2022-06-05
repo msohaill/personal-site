@@ -29,7 +29,8 @@ footer {
 #spotify {
   transition: color 0.2s linear;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: rgb(101, 212, 110);
   }
 }

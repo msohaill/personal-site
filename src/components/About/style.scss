@@ -59,9 +59,9 @@ h1 {
 }
 
 .about-desc {
-  width: 50%;
+  width: 60%;
   text-align: justify;
-  line-height: 1.5;
+  line-height: 2;
 
   .desc-link {
     cursor: pointer;
@@ -72,7 +72,8 @@ h1 {
     background-size: 0% 0.1em;
     transition: background-size 0.2s linear;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-size: 100% 0.1em;
     }
   }
@@ -101,6 +102,6 @@ h1 {
   }
 
   .about-desc {
-    width: 80%;
+    width: 85%;
   }
 }
