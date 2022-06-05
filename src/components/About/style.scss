@@ -12,7 +12,7 @@ h1 {
   flex-direction: column;
 }
 
-.about-desc {
+.about-role {
   justify-content: center;
   margin: 20px 0px;
   font-size: 25pt;
@@ -34,10 +34,9 @@ h1 {
 
 .about-link {
   cursor: pointer;
-  font-family: 'Karla', sans-serif;
   font-weight: 500;
   font-size: 18px;
-  padding: 0.2em 0.5em;
+  padding: 0.5em;
 
   &:hover,
   &:focus {
@@ -59,6 +58,27 @@ h1 {
   }
 }
 
+.about-desc {
+  width: 50%;
+  text-align: justify;
+  line-height: 1.5;
+
+  .desc-link {
+    cursor: pointer;
+    color: #af4d54;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 0.1em;
+    transition: background-size 0.2s linear;
+
+    &:hover {
+      background-size: 100% 0.1em;
+    }
+  }
+
+}
+
 #text-caret {
   margin-left: 2px;
   font-weight: 300;
@@ -76,7 +96,11 @@ h1 {
     font-size: 28pt;
   }
 
-  .about-desc {
+  .about-role {
     font-size: 18pt;
+  }
+
+  .about-desc {
+    width: 80%;
   }
 }

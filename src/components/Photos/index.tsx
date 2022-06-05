@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
 import Footer from '../Footer';
@@ -6,6 +6,10 @@ import Masonry from '../Masonry';
 
 const Photos = ({ images }: { images: React.ReactNode[] }) => {
   const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    document.title = 'Muhammad Sohail - some of my photos';
+  }, []);
 
   window.onscroll = () => {
     const header = document.getElementsByTagName('header')[0];
