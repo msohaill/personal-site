@@ -4,6 +4,7 @@ import { ThemeContext } from './contexts/Theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import About from './components/About';
+import Contact from './components/Contact';
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
@@ -24,6 +25,7 @@ const App = () => {
 
       <main className='content center'>
         <About />
+        <Contact />
       </main>
 
       <Footer />
