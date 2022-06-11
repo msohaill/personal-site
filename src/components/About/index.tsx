@@ -76,7 +76,7 @@ const About = () => {
           studying Honours Computer Science. I'm really interested in data science, AI, and web development. Apart
           from this, I enjoy playing basketball, spending time outdoors, and exploring <a 
           href='https://goo.gl/maps/y21867TsVit1S4Ne8' className='desc-link' target='_blank' rel='noopener noreferrer'>
-          Montréal</a>!
+          Montréal!</a>
         </p>
       </div>
     </div>

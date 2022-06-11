@@ -6,16 +6,19 @@
   flex-direction: column;
   justify-content: flex-start;
   transition: color 0.2s linear, background-color 0.2s linear;
+  background-image: url('assets/images/noise-overlay.png');
 }
 
 .dark {
   --clr-bg: #282c34;
   --clr-fg: rgb(242, 242, 242);
+  --clr-lnk-fg: rgba(256, 256, 256, 0.2);
 }
 
 .light {
   --clr-bg: rgb(242, 242, 242);
   --clr-fg: #394e71;
+  --clr-lnk-fg: rgba(57, 78, 113, 0.2);
 }
 
 .App-logo {
