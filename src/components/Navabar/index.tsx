@@ -24,9 +24,6 @@ const Navbar = ({ showMain }: { showMain: boolean }) => {
         <a href='/#'>
           <li className='nav-link'>skills</li>
         </a>
-        <a href='/#'>
-          <li className='nav-link'>contact</li>
-        </a>
         <li className='nav-divider'></li>
         <Link to='/photos'>
           <li className='nav-link photos-link'>photos</li>

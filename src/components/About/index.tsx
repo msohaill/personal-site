@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { GitHub } from '@mui/icons-material';
-import { LinkedIn } from '@mui/icons-material';
+import { GitHub, LinkedIn, EmailRounded } from '@mui/icons-material';
 import './style.scss';
 import resume from '../../assets/pdf/Muhammad_Sohail_Resume.pdf';
 import { Link } from 'react-router-dom';
@@ -60,6 +59,9 @@ const About = () => {
         >
           <LinkedIn />
         </a>
+        <a href='mailto:muhammad.sohail@mail.mcgill.ca' className='about-icon'>
+          <EmailRounded />
+        </a>
       </div>
       <a href={resume} target='_blank' rel='noopener noreferrer' className='about-link'>
         resume
@@ -74,7 +76,7 @@ const About = () => {
           studying Honours Computer Science. I'm really interested in data science, AI, and web development. Apart
           from this, I enjoy playing basketball, spending time outdoors, and exploring <a 
           href='https://goo.gl/maps/y21867TsVit1S4Ne8' className='desc-link' target='_blank' rel='noopener noreferrer'>
-          montréal</a>!
+          Montréal</a>!
         </p>
       </div>
     </div>
