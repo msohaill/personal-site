@@ -10,14 +10,31 @@ const Navbar = ({ showMain }: { showMain: boolean }) => {
 
   const toggleNavList = () => setNavVisible((prevState) => !prevState);
 
-  window.onresize = () => window.innerWidth > 800 && navVisible && toggleNavList();
+  window.onresize = () => {
+    window.innerWidth > 800 && navVisible && toggleNavList();
+
+    const navLinks = Array.from(document.getElementsByClassName('nav-link') as HTMLCollectionOf<HTMLElement>);
+    window.innerWidth <= 800 &&
+      navLinks.forEach((element) => {
+        element.style.color = '';
+      });
+  };
+
+  const goToSection = (elementId: string) => {
+    document.getElementById(elementId)?.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth',
+    });
+
+    window.innerWidth <= 800 && toggleNavList();
+  };
 
   return (
     <nav className='center nav-bar'>
       <ul className='nav-list' style={{ display: showMain ? (navVisible ? 'flex' : undefined) : 'none' }}>
-        <a href='/#experience-title'>
+        <button type='button' onClick={() => goToSection('experience-title')}>
           <li className='nav-link'>experience</li>
-        </a>
+        </button>
         <a href='/#'>
           <li className='nav-link'>projects</li>
         </a>

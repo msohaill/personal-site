@@ -28,14 +28,16 @@ const App = () => {
     if (window.scrollY >= header.offsetHeight / 2) header.classList.add('active');
     else header.classList.remove('active');
 
-    switch (true) {
-      case window.scrollY < experience.offsetTop - window.innerHeight / 2:
-        navLinks.forEach((element) => {
-          element.style.color = '';
-        });
-        break;
-      default:
-        navLinks[0].style.color = '#af4d54';
+    if (window.innerWidth >= 800) {
+      switch (true) {
+        case window.scrollY < experience.offsetTop - window.innerHeight / 2:
+          navLinks.forEach((element) => {
+            element.style.color = '';
+          });
+          break;
+        default:
+          navLinks[0].style.color = '#af4d54';
+      }
     }
   };
 

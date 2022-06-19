@@ -5,17 +5,23 @@ import './style.scss';
 import { Link } from 'react-router-dom';
 
 const Header = ({ showMain }: { showMain: boolean }) => {
+  const headerLogo = (
+    <img
+      src={siteLogo}
+      id='site-logo'
+      alt='site-logo'
+      onMouseOver={(e) => (e.currentTarget.src = siteLogoActive)}
+      onMouseOut={(e) => (e.currentTarget.src = siteLogo)}
+    />
+  );
+
   return (
     <header className='center'>
-      <Link to='/'>
-        <img
-          src={siteLogo}
-          id='site-logo'
-          alt='site-logo'
-          onMouseOver={(e) => (e.currentTarget.src = siteLogoActive)}
-          onMouseOut={(e) => (e.currentTarget.src = siteLogo)}
-        />
-      </Link>
+      {window.location.pathname === '/' ? (
+        <button onClick={() => window.scrollTo(0, 0)}>{headerLogo}</button>
+      ) : (
+        <Link to='/'>{headerLogo}</Link>
+      )}
       <Navbar showMain={showMain} />
     </header>
   );
