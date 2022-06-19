@@ -263,5 +263,35 @@
     "caption": "a cool painting",
     "location": "regina",
     "date": "06-03-18"
+  },
+  "IMG_1627.jpeg": {
+    "caption": "the sky on a ride home",
+    "location": "oshawa",
+    "date": "07-06-22"
+  },
+  "IMG_1637.jpeg": {
+    "caption": "a dame's rocket",
+    "location": "oshawa",
+    "date": "09-06-22"
+  },
+  "IMG_1642.jpeg": {
+    "caption": "bridge over a creek",
+    "location": "oshawa",
+    "date": "09-06-22"
+  },
+  "IMG_1647.jpeg": {
+    "caption": "adam beck's sculpture",
+    "location": "toronto",
+    "date": "10-06-22"
+  },
+  "IMG_1680.jpeg": {
+    "caption": "a red clover",
+    "location": "oshawa",
+    "date": "13-06-22"
+  },
+  "IMG_1704.jpeg": {
+    "caption": "peeking through the fence",
+    "location": "oshawa",
+    "date": "15-06-22"
   }
 }

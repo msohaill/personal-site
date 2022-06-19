@@ -5,7 +5,7 @@ import Photos from './components/Photos';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-const imagesData = require('./image-data.json');
+const imagesData = require('./assets/data/image-data.json');
 
 const shuffleArray = (arr: any[]) => {
   let i = arr.length - 1;

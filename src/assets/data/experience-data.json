@@ -1,0 +1,13 @@
+[
+  {
+    "logoSrc": "pattern.png",
+    "title": "Software Engineering Intern",
+    "company": "Pattern Jobs",
+    "location": "Toronto, ON",
+    "date": {
+      "start": "May 2022",
+      "end": "Present"
+    },
+    "desc": "Just started here!"
+  }
+]

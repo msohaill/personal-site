@@ -10,7 +10,7 @@ fi
 brew list jq &>/dev/null || brew install jq
 
 gallerydir=src/assets/images/gallery/
-imagedata=src/image-data.json
+imagedata=src/assets/data/image-data.json
 
 for file in "$@"
 do

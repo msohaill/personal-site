@@ -1,4 +1,4 @@
-import Navbar from '../Navabar';
+import Navbar from './Navbar';
 import siteLogo from '../../assets/images/site-logo.png';
 import siteLogoActive from '../../assets/images/site-logo-active.png';
 import './style.scss';

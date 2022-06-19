@@ -1,0 +1,24 @@
+.experience {
+  margin-top: 100px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+
+  #experience-title {
+    font-size: 30pt;
+    font-weight: 100;
+  }
+}
+
+@media (max-width: 800px) {
+  .experience {
+    width: 95%;
+
+    #experience-title {
+      font-size: 25pt;
+    }
+  }
+}

@@ -16,7 +16,7 @@ footer {
 
 #spotify-embed {
   opacity: 0.5;
-  border-radius: 10px; 
+  border-radius: 10px;
   min-width: 300px;
   transform: scale(0.8);
   transition: opacity 0.2s linear;
@@ -44,13 +44,13 @@ footer {
 
   .music-holder {
     &::after {
-    padding-top: 20px;
-    margin-bottom: 20px;
-    content:''; 
-    border-bottom: 0.5px solid white;
-    height: 2px;
-    width: 5em; 
+      padding-top: 20px;
+      margin-bottom: 20px;
+      content: '';
+      border-bottom: 0.5px solid white;
+      height: 2px;
+      width: 5em;
     }
-    
+
   }
 }

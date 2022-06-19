@@ -1,7 +1,7 @@
 import './style.scss';
 import { NightsStayRounded, WbTwilightRounded, Menu } from '@mui/icons-material';
 import { useContext, useState } from 'react';
-import { ThemeContext } from '../../contexts/Theme';
+import { ThemeContext } from '../../../contexts/Theme';
 import { Link } from 'react-router-dom';
 
 const Navbar = ({ showMain }: { showMain: boolean }) => {
@@ -15,7 +15,7 @@ const Navbar = ({ showMain }: { showMain: boolean }) => {
   return (
     <nav className='center nav-bar'>
       <ul className='nav-list' style={{ display: showMain ? (navVisible ? 'flex' : undefined) : 'none' }}>
-        <a href='/#'>
+        <a href='/#experience-title'>
           <li className='nav-link'>experience</li>
         </a>
         <a href='/#'>
