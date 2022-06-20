@@ -1,0 +1,24 @@
+.project-card {
+  width: 100%;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  
+
+  h2 {
+    font-size: 20pt;
+    font-weight: 800;
+  }
+
+  .project-picture {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
