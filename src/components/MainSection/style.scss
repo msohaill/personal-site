@@ -1,4 +1,4 @@
-.experience {
+.main-section {
   margin-top: 100px;
   width: 80%;
   display: flex;
@@ -7,7 +7,7 @@
   align-items: center;
   gap: 20px;
 
-  #experience-title {
+  .section-title {
     font-size: 30pt;
     font-weight: 100;
   }
@@ -17,7 +17,7 @@
   .experience {
     width: 95%;
 
-    #experience-title {
+    .section-title {
       font-size: 25pt;
     }
   }

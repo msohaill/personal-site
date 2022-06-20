@@ -11,7 +11,7 @@ const defaultTheme = {
 
 const ThemeContext = createContext<Theme>(defaultTheme);
 
-const ThemeProvider = ({ children }: { children: JSX.Element }) => {
+const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'light');
 
   const toggleTheme = () => {

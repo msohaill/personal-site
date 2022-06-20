@@ -3,6 +3,7 @@ import { NightsStayRounded, WbTwilightRounded, Menu } from '@mui/icons-material'
 import { useContext, useState } from 'react';
 import { ThemeContext } from '../../../contexts/Theme';
 import { Link } from 'react-router-dom';
+import { setNavLinkColors } from '../../../utils/set-nav-link-colors.util';
 
 const Navbar = ({ showMain }: { showMain: boolean }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -13,31 +14,29 @@ const Navbar = ({ showMain }: { showMain: boolean }) => {
   window.onresize = () => {
     window.innerWidth > 800 && navVisible && toggleNavList();
 
-    const navLinks = Array.from(document.getElementsByClassName('nav-link') as HTMLCollectionOf<HTMLElement>);
-    window.innerWidth <= 800 &&
-      navLinks.forEach((element) => {
-        element.style.color = '';
-      });
+    setNavLinkColors();
   };
 
   const goToSection = (elementId: string) => {
-    document.getElementById(elementId)?.scrollIntoView({
-      block: 'start',
+    const element = document.getElementById(elementId) as HTMLElement;
+
+    window.scrollTo({
+      top: element.offsetTop - 150,
       behavior: 'smooth',
     });
 
-    window.innerWidth <= 800 && toggleNavList();
+    navVisible && toggleNavList();
   };
 
   return (
     <nav className='center nav-bar'>
       <ul className='nav-list' style={{ display: showMain ? (navVisible ? 'flex' : undefined) : 'none' }}>
-        <button type='button' onClick={() => goToSection('experience-title')}>
+        <button type='button' onClick={() => goToSection('experience')}>
           <li className='nav-link'>experience</li>
         </button>
-        <a href='/#'>
+        <button type='button' onClick={() => goToSection('projects')}>
           <li className='nav-link'>projects</li>
-        </a>
+        </button>
         <a href='/#'>
           <li className='nav-link'>skills</li>
         </a>
