@@ -1,6 +1,7 @@
 .project-card {
   width: 100%;
   padding: 20px;
+  padding-bottom: 80px;
 
   display: flex;
   flex-direction: column;
@@ -11,14 +12,59 @@
   flex-shrink: 0;
   scroll-snap-align: start;
   
+  .project-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 
-  h2 {
-    font-size: 20pt;
+    h2, svg {
+      font-size: 20pt;
+      font-weight: 800;
+    }
+  }
+  
+  p {
+    text-align: justify;
+    line-height: 1.75;
+  }
+
+  .project-link {
+    transition: transform 0.2s ease-out;
+
+    &:hover,
+    &:focus {
+      color: #af4d54;
+      transform: translateY(-2px);
+    }
+  }
+  
+  .project-tools {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
     font-weight: 800;
   }
 
   .project-picture {
     max-height: 100%;
     max-width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .project-card {
+    h2, svg {
+      font-size: 15pt;
+    }
+
+    p {
+      font-size: 10pt;
+    }
   }
 }

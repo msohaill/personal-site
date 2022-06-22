@@ -1,12 +1,49 @@
+import { GitHub, Launch } from '@mui/icons-material';
+import { setModalImage } from '../../../utils/set-modal-image';
+import ImageModal from '../../ImageModal';
 import './style.scss';
 
-const ProjectCard = () => {
+type ProjectInput = {
+  name: string;
+  imageSrc: string;
+  externalLink?: string;
+  githubLink?: string;
+  desc: string;
+  tools: Array<string>;
+};
+
+const ProjectCard = (project: ProjectInput) => {
   return (
-    <div className='project-card'>
-      <img src={require('../../../assets/images/projects/wrappedify.png')} className='project-picture' />
-      <h2>Wrappedify</h2>
-      <p>I did a lot of things, this thing does a lot of cool stuff and yay it has cool features omg yay</p>
-    </div>
+    <>
+      <div className='project-card'>
+        <img
+          style={{ cursor: 'pointer' }}
+          src={project.imageSrc}
+          className='project-picture'
+          onClick={() => setModalImage(project.imageSrc)}
+        />
+        <div className='project-title'>
+          <h2>{project.name}</h2>
+          {project.externalLink && (
+            <a href={project.externalLink} target='_blank' rel='noopener noreferrer'>
+              <Launch className='project-link' />
+            </a>
+          )}
+          {project.githubLink && (
+            <a href={project.githubLink} target='_blank' rel='noopener noreferrer'>
+              <GitHub className='project-link' />
+            </a>
+          )}
+        </div>
+        <p>{project.desc}</p>
+        <ul className='project-tools'>
+          {project.tools.map((tool) => (
+            <li>{tool}</li>
+          ))}
+        </ul>
+      </div>
+      <ImageModal />
+    </>
   );
 };
 

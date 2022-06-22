@@ -5,6 +5,7 @@ import Photos from './components/Photos';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { setModalImage } from './utils/set-modal-image';
 const imagesData = require('./assets/data/image-data.json');
 
 const shuffleArray = (arr: any[]) => {
@@ -24,14 +25,6 @@ const imageDetails = (shuffleArray(r.keys().map(r)) as string[]).map((src) => ({
   ...imagesData[src.substring(src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')],
 }));
 
-const setModal = (src: string) => {
-  const modal = document.getElementById('modal');
-  const modalPhoto = document.getElementById('modal-photo') as HTMLImageElement;
-
-  modalPhoto.src = src;
-  if (modal) modal.style.display = 'flex';
-};
-
 const images = imageDetails.map((image) => (
   <div className='img-container'>
     <img
@@ -39,7 +32,7 @@ const images = imageDetails.map((image) => (
       alt={image.caption}
       key={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
       loading='eager'
-      onClick={() => setModal(image.src)}
+      onClick={() => setModalImage(image.src)}
     />
     <p className='img-info'>{`${image.caption} | ${image.location} | ${image.date}`}</p>
   </div>
