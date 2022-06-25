@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { GitHub, LinkedIn, EmailRounded } from '@mui/icons-material';
 import './style.scss';
-import resume from '../../assets/pdf/Muhammad_Sohail_Resume.pdf';
 import { Link } from 'react-router-dom';
 
 const About = () => {
@@ -65,7 +64,12 @@ const About = () => {
           <EmailRounded />
         </a>
       </div>
-      <a href={resume} target='_blank' rel='noopener noreferrer' className='about-link'>
+      <a
+        href={`${process.env.PUBLIC_URL}static/media/Muhammad_Sohail_Resume.pdf`}
+        target='_blank'
+        rel='noopener noreferrer'
+        className='about-link'
+      >
         resume
       </a>
       <div className='about-desc'>

@@ -59,11 +59,18 @@
 
 @media (max-width: 800px) {
   .project-card {
-    h2, svg {
-      font-size: 15pt;
+    .project-title {
+      h2, svg {
+        font-size: 15pt;
+      }
     }
 
     p {
+      font-size: 10pt;
+    }
+
+    .project-tools {
+      width: 100%;
       font-size: 10pt;
     }
   }
