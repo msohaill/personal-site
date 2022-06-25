@@ -21,6 +21,7 @@ const ProjectCard = (project: ProjectInput) => {
           src={project.imageSrc}
           className='project-picture'
           onClick={() => setModalImage(project.imageSrc)}
+          alt={project.name}
         />
         <div className='project-title'>
           <h2>{project.name}</h2>
@@ -38,7 +39,7 @@ const ProjectCard = (project: ProjectInput) => {
         <p>{project.desc}</p>
         <ul className='project-tools'>
           {project.tools.map((tool) => (
-            <li>{tool}</li>
+            <li key={tool}>{tool}</li>
           ))}
         </ul>
       </div>

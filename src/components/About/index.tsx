@@ -6,35 +6,37 @@ import { Link } from 'react-router-dom';
 
 const About = () => {
   useEffect(() => {
-    const roles = ['software developer', 'student', 'photographer'];
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-    const writeRole = (writing: boolean, roleIndex: number) => {
-      const roleHolder = document.getElementById('role');
-      const role = roles[roleIndex];
-
-      if (roleHolder && writing) {
-        roleHolder.innerHTML += role[roleHolder.innerHTML.length - 1];
-
-        if (roleHolder.innerHTML.length === role.length + 1) {
-          writing = false;
-          roleIndex += 1;
-          if (roleIndex === roles.length) roleIndex = 0;
+    const writeRoles = async (roles: Array<string>, element: HTMLElement) => {
+      const writeSingleRole = async (role: string, element: HTMLElement) => {
+        for (let i = 0; i < role.length; i++) {
+          element.innerHTML += role[i];
+          await sleep(75);
         }
+      };
 
-        setTimeout(writeRole, 75 + (writing ? 0 : 1600), writing, roleIndex);
-      } else if (roleHolder && !writing) {
-        roleHolder.innerHTML = roleHolder.innerHTML.slice(0, -1);
-        if (roleHolder.innerHTML.length === 1) writing = true;
-        setTimeout(
-          writeRole,
-          75 + (roleIndex === 0 && roleHolder.innerHTML.length === 1 ? 1750 : 0),
-          writing,
-          roleIndex
-        );
+      const eraseSingleRole = async (role: string, element: HTMLElement) => {
+        for (let i = 0; i < role.length; i++) {
+          element.innerHTML = element.innerHTML.slice(0, -1);
+          await sleep(75);
+        }
+      };
+
+      while (true) {
+        for (let role of roles) {
+          await writeSingleRole(role, element);
+          await sleep(1600);
+          await eraseSingleRole(role, element);
+          await sleep(100);
+        }
+        await sleep(1500);
       }
     };
 
-    writeRole(true, 0);
+    const roles = ['software developer', 'student', 'photographer'];
+    const roleHolder = document.getElementById('role') as HTMLElement;
+    writeRoles(roles, roleHolder);
   }, []);
 
   return (
