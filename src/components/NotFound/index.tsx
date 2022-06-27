@@ -1,17 +1,15 @@
 import { useContext, useEffect } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
-import { CloseRounded } from '@mui/icons-material';
-import Header from '..//Header';
 import Footer from '../Footer';
-import Masonry from '../Masonry';
+import Header from '../Header';
+import SnakeGame from '../SnakeGame';
 import './style.scss';
-import ImageModal from '../ImageModal';
 
-const Photos = ({ images }: { images: React.ReactNode[] }) => {
+const NotFound = () => {
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
-    document.title = 'Muhammad Sohail - Some of My Photos';
+    document.title = 'Muhammad Sohail - Not Found';
   }, []);
 
   window.onscroll = () => {
@@ -24,11 +22,10 @@ const Photos = ({ images }: { images: React.ReactNode[] }) => {
     <div className={`page ${theme} center`}>
       <Header showMain={false} />
 
-      <main className='content'>
-        <Masonry cols={window.innerWidth < 800 ? 1 : window.innerWidth < 1200 ? 2 : 3} spacing={7}>
-          {images}
-        </Masonry>
-        <ImageModal />
+      <main className='content not-found'>
+        <h1>404: Page not found</h1>
+        <p>The page you're looking for does not exist :(</p>
+        <SnakeGame />
       </main>
 
       <Footer />
@@ -36,4 +33,4 @@ const Photos = ({ images }: { images: React.ReactNode[] }) => {
   );
 };
 
-export default Photos;
+export default NotFound;

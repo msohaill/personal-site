@@ -3,7 +3,7 @@ import { setModalImage } from '../../../utils/set-modal-image';
 import ImageModal from '../../ImageModal';
 import './style.scss';
 
-type ProjectInput = {
+export type ProjectInput = {
   name: string;
   imageSrc: string;
   externalLink?: string;

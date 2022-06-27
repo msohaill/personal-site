@@ -8,11 +8,17 @@ import Experience from './components/Experience';
 import { ExperienceInput } from './components/Experience/ExperienceCard';
 import Projects from './components/Projects';
 import { setNavLinkColors } from './utils/set-nav-link-colors.util';
+import { ProjectInput } from './components/Projects/ProjectCard';
 const experiencesData = require('./assets/data/experience-data.json');
+const projectsData = require('./assets/data/project-data.json');
 
 const experiences = experiencesData.map((experience: ExperienceInput) => ({
   ...experience,
   logoSrc: require(`./assets/images/experience/${experience.logoSrc}`),
+}));
+const projects = projectsData.map((project: ProjectInput) => ({
+  ...project,
+  imageSrc: require(`./assets/images/projects/${project.imageSrc}`),
 }));
 
 const App = () => {
@@ -38,7 +44,7 @@ const App = () => {
       <main className='content center'>
         <About />
         <Experience experiences={experiences} />
-        <Projects />
+        <Projects projects={projects} />
       </main>
 
       <Footer />

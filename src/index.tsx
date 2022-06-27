@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { setModalImage } from './utils/set-modal-image';
+import NotFound from './components/NotFound';
 const imagesData = require('./assets/data/image-data.json');
 
 const shuffleArray = (arr: any[]) => {
@@ -45,6 +46,7 @@ root.render(
       <Routes>
         <Route path='/' element={<App />} />
         <Route path='/photos' element={<Photos images={images} />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>
   </ThemeProvider>

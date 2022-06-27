@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Wrappedify",
+    "imageSrc": "wrappedify.png",
+    "desc": "This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool!",
+    "externalLink": "https://wrappedify.herokuapp.com",
+    "githubLink": "https://github.com/msohaill/wrappedify",
+    "tools": [
+      "Python",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "AJAX",
+      "jQuery",
+      "D3.js",
+      "Django",
+      "Celery",
+      "Redis",
+      "Heroku",
+      "PostgreSQL"
+    ]
+  }
+]

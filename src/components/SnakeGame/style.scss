@@ -1,0 +1,74 @@
+#game-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+  max-height: 90%;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+
+  .game-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .game-grid {
+      flex: 1 1 auto;
+      padding: 15px;
+    }
+
+    .food {
+      background-color: yellow;
+    }
+
+    &:nth-of-type(even) {
+      .empty {
+        &:nth-of-type(even) {
+          background-color: rgb(129, 206, 129);
+        }
+  
+        &:nth-of-type(odd) {
+          background-color: rgb(94, 160, 94);
+        }
+      }
+
+      .snake {
+        &:nth-of-type(even) {
+          filter: brightness(120%);
+        }
+        
+        background-color: brown;
+      }
+    }
+
+    &:nth-of-type(odd) {
+      .empty {
+        &:nth-of-type(odd) {
+          background-color: rgb(129, 206, 129);
+        }
+  
+        &:nth-of-type(even) {
+          background-color: rgb(94, 160, 94);
+        }
+      }
+
+      .snake {
+        &:nth-of-type(odd) {
+          filter: brightness(120%);
+        }
+        
+        background-color: brown;
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  #game-container {
+    .game-row {
+      .game-grid {
+        padding: 12px;
+      }
+    }
+  }
+}
