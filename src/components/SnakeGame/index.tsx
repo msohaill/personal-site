@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import './style.scss';
 
-type Game = Array<Array<'empty' | 'snake' | 'food'>>;
 type Direction = 'up' | 'left' | 'down' | 'right';
 type GameState = 'play' | 'pause' | 'restart' | 'end';
 
@@ -9,202 +8,294 @@ const SnakeGame = () => {
   const HEIGHT = window.innerWidth < 800 ? 20 : 15;
   const WIDTH = window.innerWidth < 800 ? 12 : 20;
 
-  const getGridLocation = (game: Game, position: number) => {
-    return game[Math.floor(position / WIDTH)][position % WIDTH];
-  };
-
-  const setGridLocation = (game: Game, position: number, value: 'empty' | 'snake' | 'food') => {
-    game[Math.floor(position / WIDTH)][position % WIDTH] = value;
-  };
-
-  const getRandomFreePos = (game: Game) => {
-    let pos: number;
-
-    do {
-      pos = Math.floor(Math.random() * HEIGHT) * WIDTH + Math.floor(Math.random() * WIDTH);
-    } while (getGridLocation(game, pos) !== 'empty');
-
-    return pos;
-  };
-
-  const initGame: Game = [...Array(HEIGHT)].map((_) => [...Array(WIDTH)].map((_) => 'empty'));
-  setGridLocation(initGame, window.innerWidth < 800 ? 62 : 151, 'snake');
-  setGridLocation(initGame, window.innerWidth < 800 ? 61 : 150, 'snake');
-  setGridLocation(initGame, getRandomFreePos(initGame), 'food');
-
-  const [game, setGame] = useState(initGame);
-  const [direction, setDirection] = useState<Direction>('right');
-  const [gameState, setGameState] = useState<GameState>('pause');
-  const [snake, setSnake] = useState(window.innerWidth < 800 ? [62, 61] : [151, 150]);
-  const [speed, setSpeed] = useState(100);
-  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
-  const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
-
-  const updateDisplay = () => {
-    if (gameState === 'pause' || gameState === 'end') return;
-
-    setSnake((prevSnake) => {
-      let head = prevSnake[0];
-      let snakeCopy = prevSnake.slice();
-
-      switch (direction) {
-        case 'up':
-          head = head < WIDTH ? (HEIGHT - 1) * WIDTH + (head % WIDTH) : head - WIDTH;
-          break;
-        case 'left':
-          head = head % WIDTH === 0 ? head + WIDTH - 1 : head - 1;
-          break;
-        case 'down':
-          head = Math.floor(head / WIDTH) === HEIGHT - 1 ? head % WIDTH : head + WIDTH;
-          break;
-        case 'right':
-          head = head % WIDTH === WIDTH - 1 ? head - (WIDTH - 1) : head + 1;
-          break;
-      }
-
-      snakeCopy.unshift(head);
-
-      setGame((prevGame) => {
-        const newGame = prevGame.map((row) => row.slice());
-        setGridLocation(newGame, head, 'snake');
-
-        if (getGridLocation(game, head) === 'food') {
-          setGridLocation(newGame, getRandomFreePos(newGame), 'food');
-        } else if (getGridLocation(game, head) === 'snake') {
-          setGameState('end');
-          alert('You LOST');
-        } else {
-          const tail = snakeCopy.pop() as number;
-          setGridLocation(newGame, tail, 'empty');
-        }
-
-        return newGame;
-      });
-
-      return snakeCopy;
-    });
-  };
-
-  const handleKeyDown = (event: KeyboardEvent) => {
-    const { key } = event;
-
-    if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(key)) event.preventDefault();
-
-    if (key === 'p') {
-      setGameState('pause');
-      return;
-    } else if (
-      gameState === 'pause' &&
-      ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'w', 'a', 's', 'd'].includes(key)
-    ) {
-      setGameState('play');
-    } else if (key === 'r') {
-      setGame(initGame);
-      setDirection('right');
-      setGameState('pause');
-      setSnake(window.innerWidth < 800 ? [62, 61] : [151, 150]);
-      setSpeed(100);
-      return;
-    }
-
-    setDirection((prevDirection) => {
-      let newDirection: Direction;
-
-      switch (key) {
-        case 'ArrowLeft':
-        case 'a':
-          newDirection = prevDirection === 'right' ? 'right' : 'left';
-          break;
-        case 'ArrowUp':
-        case 'w':
-          newDirection = prevDirection === 'down' ? 'down' : 'up';
-          break;
-        case 'ArrowRight':
-        case 'd':
-          newDirection = prevDirection === 'left' ? 'left' : 'right';
-          break;
-        case 'ArrowDown':
-        case 's':
-          newDirection = prevDirection === 'up' ? 'up' : 'down';
-          break;
-        default:
-          newDirection = prevDirection;
-          break;
-      }
-
-      return newDirection;
-    });
-  };
-
-  const handleSwipe = () => {
-    if (gameState === 'pause') {
-      setGameState('play');
-    }
-
-    setDirection((prevDirection) => {
-      let newDirection: Direction;
-
-      if (Math.abs(touchEnd.x - touchStart.x) > Math.abs(touchEnd.y - touchStart.y)) {
-        if (touchEnd.x < touchStart.x) {
-          newDirection = prevDirection === 'right' ? 'right' : 'left';
-          alert('swiped left');
-        } else {
-          newDirection = prevDirection === 'left' ? 'left' : 'right';
-          alert('swiped right');
-        }
-      } else {
-        if (touchEnd.y < touchStart.y) {
-          newDirection = prevDirection === 'down' ? 'down' : 'up';
-          alert('swiped up');
-        } else {
-          newDirection = prevDirection === 'up' ? 'up' : 'down';
-          alert('swiped down');
-        }
-      }
-
-      return newDirection;
-    });
-  };
-
-  const useInterval = (callback: () => void, delay: number) => {
-    const savedCallback = useRef(callback);
-
-    useEffect(() => {
-      savedCallback.current = callback;
-    }, [callback]);
-
-    useEffect(() => {
-      const tick = () => {
-        savedCallback.current();
-      };
-
-      if (delay !== null) {
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-      }
-    }, [delay]);
-  };
-
-  useInterval(updateDisplay, speed);
-
-  document.onkeydown = handleKeyDown;
+  const game = Array(HEIGHT)
+    .fill('')
+    .map(() => Array(WIDTH).fill('empty'));
 
   useEffect(() => {
-    (document.getElementById('game-container') as HTMLElement).ontouchstart = (event) => {
-      setTouchStart({ x: event.changedTouches[0].screenX, y: event.changedTouches[0].screenY });
+    let snake: Array<number> = [];
+    let apple: number;
+    let start: DOMHighResTimeStamp | undefined;
+    let steps: number;
+    let score: number;
+    let moveQueue: Array<Direction> = [];
+    let state: GameState = 'pause';
+    const speed = 150;
+
+    const tiles = Array.from(document.getElementsByClassName('game-content') as HTMLCollectionOf<HTMLElement>);
+    //const grid = document.getElementById('game-container') as HTMLElement;
+
+    const getRandomFreePos = (height: number, width: number, snake: Array<number>) => {
+      let pos: number;
+
+      do {
+        pos = Math.floor(Math.random() * height) * width + Math.floor(Math.random() * width);
+      } while (snake.includes(pos));
+
+      return pos;
     };
-    (document.getElementById('game-container') as HTMLElement).ontouchend = (event) => {
-      setTouchEnd({ x: event.changedTouches[0].screenX, y: event.changedTouches[0].screenY });
-      handleSwipe();
+
+    const setTile = (element: HTMLElement, cssOverrides = {}) => {
+      const style = {
+        width: '100%',
+        height: '100%',
+        top: 'auto',
+        right: 'auto',
+        bottom: 'auto',
+        left: 'auto',
+        backgroundColor: 'transparent',
+        ...cssOverrides,
+      };
+
+      Object.assign(element.style, style);
     };
-  }, [touchStart, touchEnd]);
+
+    const getDirection = (a: number, b: number): Direction => {
+      if (a - 1 === b) return 'right';
+      else if (a + 1 === b) return 'left';
+      else if (a - WIDTH === b) return 'down';
+      else if (a + WIDTH === b) return 'up';
+      throw Error('The two tiles are not connected');
+    };
+
+    const headDirection = () => {
+      return getDirection(snake[snake.length - 1], snake[snake.length - 2]);
+    };
+
+    const tailDirection = () => {
+      return getDirection(snake[1], snake[0]);
+    };
+
+    const initGame = () => {
+      snake = window.innerWidth < 800 ? [60, 61, 62] : [149, 150, 151];
+      apple = getRandomFreePos(HEIGHT, WIDTH, snake);
+
+      start = undefined;
+      steps = -1;
+      score = 0;
+
+      moveQueue = [];
+
+      for (const tile of tiles) setTile(tile);
+      setTile(tiles[apple], { backgroundColor: 'yellow', borderRadius: '50%' });
+      for (const i of snake.slice(1)) setTile(tiles[i], { backgroundColor: 'brown' });
+    };
+
+    document.onkeydown = (e) => {
+      if (!['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'p', 'q', ' '].includes(e.key)) return;
+      e.preventDefault();
+
+      const propDir = e.key.substring(5).toLowerCase() as Direction;
+
+      if (moveQueue.length < 2 && (!moveQueue.length || moveQueue[moveQueue.length - 1] !== propDir)) {
+        if (!moveQueue.length) {
+          const headDir = headDirection();
+
+          switch (propDir) {
+            case 'up':
+              headDir !== 'down' && moveQueue.push('up');
+              state !== 'play' && startGame();
+              return;
+            case 'left':
+              headDir !== 'right' && moveQueue.push('left');
+              state !== 'play' && startGame();
+              return;
+            case 'down':
+              headDir !== 'up' && moveQueue.push('down');
+              state !== 'play' && startGame();
+              return;
+            case 'right':
+              headDir !== 'left' && moveQueue.push('right');
+              state !== 'play' && startGame();
+              return;
+          }
+        } else {
+          const lastMove = moveQueue[moveQueue.length - 1];
+
+          switch (propDir) {
+            case 'up':
+              lastMove !== 'down' && moveQueue.push('up');
+              state !== 'play' && startGame();
+              return;
+            case 'left':
+              lastMove !== 'right' && moveQueue.push('left');
+              state !== 'play' && startGame();
+              return;
+            case 'down':
+              lastMove !== 'up' && moveQueue.push('down');
+              state !== 'play' && startGame();
+              return;
+            case 'right':
+              lastMove !== 'left' && moveQueue.push('right');
+              state !== 'play' && startGame();
+              return;
+          }
+        }
+      }
+    };
+
+    const startGame = () => {
+      state = 'play';
+      window.requestAnimationFrame(main);
+    };
+
+    const stepAndTransition = (percent: number) => {
+      const getNextPos = () => {
+        const head = snake[snake.length - 1];
+        const dir = moveQueue.shift() || headDirection();
+
+        switch (dir) {
+          case 'up': {
+            const nextPos = head - WIDTH;
+
+            if (nextPos < 0) throw new Error('Wall hit');
+            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+
+            return nextPos;
+          }
+          case 'left': {
+            const nextPos = head - 1;
+
+            if (nextPos % WIDTH === WIDTH - 1 || nextPos < 0) throw new Error('Wall hit');
+            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+
+            return nextPos;
+          }
+          case 'down': {
+            const nextPos = head + WIDTH;
+
+            if (nextPos > WIDTH * HEIGHT - 1) throw new Error('Wall hit');
+            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+
+            return nextPos;
+          }
+          case 'right': {
+            const nextPos = head + 1;
+
+            if (nextPos % WIDTH === 0) throw new Error('Wall hit');
+            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+
+            return nextPos;
+          }
+        }
+      };
+
+      const newHead = getNextPos();
+      snake.push(newHead);
+
+      const prevTail = tiles[snake[0]];
+      setTile(prevTail);
+
+      if (newHead !== apple) {
+        snake.shift();
+
+        const tail = tiles[snake[0]];
+        const tailDir = tailDirection();
+        const tailLength = `${100 - percent * 100}%`;
+
+        const css = { backgroundColor: 'brown' };
+
+        switch (tailDir) {
+          case 'up':
+            setTile(tail, { ...css, height: tailLength, top: 0 });
+            break;
+          case 'left':
+            setTile(tail, { ...css, width: tailLength, left: 0 });
+            break;
+          case 'down':
+            setTile(tail, { ...css, height: tailLength, bottom: 0 });
+            break;
+          case 'right':
+            setTile(tail, { ...css, width: tailLength, right: 0 });
+            break;
+        }
+      }
+
+      const prevHead = tiles[snake[snake.length - 2]];
+      setTile(prevHead, { backgroundColor: 'brown' });
+
+      const head = tiles[newHead];
+      const headDir = headDirection();
+      const headLength = `${percent * 100}%`;
+      const css = { backgroundColor: 'brown', borderRadius: 0 };
+
+      switch (headDir) {
+        case 'up':
+          setTile(head, { ...css, height: headLength, bottom: 0 });
+          break;
+        case 'left':
+          setTile(head, { ...css, width: headLength, right: 0 });
+          break;
+        case 'down':
+          setTile(head, { ...css, height: headLength, top: 0 });
+          break;
+        case 'right':
+          setTile(head, { ...css, width: headLength, left: 0 });
+          break;
+      }
+    };
+
+    const transition = (percent: number) => {
+      const head = tiles[snake[snake.length - 1]];
+      const headDir = headDirection();
+      const headLength = `${percent * 100}%`;
+
+      if (headDir === 'right' || headDir === 'left') head.style.width = headLength;
+      else head.style.height = headLength;
+
+      const tail = tiles[snake[0]];
+      const tailDir = tailDirection();
+      const tailLength = `${100 - percent * 100}%`;
+
+      if (tailDir === 'right' || tailDir === 'left') tail.style.width = tailLength;
+      else tail.style.height = tailLength;
+    };
+
+    const addApple = () => {
+      apple = getRandomFreePos(HEIGHT, WIDTH, snake);
+      setTile(tiles[apple], { backgroundColor: 'yellow', borderRadius: '50%' });
+    };
+
+    const main = (time: DOMHighResTimeStamp) => {
+      try {
+        if (start === undefined) start = time;
+
+        const elapsed = time - start;
+
+        const required = Math.floor(elapsed / speed);
+        const stepPercent = (elapsed % speed) / speed;
+
+        if (required !== steps) {
+          stepAndTransition(stepPercent);
+
+          const head = snake[snake.length - 1];
+
+          if (head === apple) {
+            score++;
+            addApple();
+          }
+          steps++;
+        } else {
+          transition(stepPercent);
+        }
+
+        window.requestAnimationFrame(main);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    initGame();
+  });
 
   return (
     <div id='game-container'>
       {game.map((outer, indexOut) => (
         <div key={indexOut} className='game-row'>
           {outer.map((item, indexIn) => (
-            <div className={`game-grid ${item}`} key={indexOut * WIDTH + indexIn} />
+            <div className={`game-grid ${item}`} key={indexOut * WIDTH + indexIn}>
+              <div className='game-content' />
+            </div>
           ))}
         </div>
       ))}
