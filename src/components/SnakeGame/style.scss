@@ -1,5 +1,6 @@
 #game-container {
-  --size: 30px;
+  --size: 5vh;
+  --food-size: 10px;
   display: flex;
   flex-direction: column;
   max-width: 90%;
@@ -14,11 +15,11 @@
     justify-content: center;
 
     .game-grid {
+      display: flex;
       position: relative;
       flex: 1 1 auto;
       height: var(--size);
       width: var(--size);
-      overflow: visible;
 
       .game-content {
         position: absolute;
@@ -26,31 +27,46 @@
         height: 100%;
       }
 
-      .game-apple {
+      .game-food {
+        .fa-primary, .fa-secondary {
+          opacity: 1;
+          stroke-width: 10px;
+        }
+
+        animation: pulse 1s ease-in-out infinite;
+        z-index: 100;
+        height: 100%;
+        width: 100%;
+        transform: scale(1.1);
+        filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, .2));
+      }
+
+      .food-apple {
+        @extend .game-food;
         .fa-primary {
           fill: rgb(107, 226, 107);
-          opacity: 1;
+          stroke:rgb(30, 121, 30);
         }
 
         .fa-secondary {
           fill: rgb(235, 104, 68);
-          opacity: 1;
+          stroke: rgb(179, 80, 53);
+        }
+      }
+
+      .food-strawberry {
+        @extend .game-food;
+
+        .fa-primary {
+          fill: rgb(107, 226, 107);
+          stroke:rgb(30, 121, 30);
         }
 
-        animation: pulse 1s ease-in-out infinite;
-
-        z-index: 1000;
-        position: absolute;
-        top: -5px;
-        left: -5px;
-        height: 40px;
-        width: 40px;
-        filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, .2));
+        .fa-secondary {
+          fill: rgb(235, 104, 68);
+          stroke: rgb(179, 80, 53);
+        }
       }
-    }
-
-    .food {
-      background-color: yellow;
     }
 
     &:nth-of-type(even) {
@@ -62,14 +78,6 @@
         &:nth-of-type(odd) {
           background-color: rgb(94, 160, 94);
         }
-      }
-
-      .snake {
-        &:nth-of-type(even) {
-          filter: brightness(120%);
-        }
-        
-        background-color: brown;
       }
     }
 
@@ -83,26 +91,19 @@
           background-color: rgb(94, 160, 94);
         }
       }
-
-      .snake {
-        &:nth-of-type(odd) {
-          filter: brightness(120%);
-        }
-        
-        background-color: brown;
-      }
     }
   }
 }
 
 @keyframes pulse {
   50% {
-    transform: scale(1.1);
+    transform: scale(1.21);
   }
 }
 
 @media (max-width: 800px) {
   #game-container {
-    --size: 24px;
+    --size: 4vh;
+    --food-size: 30px;
   }
 }

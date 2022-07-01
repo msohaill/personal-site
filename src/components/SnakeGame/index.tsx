@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ReactComponent as AppleIcon } from '../../assets/svg/apple-whole.svg';
+import { ReactComponent as StrawberryIcon } from '../../assets/svg/strawberry.svg';
 import './style.scss';
 
 type Direction = 'up' | 'left' | 'down' | 'right';
 type GameState = 'play' | 'pause' | 'restart' | 'end';
 
 const SnakeGame = () => {
-  const HEIGHT = window.innerWidth < 800 ? 20 : 15;
+  const HEIGHT = window.innerWidth < 800 ? 16 : 15;
   const WIDTH = window.innerWidth < 800 ? 12 : 20;
 
   const [contents, setContents] = useState(
@@ -27,10 +28,12 @@ const SnakeGame = () => {
     let score: number;
     let moveQueue: Array<Direction> = [];
     let state: GameState = 'pause';
+    let touchStart: { x: number; y: number };
+    let touchEnd: { x: number; y: number };
     const speed = 150;
 
     const tiles = Array.from(document.getElementsByClassName('game-content') as HTMLCollectionOf<HTMLElement>);
-    //const grid = document.getElementById('game-container') as HTMLElement;
+    const grid = document.getElementById('game-container') as HTMLElement;
 
     const getRandomFreePos = (height: number, width: number, snake: Array<number>) => {
       let pos: number;
@@ -87,12 +90,7 @@ const SnakeGame = () => {
       addApple();
     };
 
-    document.onkeydown = (e) => {
-      if (!['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'p', 'q', ' '].includes(e.key)) return;
-      e.preventDefault();
-
-      const propDir = e.key.substring(5).toLowerCase() as Direction;
-
+    const handleMove = (propDir: Direction) => {
       if (moveQueue.length < 2 && (!moveQueue.length || moveQueue[moveQueue.length - 1] !== propDir)) {
         if (!moveQueue.length) {
           const headDir = headDirection();
@@ -138,6 +136,40 @@ const SnakeGame = () => {
           }
         }
       }
+    };
+
+    document.onkeydown = (e) => {
+      if (!['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'p', 'q', ' '].includes(e.key)) return;
+      e.preventDefault();
+
+      const propDir = e.key.substring(5).toLowerCase() as Direction;
+      handleMove(propDir);
+    };
+
+    grid.ontouchstart = (e) => (touchStart = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY });
+    grid.ontouchend = (e) => {
+      touchEnd = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+      handleSwipe();
+    };
+
+    const handleSwipe = () => {
+      let propDir: Direction;
+
+      if (Math.abs(touchEnd.x - touchStart.x) > Math.abs(touchEnd.y - touchStart.y)) {
+        if (touchEnd.x < touchStart.x) {
+          propDir = 'left';
+        } else {
+          propDir = 'right';
+        }
+      } else {
+        if (touchEnd.y < touchStart.y) {
+          propDir = 'up';
+        } else {
+          propDir = 'down';
+        }
+      }
+
+      handleMove(propDir);
     };
 
     const startGame = () => {
@@ -272,7 +304,7 @@ const SnakeGame = () => {
       apple = getRandomFreePos(HEIGHT, WIDTH, snake);
       setContents((prevContents) => {
         const newContents = prevContents.map((e) => e.slice());
-        newContents[apple].push(<AppleIcon className='game-apple' />);
+        newContents[apple].push(<StrawberryIcon className='food-strawberry' />);
 
         return newContents;
       });
