@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ReactComponent as AppleIcon } from '../../assets/svg/apple-whole.svg';
 import './style.scss';
 
 type Direction = 'up' | 'left' | 'down' | 'right';
@@ -7,6 +8,12 @@ type GameState = 'play' | 'pause' | 'restart' | 'end';
 const SnakeGame = () => {
   const HEIGHT = window.innerWidth < 800 ? 20 : 15;
   const WIDTH = window.innerWidth < 800 ? 12 : 20;
+
+  const [contents, setContents] = useState(
+    Array(HEIGHT * WIDTH)
+      .fill('')
+      .map(() => [<div className='game-content' />])
+  );
 
   const game = Array(HEIGHT)
     .fill('')
@@ -51,10 +58,10 @@ const SnakeGame = () => {
     };
 
     const getDirection = (a: number, b: number): Direction => {
-      if (a - 1 === b) return 'right';
-      else if (a + 1 === b) return 'left';
-      else if (a - WIDTH === b) return 'down';
-      else if (a + WIDTH === b) return 'up';
+      if ((b + 1) % WIDTH === a % WIDTH) return 'right';
+      else if ((a + 1) % WIDTH === b % WIDTH) return 'left';
+      else if (Math.abs((b + WIDTH) % (HEIGHT * WIDTH)) === a) return 'down';
+      else if (Math.abs((a + WIDTH) % (HEIGHT * WIDTH)) === b) return 'up';
       throw Error('The two tiles are not connected');
     };
 
@@ -68,7 +75,6 @@ const SnakeGame = () => {
 
     const initGame = () => {
       snake = window.innerWidth < 800 ? [60, 61, 62] : [149, 150, 151];
-      apple = getRandomFreePos(HEIGHT, WIDTH, snake);
 
       start = undefined;
       steps = -1;
@@ -77,8 +83,8 @@ const SnakeGame = () => {
       moveQueue = [];
 
       for (const tile of tiles) setTile(tile);
-      setTile(tiles[apple], { backgroundColor: 'yellow', borderRadius: '50%' });
       for (const i of snake.slice(1)) setTile(tiles[i], { backgroundColor: 'brown' });
+      addApple();
     };
 
     document.onkeydown = (e) => {
@@ -146,34 +152,38 @@ const SnakeGame = () => {
 
         switch (dir) {
           case 'up': {
-            const nextPos = head - WIDTH;
+            let nextPos = head - WIDTH;
 
-            if (nextPos < 0) throw new Error('Wall hit');
-            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            if (nextPos < 0) {
+              nextPos = (HEIGHT - 1) * WIDTH + (head % WIDTH);
+            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
           case 'left': {
-            const nextPos = head - 1;
+            let nextPos = head - 1;
 
-            if (nextPos % WIDTH === WIDTH - 1 || nextPos < 0) throw new Error('Wall hit');
-            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            if (nextPos % WIDTH === WIDTH - 1 || nextPos < 0) {
+              nextPos = head + WIDTH - 1;
+            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
           case 'down': {
-            const nextPos = head + WIDTH;
+            let nextPos = head + WIDTH;
 
-            if (nextPos > WIDTH * HEIGHT - 1) throw new Error('Wall hit');
-            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            if (nextPos > WIDTH * HEIGHT - 1) {
+              nextPos = head % WIDTH;
+            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
           case 'right': {
-            const nextPos = head + 1;
+            let nextPos = head + 1;
 
-            if (nextPos % WIDTH === 0) throw new Error('Wall hit');
-            else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            if (nextPos % WIDTH === 0) {
+              nextPos = head - (head % WIDTH);
+            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
@@ -209,6 +219,13 @@ const SnakeGame = () => {
             setTile(tail, { ...css, width: tailLength, right: 0 });
             break;
         }
+      } else {
+        setContents((prevContents) => {
+          const newContents = prevContents.map((e) => e.slice());
+          newContents[newHead].pop();
+
+          return newContents;
+        });
       }
 
       const prevHead = tiles[snake[snake.length - 2]];
@@ -217,7 +234,7 @@ const SnakeGame = () => {
       const head = tiles[newHead];
       const headDir = headDirection();
       const headLength = `${percent * 100}%`;
-      const css = { backgroundColor: 'brown', borderRadius: 0 };
+      const css = { backgroundColor: 'brown' };
 
       switch (headDir) {
         case 'up':
@@ -253,7 +270,12 @@ const SnakeGame = () => {
 
     const addApple = () => {
       apple = getRandomFreePos(HEIGHT, WIDTH, snake);
-      setTile(tiles[apple], { backgroundColor: 'yellow', borderRadius: '50%' });
+      setContents((prevContents) => {
+        const newContents = prevContents.map((e) => e.slice());
+        newContents[apple].push(<AppleIcon className='game-apple' />);
+
+        return newContents;
+      });
     };
 
     const main = (time: DOMHighResTimeStamp) => {
@@ -286,7 +308,7 @@ const SnakeGame = () => {
     };
 
     initGame();
-  });
+  }, [HEIGHT, WIDTH]);
 
   return (
     <div id='game-container'>
@@ -294,7 +316,7 @@ const SnakeGame = () => {
         <div key={indexOut} className='game-row'>
           {outer.map((item, indexIn) => (
             <div className={`game-grid ${item}`} key={indexOut * WIDTH + indexIn}>
-              <div className='game-content' />
+              {contents[indexOut * WIDTH + indexIn]}
             </div>
           ))}
         </div>

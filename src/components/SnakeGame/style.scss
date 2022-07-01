@@ -18,11 +18,34 @@
       flex: 1 1 auto;
       height: var(--size);
       width: var(--size);
+      overflow: visible;
 
       .game-content {
         position: absolute;
         width: 100%;
         height: 100%;
+      }
+
+      .game-apple {
+        .fa-primary {
+          fill: rgb(107, 226, 107);
+          opacity: 1;
+        }
+
+        .fa-secondary {
+          fill: rgb(235, 104, 68);
+          opacity: 1;
+        }
+
+        animation: pulse 1s ease-in-out infinite;
+
+        z-index: 1000;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        height: 40px;
+        width: 40px;
+        filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, .2));
       }
     }
 
@@ -69,6 +92,12 @@
         background-color: brown;
       }
     }
+  }
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.1);
   }
 }
 

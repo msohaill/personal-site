@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
-import { CloseRounded } from '@mui/icons-material';
 import Header from '..//Header';
 import Footer from '../Footer';
 import Masonry from '../Masonry';
