@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ReactComponent as AppleIcon } from '../../assets/svg/apple-whole.svg';
 import { ReactComponent as StrawberryIcon } from '../../assets/svg/strawberry.svg';
+import { ReactComponent as BananaIcon } from '../../assets/svg/banana.svg';
+import { ReactComponent as CherryIcon } from '../../assets/svg/cherries.svg';
 import './style.scss';
 
 type Direction = 'up' | 'left' | 'down' | 'right';
@@ -8,12 +10,12 @@ type GameState = 'play' | 'pause' | 'restart' | 'end';
 
 const SnakeGame = () => {
   const HEIGHT = window.innerWidth < 800 ? 16 : 15;
-  const WIDTH = window.innerWidth < 800 ? 12 : 20;
+  const WIDTH = window.innerWidth < 800 ? 12 : 17;
 
   const [contents, setContents] = useState(
     Array(HEIGHT * WIDTH)
       .fill('')
-      .map(() => [<div className='game-content' />])
+      .map((_, i) => [<div key={i} className='game-content' />])
   );
 
   const game = Array(HEIGHT)
@@ -30,6 +32,8 @@ const SnakeGame = () => {
     let state: GameState = 'pause';
     let touchStart: { x: number; y: number };
     let touchEnd: { x: number; y: number };
+    const borderStyle = 'solid white';
+    const bWidth = '1px';
     const speed = 150;
 
     const tiles = Array.from(document.getElementsByClassName('game-content') as HTMLCollectionOf<HTMLElement>);
@@ -77,7 +81,7 @@ const SnakeGame = () => {
     };
 
     const initGame = () => {
-      snake = window.innerWidth < 800 ? [60, 61, 62] : [149, 150, 151];
+      snake = window.innerWidth < 800 ? [60, 61, 62] : [120, 121, 122];
 
       start = undefined;
       steps = -1;
@@ -86,7 +90,17 @@ const SnakeGame = () => {
       moveQueue = [];
 
       for (const tile of tiles) setTile(tile);
-      for (const i of snake.slice(1)) setTile(tiles[i], { backgroundColor: 'brown' });
+      setTile(tiles[snake[1]], {
+        backgroundColor: 'brown',
+        border: borderStyle,
+        borderWidth: `${bWidth} 0 ${bWidth} ${bWidth}`,
+      });
+      setTile(tiles[snake[2]], {
+        backgroundColor: 'brown',
+        border: borderStyle,
+        borderWidth: `${bWidth} ${bWidth} ${bWidth} 0`,
+      });
+
       addApple();
     };
 
@@ -188,7 +202,9 @@ const SnakeGame = () => {
 
             if (nextPos < 0) {
               nextPos = (HEIGHT - 1) * WIDTH + (head % WIDTH);
-            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            }
+
+            if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
@@ -197,7 +213,9 @@ const SnakeGame = () => {
 
             if (nextPos % WIDTH === WIDTH - 1 || nextPos < 0) {
               nextPos = head + WIDTH - 1;
-            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            }
+
+            if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
@@ -206,7 +224,9 @@ const SnakeGame = () => {
 
             if (nextPos > WIDTH * HEIGHT - 1) {
               nextPos = head % WIDTH;
-            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            }
+
+            if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
@@ -215,7 +235,9 @@ const SnakeGame = () => {
 
             if (nextPos % WIDTH === 0) {
               nextPos = head - (head % WIDTH);
-            } else if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
+            }
+
+            if (snake.slice(1).includes(nextPos)) throw new Error('Snake hit');
 
             return nextPos;
           }
@@ -226,7 +248,7 @@ const SnakeGame = () => {
       snake.push(newHead);
 
       const prevTail = tiles[snake[0]];
-      setTile(prevTail);
+      setTile(prevTail, { border: 'none' });
 
       if (newHead !== apple) {
         snake.shift();
@@ -235,20 +257,20 @@ const SnakeGame = () => {
         const tailDir = tailDirection();
         const tailLength = `${100 - percent * 100}%`;
 
-        const css = { backgroundColor: 'brown' };
+        const css = { backgroundColor: 'brown', border: borderStyle };
 
         switch (tailDir) {
           case 'up':
-            setTile(tail, { ...css, height: tailLength, top: 0 });
+            setTile(tail, { ...css, height: tailLength, top: 0, borderWidth: `0 ${bWidth} ${bWidth} ${bWidth}` });
             break;
           case 'left':
-            setTile(tail, { ...css, width: tailLength, left: 0 });
+            setTile(tail, { ...css, width: tailLength, left: 0, borderWidth: `${bWidth} ${bWidth} ${bWidth} 0` });
             break;
           case 'down':
-            setTile(tail, { ...css, height: tailLength, bottom: 0 });
+            setTile(tail, { ...css, height: tailLength, bottom: 0, borderWidth: `${bWidth} ${bWidth} 0 ${bWidth}` });
             break;
           case 'right':
-            setTile(tail, { ...css, width: tailLength, right: 0 });
+            setTile(tail, { ...css, width: tailLength, right: 0, borderWidth: `${bWidth} 0 ${bWidth} ${bWidth}` });
             break;
         }
       } else {
@@ -261,25 +283,75 @@ const SnakeGame = () => {
       }
 
       const prevHead = tiles[snake[snake.length - 2]];
-      setTile(prevHead, { backgroundColor: 'brown' });
-
       const head = tiles[newHead];
       const headDir = headDirection();
       const headLength = `${percent * 100}%`;
-      const css = { backgroundColor: 'brown' };
+      const css = { backgroundColor: 'brown', border: borderStyle };
 
       switch (headDir) {
         case 'up':
-          setTile(head, { ...css, height: headLength, bottom: 0 });
+          setTile(head, { ...css, height: headLength, bottom: 0, borderWidth: `${bWidth} ${bWidth} 0 ${bWidth}` });
+
+          switch (getDirection(snake[snake.length - 2], snake[snake.length - 3])) {
+            case 'up':
+              setTile(prevHead, { ...css, borderWidth: `0 ${bWidth}` });
+              break;
+            case 'left':
+              setTile(prevHead, { ...css, borderWidth: `0 0 ${bWidth} ${bWidth}` });
+              break;
+            case 'right':
+              setTile(prevHead, { ...css, borderWidth: `0 ${bWidth} ${bWidth} 0` });
+              break;
+          }
+
           break;
         case 'left':
-          setTile(head, { ...css, width: headLength, right: 0 });
+          setTile(head, { ...css, width: headLength, right: 0, borderWidth: `${bWidth} 0 ${bWidth} ${bWidth}` });
+
+          switch (getDirection(snake[snake.length - 2], snake[snake.length - 3])) {
+            case 'up':
+              setTile(prevHead, { ...css, borderWidth: `${bWidth} ${bWidth} 0 0` });
+              break;
+            case 'left':
+              setTile(prevHead, { ...css, borderWidth: `${bWidth} 0` });
+              break;
+            case 'down':
+              setTile(prevHead, { ...css, borderWidth: `0 ${bWidth} ${bWidth} 0` });
+              break;
+          }
+
           break;
         case 'down':
-          setTile(head, { ...css, height: headLength, top: 0 });
+          setTile(head, { ...css, height: headLength, top: 0, borderWidth: `0 ${bWidth} ${bWidth} ${bWidth}` });
+
+          switch (getDirection(snake[snake.length - 2], snake[snake.length - 3])) {
+            case 'down':
+              setTile(prevHead, { ...css, borderWidth: `0 ${bWidth}` });
+              break;
+            case 'left':
+              setTile(prevHead, { ...css, borderWidth: `${bWidth} 0 0 ${bWidth}` });
+              break;
+            case 'right':
+              setTile(prevHead, { ...css, borderWidth: `${bWidth} ${bWidth} 0 0` });
+              break;
+          }
+
           break;
         case 'right':
-          setTile(head, { ...css, width: headLength, left: 0 });
+          setTile(head, { ...css, width: headLength, left: 0, borderWidth: `${bWidth} ${bWidth} ${bWidth} 0` });
+
+          switch (getDirection(snake[snake.length - 2], snake[snake.length - 3])) {
+            case 'up':
+              setTile(prevHead, { ...css, borderWidth: `${bWidth} 0 0 ${bWidth}` });
+              break;
+            case 'down':
+              setTile(prevHead, { ...css, borderWidth: `0 0 ${bWidth} ${bWidth}` });
+              break;
+            case 'right':
+              setTile(prevHead, { ...css, borderWidth: `${bWidth} 0` });
+              break;
+          }
+
           break;
       }
     };
@@ -304,7 +376,13 @@ const SnakeGame = () => {
       apple = getRandomFreePos(HEIGHT, WIDTH, snake);
       setContents((prevContents) => {
         const newContents = prevContents.map((e) => e.slice());
-        newContents[apple].push(<StrawberryIcon className='food-strawberry' />);
+        const { icon: FoodIcon, class: foodClass } = [
+          { icon: AppleIcon, class: 'food-apple' },
+          { icon: StrawberryIcon, class: 'food-strawberry' },
+          { icon: BananaIcon, class: 'food-banana' },
+          { icon: CherryIcon, class: 'food-cherries' },
+        ][Math.floor(Math.random() * 4)];
+        newContents[apple].push(<FoodIcon key='food' className={foodClass} />);
 
         return newContents;
       });
