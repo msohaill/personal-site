@@ -4,9 +4,10 @@ import { ReactComponent as StrawberryIcon } from '../../assets/svg/strawberry.sv
 import { ReactComponent as BananaIcon } from '../../assets/svg/banana.svg';
 import { ReactComponent as CherryIcon } from '../../assets/svg/cherries.svg';
 import './style.scss';
+import { PauseCircle, PlayCircle, Replay } from '@mui/icons-material';
 
 type Direction = 'up' | 'left' | 'down' | 'right';
-type GameState = 'play' | 'pause' | 'restart' | 'end';
+type GameState = 'play' | 'pause' | 'end';
 
 const SnakeGame = () => {
   const HEIGHT = window.innerWidth < 800 ? 16 : 15;
@@ -26,9 +27,11 @@ const SnakeGame = () => {
     let snake: Array<number> = [];
     let apple: number;
     let start: DOMHighResTimeStamp | undefined;
+    let pauseTime: DOMHighResTimeStamp;
     let steps: number;
     let score: number;
     let moveQueue: Array<Direction> = [];
+    let animationId: number | undefined;
     let state: GameState = 'pause';
     let touchStart: { x: number; y: number };
     let touchEnd: { x: number; y: number };
@@ -37,7 +40,11 @@ const SnakeGame = () => {
     const speed = 150;
 
     const tiles = Array.from(document.getElementsByClassName('game-content') as HTMLCollectionOf<HTMLElement>);
-    const grid = document.getElementById('game-container') as HTMLElement;
+    const grid = document.getElementById('game') as HTMLElement;
+    const scoreTag = document.getElementById('game-score') as HTMLElement;
+    const replayIcon = document.getElementById('game-replay') as HTMLElement;
+    const playIcon = document.getElementById('game-play') as HTMLElement;
+    const pauseIcon = document.getElementById('game-pause') as HTMLElement;
 
     const getRandomFreePos = (height: number, width: number, snake: Array<number>) => {
       let pos: number;
@@ -58,6 +65,7 @@ const SnakeGame = () => {
         bottom: 'auto',
         left: 'auto',
         backgroundColor: 'transparent',
+        border: 'none',
         ...cssOverrides,
       };
 
@@ -80,16 +88,49 @@ const SnakeGame = () => {
       return getDirection(snake[1], snake[0]);
     };
 
+    const startGame = () => {
+      state = 'play';
+      animationId = window.requestAnimationFrame(main);
+    };
+
+    const pauseGame = () => {
+      if (state !== 'play') return;
+      state = 'pause';
+      pauseTime = window.performance.now();
+    };
+
+    const playResumeGame = () => {
+      if (state !== 'pause') return;
+
+      state = 'play';
+      if (!animationId) animationId = window.requestAnimationFrame(main);
+    };
+
+    const restartGame = () => {
+      state = 'pause';
+      animationId && window.cancelAnimationFrame(animationId);
+      initGame();
+    };
+
     const initGame = () => {
       snake = window.innerWidth < 800 ? [60, 61, 62] : [120, 121, 122];
 
       start = undefined;
+      animationId = undefined;
       steps = -1;
       score = 0;
+
+      scoreTag.innerHTML = '0';
 
       moveQueue = [];
 
       for (const tile of tiles) setTile(tile);
+      setContents(
+        Array(HEIGHT * WIDTH)
+          .fill('')
+          .map((_, i) => [<div key={i} className='game-content' />])
+      );
+
       setTile(tiles[snake[1]], {
         backgroundColor: 'brown',
         border: borderStyle,
@@ -153,7 +194,7 @@ const SnakeGame = () => {
     };
 
     document.onkeydown = (e) => {
-      if (!['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'p', 'q', ' '].includes(e.key)) return;
+      if (!['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' '].includes(e.key)) return;
       e.preventDefault();
 
       const propDir = e.key.substring(5).toLowerCase() as Direction;
@@ -184,11 +225,6 @@ const SnakeGame = () => {
       }
 
       handleMove(propDir);
-    };
-
-    const startGame = () => {
-      state = 'play';
-      window.requestAnimationFrame(main);
     };
 
     const stepAndTransition = (percent: number) => {
@@ -391,6 +427,12 @@ const SnakeGame = () => {
     const main = (time: DOMHighResTimeStamp) => {
       try {
         if (start === undefined) start = time;
+        if (state === 'pause' && start) {
+          start += time - pauseTime;
+          pauseTime = time;
+          animationId = window.requestAnimationFrame(main);
+          return;
+        }
 
         const elapsed = time - start;
 
@@ -404,6 +446,7 @@ const SnakeGame = () => {
 
           if (head === apple) {
             score++;
+            scoreTag.innerHTML = `${score}`;
             addApple();
           }
           steps++;
@@ -411,26 +454,44 @@ const SnakeGame = () => {
           transition(stepPercent);
         }
 
-        window.requestAnimationFrame(main);
+        animationId = window.requestAnimationFrame(main);
       } catch (err) {
         console.log(err);
+        animationId && window.cancelAnimationFrame(animationId);
       }
     };
 
     initGame();
+    replayIcon.onclick = restartGame;
+    pauseIcon.onclick = pauseGame;
+    playIcon.onclick = playResumeGame;
   }, [HEIGHT, WIDTH]);
 
   return (
     <div id='game-container'>
-      {game.map((outer, indexOut) => (
-        <div key={indexOut} className='game-row'>
-          {outer.map((item, indexIn) => (
-            <div className={`game-grid ${item}`} key={indexOut * WIDTH + indexIn}>
-              {contents[indexOut * WIDTH + indexIn]}
-            </div>
-          ))}
-        </div>
-      ))}
+      <div id='game-header'>
+        <ul>
+          <li>
+            <PlayCircle id='game-play' />
+            <PauseCircle id='game-pause' />
+          </li>
+          <li>
+            <Replay id='game-replay' />
+          </li>
+        </ul>
+        <h3 id='game-score'>0</h3>
+      </div>
+      <div id='game'>
+        {game.map((outer, indexOut) => (
+          <div key={indexOut} className='game-row'>
+            {outer.map((item, indexIn) => (
+              <div className={`game-grid ${item}`} key={indexOut * WIDTH + indexIn}>
+                {contents[indexOut * WIDTH + indexIn]}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

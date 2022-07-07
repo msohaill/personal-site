@@ -27,14 +27,11 @@ const imageDetails = (shuffleArray(r.keys().map(r)) as string[]).map((src) => ({
 }));
 
 const images = imageDetails.map((image) => (
-  <div className='img-container'>
-    <img
-      src={image.src}
-      alt={image.caption}
-      key={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
-      loading='eager'
-      onClick={() => setModalImage(image.src)}
-    />
+  <div
+    className='img-container'
+    key={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
+  >
+    <img src={image.src} alt={image.caption} loading='eager' onClick={() => setModalImage(image.src)} />
     <p className='img-info'>{`${image.caption} | ${image.location} | ${image.date}`}</p>
   </div>
 ));
