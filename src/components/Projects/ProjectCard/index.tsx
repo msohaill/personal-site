@@ -1,6 +1,5 @@
 import { GitHub, Launch } from '@mui/icons-material';
-import { setModalImage } from '../../../utils/set-modal-image';
-import ImageModal from '../../ImageModal';
+import ExpandableImage from '../../Photos/ExpandableImage';
 import './style.scss';
 
 export type ProjectInput = {
@@ -16,13 +15,7 @@ const ProjectCard = (project: ProjectInput) => {
   return (
     <>
       <div className='project-card'>
-        <img
-          style={{ cursor: 'pointer' }}
-          src={project.imageSrc}
-          className='project-picture'
-          onClick={() => setModalImage(project.imageSrc)}
-          alt={project.name}
-        />
+        <ExpandableImage image={{ src: project.imageSrc, alt: project.name }} className='project-picture' />
         <div className='project-title'>
           <h2>{project.name}</h2>
           {project.externalLink && (
@@ -43,7 +36,6 @@ const ProjectCard = (project: ProjectInput) => {
           ))}
         </ul>
       </div>
-      <ImageModal />
     </>
   );
 };

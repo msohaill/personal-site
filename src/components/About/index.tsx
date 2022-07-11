@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GitHub, LinkedIn, EmailRounded } from '@mui/icons-material';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import CustomModal from '../CustomModal';
+import SnakeGame from '../SnakeGame';
 
 const About = () => {
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -82,8 +86,12 @@ const About = () => {
           studying Honours Computer Science. I'm really interested in data science, AI, and web development. Apart
           from this, I enjoy playing basketball, spending time outdoors, and exploring <a 
           href='https://goo.gl/maps/y21867TsVit1S4Ne8' className='desc-link' target='_blank' rel='noopener noreferrer'>
-          Montréal!</a>
+          Montréal!</a> And if you're just bored, why not play some <button className='desc-link' 
+          onClick={() => setOpen(true)}>snake!</button>
         </p>
+        <CustomModal open={open} setOpen={setOpen}>
+          <SnakeGame />
+        </CustomModal>
       </div>
     </div>
   );

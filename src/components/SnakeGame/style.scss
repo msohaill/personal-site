@@ -10,21 +10,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      svg {
-        font-size: 20pt;
-      }
-    }
+    color: rgb(242, 242, 242);
   }
 
   #game {
-    --size: 4vh;
     display: flex;
     flex-direction: column;
     max-width: 90%;
@@ -42,8 +31,10 @@
         display: flex;
         position: relative;
         flex: 1 1 auto;
-        height: var(--size);
-        width: var(--size);
+        min-height: 20px;
+        min-width: 20px;
+        height: 4vh;
+        width: 4vh;
 
         .game-content {
           position: absolute;
@@ -177,13 +168,5 @@
 
   100% {
     rotate: 0deg;
-  }
-}
-
-@media (max-width: 800px) {
-  #game-container {
-    #game {
-      --size: 4vh;
-    }
   }
 }

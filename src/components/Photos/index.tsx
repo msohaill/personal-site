@@ -3,10 +3,8 @@ import { ThemeContext } from '../../contexts/Theme';
 import Header from '..//Header';
 import Footer from '../Footer';
 import Masonry from '../Masonry';
-import './style.scss';
-import ImageModal from '../ImageModal';
 
-const Photos = ({ images }: { images: React.ReactNode[] }) => {
+const Photos = ({ images }: { images: JSX.Element[] }) => {
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -27,7 +25,6 @@ const Photos = ({ images }: { images: React.ReactNode[] }) => {
         <Masonry cols={window.innerWidth < 800 ? 1 : window.innerWidth < 1200 ? 2 : 3} spacing={7}>
           {images}
         </Masonry>
-        <ImageModal />
       </main>
 
       <Footer />

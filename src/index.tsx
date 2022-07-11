@@ -5,11 +5,11 @@ import Photos from './components/Photos';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './contexts/Theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { setModalImage } from './utils/set-modal-image';
 import NotFound from './components/NotFound';
+import ExpandableImage from './components/Photos/ExpandableImage';
 const imagesData = require('./assets/data/image-data.json');
 
-const shuffleArray = (arr: any[]) => {
+const shuffleArray = <T,>(arr: T[]) => {
   let i = arr.length - 1;
   for (; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -31,7 +31,7 @@ const images = imageDetails.map((image) => (
     className='img-container'
     key={image.src.substring(image.src.lastIndexOf('/') + 1).replace(/(\..*)(\.(png|jpe?g|svg))$/i, '$2')}
   >
-    <img src={image.src} alt={image.caption} loading='eager' onClick={() => setModalImage(image.src)} />
+    <ExpandableImage image={{ src: image.src, alt: image.caption }} />
     <p className='img-info'>{`${image.caption} | ${image.location} | ${image.date}`}</p>
   </div>
 ));

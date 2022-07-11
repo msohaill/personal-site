@@ -4,10 +4,10 @@ import { ReactComponent as StrawberryIcon } from '../../assets/svg/strawberry.sv
 import { ReactComponent as BananaIcon } from '../../assets/svg/banana.svg';
 import { ReactComponent as CherryIcon } from '../../assets/svg/cherries.svg';
 import './style.scss';
-import { PauseCircle, PlayCircle, Replay } from '@mui/icons-material';
+import { Replay } from '@mui/icons-material';
 
 type Direction = 'up' | 'left' | 'down' | 'right';
-type GameState = 'play' | 'pause' | 'end';
+type GameState = 'play' | 'start' | 'end';
 
 const SnakeGame = () => {
   const HEIGHT = window.innerWidth < 800 ? 16 : 15;
@@ -27,24 +27,22 @@ const SnakeGame = () => {
     let snake: Array<number> = [];
     let apple: number;
     let start: DOMHighResTimeStamp | undefined;
-    let pauseTime: DOMHighResTimeStamp;
     let steps: number;
     let score: number;
     let moveQueue: Array<Direction> = [];
     let animationId: number | undefined;
-    let state: GameState = 'pause';
+    let state: GameState = 'start';
     let touchStart: { x: number; y: number };
     let touchEnd: { x: number; y: number };
     const borderStyle = 'solid white';
     const bWidth = '1px';
-    const speed = 150;
+    const speed = window.innerWidth < 800 ? 250 : 150;
+    const threshold = 50;
 
     const tiles = Array.from(document.getElementsByClassName('game-content') as HTMLCollectionOf<HTMLElement>);
     const grid = document.getElementById('game') as HTMLElement;
     const scoreTag = document.getElementById('game-score') as HTMLElement;
     const replayIcon = document.getElementById('game-replay') as HTMLElement;
-    const playIcon = document.getElementById('game-play') as HTMLElement;
-    const pauseIcon = document.getElementById('game-pause') as HTMLElement;
 
     const getRandomFreePos = (height: number, width: number, snake: Array<number>) => {
       let pos: number;
@@ -93,21 +91,8 @@ const SnakeGame = () => {
       animationId = window.requestAnimationFrame(main);
     };
 
-    const pauseGame = () => {
-      if (state !== 'play') return;
-      state = 'pause';
-      pauseTime = window.performance.now();
-    };
-
-    const playResumeGame = () => {
-      if (state !== 'pause') return;
-
-      state = 'play';
-      if (!animationId) animationId = window.requestAnimationFrame(main);
-    };
-
     const restartGame = () => {
-      state = 'pause';
+      state = 'start';
       animationId && window.cancelAnimationFrame(animationId);
       initGame();
     };
@@ -197,18 +182,25 @@ const SnakeGame = () => {
       if (!['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' '].includes(e.key)) return;
       e.preventDefault();
 
+      if (state === 'end' && e.key === ' ') {
+        restartGame();
+        return;
+      }
+
       const propDir = e.key.substring(5).toLowerCase() as Direction;
       handleMove(propDir);
     };
 
     grid.ontouchstart = (e) => (touchStart = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY });
-    grid.ontouchend = (e) => {
+    grid.ontouchmove = (e) => {
       touchEnd = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
       handleSwipe();
     };
 
     const handleSwipe = () => {
       let propDir: Direction;
+
+      if (Math.abs(touchEnd.x - touchStart.x) < threshold && Math.abs(touchEnd.y - touchStart.y) < threshold) return;
 
       if (Math.abs(touchEnd.x - touchStart.x) > Math.abs(touchEnd.y - touchStart.y)) {
         if (touchEnd.x < touchStart.x) {
@@ -225,6 +217,7 @@ const SnakeGame = () => {
       }
 
       handleMove(propDir);
+      touchStart = touchEnd;
     };
 
     const stepAndTransition = (percent: number) => {
@@ -425,14 +418,10 @@ const SnakeGame = () => {
     };
 
     const main = (time: DOMHighResTimeStamp) => {
+      if (state !== 'play') return;
+
       try {
         if (start === undefined) start = time;
-        if (state === 'pause' && start) {
-          start += time - pauseTime;
-          pauseTime = time;
-          animationId = window.requestAnimationFrame(main);
-          return;
-        }
 
         const elapsed = time - start;
 
@@ -457,28 +446,20 @@ const SnakeGame = () => {
         animationId = window.requestAnimationFrame(main);
       } catch (err) {
         console.log(err);
+        state = 'end';
         animationId && window.cancelAnimationFrame(animationId);
       }
     };
 
     initGame();
+
     replayIcon.onclick = restartGame;
-    pauseIcon.onclick = pauseGame;
-    playIcon.onclick = playResumeGame;
   }, [HEIGHT, WIDTH]);
 
   return (
     <div id='game-container'>
       <div id='game-header'>
-        <ul>
-          <li>
-            <PlayCircle id='game-play' />
-            <PauseCircle id='game-pause' />
-          </li>
-          <li>
-            <Replay id='game-replay' />
-          </li>
-        </ul>
+        <Replay id='game-replay' />
         <h3 id='game-score'>0</h3>
       </div>
       <div id='game'>
