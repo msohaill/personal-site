@@ -37,9 +37,9 @@ const Navbar = ({ showMain }: { showMain: boolean }) => {
         <button type='button' onClick={() => goToSection('projects')}>
           <li className='nav-link'>projects</li>
         </button>
-        <a href='/#'>
+        <button type='button' onClick={() => goToSection('skills')}>
           <li className='nav-link'>skills</li>
-        </a>
+        </button>
         <li className='nav-divider'></li>
         <Link to='/photos'>
           <li className='nav-link photos-link'>photos</li>

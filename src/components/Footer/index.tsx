@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Buffer } from 'buffer';
 import './style.scss';
+import { ThemeContext } from '../../contexts/Theme';
 
 const Footer = () => {
   const [track, setTrack] = useState<any>({});
+  const { theme } = useContext(ThemeContext);
 
   const getRandomSong = async () => {
     const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
@@ -51,7 +53,9 @@ const Footer = () => {
           title='spotify-embed'
           src={
             track.external_urls
-              ? `${track.external_urls.spotify.replace('.com/track', '.com/embed/track')}?utm_source=generator`
+              ? `https://open.spotify.com/embed${new URL(track.external_urls.spotify).pathname}?utm_source=generator${
+                  theme === 'dark' ? '&theme=0' : ''
+                }`
               : ''
           }
           width='30%'

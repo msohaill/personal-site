@@ -7,7 +7,11 @@ const Skills = () => {
     const addObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          entry.isIntersecting && entry.target.querySelector('.skill-box')?.classList.add('skill-animation');
+          if (entry.isIntersecting) {
+            const skillBox = entry.target.querySelector('.skill-box') as HTMLElement;
+            skillBox.classList.add('skill-animation');
+            skillBox.style.display = 'flex';
+          }
         });
       },
       { threshold: 1 }
@@ -15,7 +19,11 @@ const Skills = () => {
 
     const removeObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        !entry.isIntersecting && entry.target.querySelector('.skill-box')?.classList.remove('skill-animation');
+        if (!entry.isIntersecting) {
+          const skillBox = entry.target.querySelector('.skill-box') as HTMLElement;
+          skillBox.classList.remove('skill-animation');
+          skillBox.style.display = 'none';
+        }
       });
     });
 
@@ -54,9 +62,9 @@ const Skills = () => {
     <MainSection heading='skills' headingId='skills'>
       <div className='skill-container'>
         {skills.map((e) => (
-          <div className='skill-box-wrapper'>
+          <div className='skill-box-wrapper' key={e.name}>
             <div className='skill-box'>
-              <img className='skill-img' src={e.src} />
+              <img className='skill-img' src={e.src} alt={e.name} />
               <h4>{e.name}</h4>
             </div>
           </div>
