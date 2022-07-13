@@ -2,19 +2,29 @@
 
 .skill-container {
   display: grid;
-  gap: 15px;
-  grid-template-columns: repeat(auto-fill, 8em);
+  gap: 2em;
+  grid-template-columns: repeat(auto-fill, 12em);
   justify-content: space-between;
   width: 100%;
 
   .skill-box-wrapper {
-    width: 8em;
+    width: 12em;
     height: 70px;
     .skill-box {
+      display: flex;
+      align-items: center;
+      gap: 1em;
       padding: 20px;
-      width: 8em;
-      background-color: rgba(256, 256, 256, 0.4);
+      width: 12em;
+      height: 5em;
+      background-color: var(--clr-lnk-fg);
+      color: var(--clr-fg);
+      border-radius: 8px;
       transform: translateY(80px);
+
+      .skill-img {
+        max-height: 100%;
+      }
     }
   }
 }
