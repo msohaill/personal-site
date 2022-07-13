@@ -1,0 +1,32 @@
+@use 'sass:math';
+
+.skill-container {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fill, 8em);
+  justify-content: space-between;
+  width: 100%;
+
+  .skill-box-wrapper {
+    width: 8em;
+    height: 70px;
+    .skill-box {
+      padding: 20px;
+      width: 8em;
+      background-color: rgba(256, 256, 256, 0.4);
+      transform: translateY(80px);
+    }
+  }
+}
+
+.skill-animation {
+  animation: pop-up 1.5s linear forwards;
+}
+
+@keyframes pop-up {
+  @for $i from 0 through 100 {
+    #{$i}#{'%'} {
+      transform: translateY(#{70 * math.pow(math.$e, (-1 * $i) / (2 * 8.3)) * math.cos(0.1 * $i)}px);
+    }
+  }
+}

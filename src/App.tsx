@@ -9,6 +9,7 @@ import { ExperienceInput } from './components/Experience/ExperienceCard';
 import Projects from './components/Projects';
 import { setNavLinkColors } from './utils/set-nav-link-colors.util';
 import { ProjectInput } from './components/Projects/ProjectCard';
+import Skills from './components/Skills';
 const experiencesData = require('./assets/data/experience-data.json');
 const projectsData = require('./assets/data/project-data.json');
 
@@ -45,6 +46,7 @@ const App = () => {
         <About />
         <Experience experiences={experiences} />
         <Projects projects={projects} />
+        <Skills />
       </main>
 
       <Footer />
