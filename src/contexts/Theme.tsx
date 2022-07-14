@@ -15,15 +15,14 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'light');
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      localStorage.setItem('theme', prevTheme === 'light' ? 'dark' : 'light');
-      return prevTheme === 'light' ? 'dark' : 'light';
-    });
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
   useLayoutEffect(() => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) {
+    if (prefersDark && !localStorage.getItem('theme')) {
       localStorage.setItem('theme', 'dark');
       setTheme('dark');
     }

@@ -1,38 +1,8 @@
-import { useEffect } from 'react';
 import MainSection from '../MainSection';
+import { motion } from 'framer-motion';
 import './style.scss';
 
 const Skills = () => {
-  useEffect(() => {
-    const addObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const skillBox = entry.target.querySelector('.skill-box') as HTMLElement;
-            skillBox.classList.add('skill-animation');
-            skillBox.style.display = 'flex';
-          }
-        });
-      },
-      { threshold: 1 }
-    );
-
-    const removeObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          const skillBox = entry.target.querySelector('.skill-box') as HTMLElement;
-          skillBox.classList.remove('skill-animation');
-          skillBox.style.display = 'none';
-        }
-      });
-    });
-
-    Array.from(document.getElementsByClassName('skill-box-wrapper')).forEach((e) => {
-      addObserver.observe(e);
-      removeObserver.observe(e);
-    });
-  }, []);
-
   const skills = [
     { name: 'Python', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
     { name: 'Git', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
@@ -62,12 +32,24 @@ const Skills = () => {
     <MainSection heading='skills' headingId='skills'>
       <div className='skill-container'>
         {skills.map((e) => (
-          <div className='skill-box-wrapper' key={e.name}>
-            <div className='skill-box'>
-              <img className='skill-img' src={e.src} alt={e.name} />
-              <h4>{e.name}</h4>
-            </div>
-          </div>
+          <motion.div
+            key={e.name}
+            className='skill-box'
+            initial='hidden'
+            whileInView='visible'
+            variants={{
+              visible: {
+                y: 0,
+                transition: {
+                  type: 'spring',
+                },
+              },
+              hidden: { y: 80 },
+            }}
+          >
+            <img className='skill-img' src={e.src} alt={e.name} />
+            <h4>{e.name}</h4>
+          </motion.div>
         ))}
       </div>
     </MainSection>
