@@ -26,8 +26,8 @@ const About = () => {
         }
       };
 
-      while (true) {
-        for (let role of roles) {
+      for (;;) {
+        for (const role of roles) {
           await writeSingleRole(role, element);
           await sleep(1600);
           await eraseSingleRole(role, element);
@@ -79,14 +79,14 @@ const About = () => {
       <div className='about-desc'>
         {/* prettier-ignore */}
         <p>
-          Welcome to my little corner of the internet! When I'm not  <span className='desc-link' 
-          onClick={() => window.scrollTo(0, document.body.scrollHeight)}>jamming</span> or out <Link to='/photos' 
-          className='desc-link'>taking photos</Link>, you can usually find me at <a href='https://www.mcgill.ca' 
-          className='desc-link' target='_blank' rel='noopener noreferrer'>McGill University</a>, where I'm currently 
-          studying Honours Computer Science. I'm really interested in data science, AI, and web development. Apart
-          from this, I enjoy playing basketball, spending time outdoors, and exploring <a 
+          Welcome to my little corner of the internet! When I&apos;m not  <span className='desc-link'
+          onClick={() => window.scrollTo(0, document.body.scrollHeight)}>jamming</span> or out <Link to='/photos'
+          className='desc-link'>taking photos</Link>, you can usually find me at <a href='https://www.mcgill.ca'
+          className='desc-link' target='_blank' rel='noopener noreferrer'>McGill University</a>, where I&apos;m currently
+          studying Honours Computer Science. I&apos;m really interested in data science, AI, and web development. Apart
+          from this, I enjoy playing basketball, spending time outdoors, and exploring <a
           href='https://goo.gl/maps/y21867TsVit1S4Ne8' className='desc-link' target='_blank' rel='noopener noreferrer'>
-          Montréal!</a> And if you're just bored, why not play some <button className='desc-link' 
+          Montréal!</a> And if you&apos;re just bored, why not play some <button className='desc-link'
           onClick={() => setOpen(true)}>snake!</button>
         </p>
         <CustomModal open={open} setOpen={setOpen}>

@@ -3,8 +3,9 @@ import { ThemeContext } from '../../contexts/Theme';
 import Header from '../Header';
 import Footer from '../Footer';
 import InfiniteImageMasonry from '../InfiniteImageMasonry';
-const imagesData = require('../../assets/data/image-data.json');
+import imagesRaw from '../../assets/data/image-data.json';
 
+const imagesData: { [key: string]: { caption: string; location: string; date: string } } = imagesRaw;
 const shuffleArray = <T,>(arr: T[]) => {
   let i = arr.length - 1;
   for (; i > 0; i--) {

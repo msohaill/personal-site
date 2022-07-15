@@ -10,8 +10,8 @@ import Projects from './components/Projects';
 import { setNavLinkColors } from './utils/set-nav-link-colors.util';
 import { ProjectInput } from './components/Projects/ProjectCard';
 import Skills from './components/Skills';
-const experiencesData = require('./assets/data/experience-data.json');
-const projectsData = require('./assets/data/project-data.json');
+import experiencesData from './assets/data/experience-data.json';
+import projectsData from './assets/data/project-data.json';
 
 const experiences = experiencesData.map((experience: ExperienceInput) => ({
   ...experience,

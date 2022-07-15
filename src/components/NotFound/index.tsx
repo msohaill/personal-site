@@ -25,7 +25,7 @@ const NotFound = () => {
       <main className='content'>
         <div className='not-found'>
           <h1>404: Page not found</h1>
-          <p>Whoops! Seems like the page you're looking for does not exist</p>
+          <p>Whoops! Seems like the page you&apos;re looking for does not exist</p>
           <Link to='/' className='desc-link'>
             Go home instead
           </Link>

@@ -10,18 +10,17 @@
     flex-direction: row;
     overflow-y: scroll;
     scroll-snap-type: x mandatory;
-    
-  
+
     &::-webkit-scrollbar {
       height: 3px;
       width: 1px;
     }
-    
+
     &::-webkit-scrollbar-thumb {
       background: var(--clr-fg);
       border-radius: 2px;
     }
-  
+
     &::-webkit-scrollbar-corner {
       display: none;
     }

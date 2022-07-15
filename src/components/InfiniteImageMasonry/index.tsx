@@ -15,7 +15,12 @@ const InfiniteMasonry = ({ children, cols, spacing }: { children: ImageDetail[];
       {Array(cols)
         .fill('')
         .map((_, index) => (
-          <InfiniteColumn index={index} images={splitImages[index]} style={{ gap: spacing, width: `${100 / cols}%` }} />
+          <InfiniteColumn
+            key={index}
+            index={index}
+            images={splitImages[index]}
+            style={{ gap: spacing, width: `${100 / cols}%` }}
+          />
         ))}
     </div>
   );

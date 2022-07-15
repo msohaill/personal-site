@@ -4,7 +4,7 @@ import './style.scss';
 import { ThemeContext } from '../../contexts/Theme';
 
 const Footer = () => {
-  const [track, setTrack] = useState<any>({});
+  const [track, setTrack] = useState<{ external_urls?: { spotify: string } }>({});
   const { theme } = useContext(ThemeContext);
 
   const getRandomSong = async () => {

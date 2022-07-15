@@ -4,20 +4,19 @@ import ExpandableImage from '../../Photos/ExpandableImage';
 import './style.scss';
 
 const InfiniteColumn = ({ style, images, index }: { style: object; images: ImageDetail[]; index: number }) => {
-  const imagePool = images.slice();
-  const [visibleImages, setVisibleImages] = useState(imagePool.splice(0, 3));
+  const [visibleImages, setVisibleImages] = useState(images.slice(0, 3));
   const [imageIndex, setImageIndex] = useState(3);
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && imageIndex < imagePool.length) {
-          setVisibleImages([...visibleImages, imagePool[imageIndex]]);
+        if (entry.isIntersecting && imageIndex < images.length) {
+          setVisibleImages([...visibleImages, images[imageIndex]]);
           setImageIndex(imageIndex + 1);
         }
       });
     },
-    [visibleImages, imageIndex, imagePool]
+    [visibleImages, imageIndex, images]
   );
 
   useEffect(() => {
