@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { ImageDetail } from '../../Photos';
 import ExpandableImage from '../../Photos/ExpandableImage';
 import './style.scss';
@@ -6,6 +6,7 @@ import './style.scss';
 const InfiniteColumn = ({ style, images, index }: { style: object; images: ImageDetail[]; index: number }) => {
   const [visibleImages, setVisibleImages] = useState(images.slice(0, 3));
   const [imageIndex, setImageIndex] = useState(3);
+  const endRef = useRef<HTMLDivElement>(null);
 
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -19,9 +20,11 @@ const InfiniteColumn = ({ style, images, index }: { style: object; images: Image
     [visibleImages, imageIndex, images]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { rootMargin: '0px 0px 800px 0px' });
-    observer.observe(document.getElementById(`column-${index}`) as HTMLElement);
+    observer.observe(endRef.current as HTMLDivElement);
+
+    return () => observer.unobserve(endRef.current as HTMLDivElement);
   }, [handleObserver, index]);
 
   return (
@@ -35,7 +38,7 @@ const InfiniteColumn = ({ style, images, index }: { style: object; images: Image
           <p className='img-info'>{`${image.caption} | ${image.location} | ${image.date}`}</p>
         </div>
       ))}
-      <div className='masonry-end' id={`column-${index}`} />
+      <div className='masonry-end' id={`column-${index}`} ref={endRef} />
     </div>
   );
 };
