@@ -2,7 +2,7 @@
   {
     "name": "Wrappedify",
     "imageSrc": "wrappedify.png",
-    "desc": "This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool! This is a super cool project that is like really really coooool!",
+    "desc": "Wrappedify is a cool data analysis project I worked on which, as the name suggests, is an on-the-go version of Spotify Wrapped. It uses a Python backend alongside Django to parse a user's listening information (provided through Spotify). Redis and Celery are used for asynchronous data processing. The data dashboard provides robust visualisations of listening history, made using D3.js.",
     "externalLink": "https://wrappedify.herokuapp.com",
     "githubLink": "https://github.com/msohaill/wrappedify",
     "tools": [
@@ -19,5 +19,12 @@
       "Heroku",
       "PostgreSQL"
     ]
+  },
+  {
+    "name": "My Personal Site",
+    "imageSrc": "personal-site.png",
+    "desc": "Pretty self explanatory, I made my website using TypeScript React and Sass to act like an online portfolio (and to also give me somewhere to host my photography). If you're wondering how Bash fits into all of this, I use a convenient script to add more photos to my gallery!",
+    "githubLink": "https://github.com/msohaill/personal-site",
+    "tools": ["TypeScript", "React", "Sass", "Bash"]
   }
 ]

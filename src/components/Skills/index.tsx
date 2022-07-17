@@ -11,6 +11,9 @@ export type SkillInput = {
 const Skills = ({ skills }: { skills: Array<SkillInput> }) => {
   return (
     <MainSection heading='skills' headingId='skills'>
+      <p style={{ margin: '40px 0px' }}>
+        Here a few languages, tools, and technologies that I&apos;m familiar with or have used in the past
+      </p>
       <div className='skill-container'>
         {skills.map((e) => (
           <motion.div

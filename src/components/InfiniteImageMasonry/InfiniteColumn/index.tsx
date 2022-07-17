@@ -21,7 +21,7 @@ const InfiniteColumn = ({ style, images, index }: { style: object; images: Image
   );
 
   useLayoutEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, { rootMargin: '0px 0px 800px 0px' });
+    const observer = new IntersectionObserver(handleObserver, { rootMargin: '10000px 0px 1000px 0px' });
     observer.observe(endRef.current as HTMLDivElement);
 
     return () => observer.unobserve(endRef.current as HTMLDivElement);

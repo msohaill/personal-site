@@ -13,8 +13,7 @@ const Navbar = ({ showMain }: { showMain: boolean }) => {
 
   window.onresize = () => {
     window.innerWidth > 800 && navVisible && toggleNavList();
-
-    setNavLinkColors();
+    window.location.pathname === '/' && setNavLinkColors();
   };
 
   const goToSection = (elementId: string) => {

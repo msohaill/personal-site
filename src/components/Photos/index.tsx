@@ -5,6 +5,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import InfiniteImageMasonry from '../InfiniteImageMasonry';
 import imagesRaw from '../../assets/data/image-data.json';
+import './style.scss';
 
 const imagesData: { [key: string]: { caption: string; location: string; date: string } } = imagesRaw;
 const r = require.context('../../assets/images/gallery', false, /\.(png|jpe?g|svg)$/i);
@@ -38,6 +39,11 @@ const Photos = () => {
       <Header showMain={false} />
 
       <main className='content'>
+        <h1>Photos</h1>
+        <p style={{ margin: '20px 0px 50px 0px' }}>
+          Here&apos;s a collection of some photos I&apos;ve taken over the years that I really like (and hope you do as
+          well!)
+        </p>
         <InfiniteImageMasonry cols={window.innerWidth < 800 ? 1 : window.innerWidth < 1200 ? 2 : 3} spacing={8}>
           {imageDetails}
         </InfiniteImageMasonry>
