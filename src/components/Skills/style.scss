@@ -1,7 +1,8 @@
 .skill-container {
+  --skill-size: 12em;
   display: grid;
   gap: 2em;
-  grid-template-columns: repeat(auto-fill, 12em);
+  grid-template-columns: repeat(auto-fill, var(--skill-size));
   justify-content: space-around;
   width: 100%;
 
@@ -10,15 +11,36 @@
     align-items: center;
     gap: 1em;
     padding: 20px;
-    width: 12em;
+    width: var(--skill-size);
     height: 5em;
     background-color: var(--clr-skill);
     color: var(--clr-fg);
     border-radius: 8px;
     transition: background-color 0.2s linear;
 
+    h4 {
+      text-align: left;
+    }
+
     .skill-img {
       max-height: 100%;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .skill-container {
+    --skill-size: 40vw;
+    gap: 1em;
+
+    .skill-box {
+      h4 {
+        font-size: 10pt;
+      }
+
+      .skill-img {
+        max-height: 75%;
+      }
     }
   }
 }

@@ -1,22 +1,12 @@
 import { useContext, useEffect } from 'react';
 import { ThemeContext } from '../../contexts/Theme';
+import { shuffleArray } from '../../utils/shuffle-array';
 import Header from '../Header';
 import Footer from '../Footer';
 import InfiniteImageMasonry from '../InfiniteImageMasonry';
 import imagesRaw from '../../assets/data/image-data.json';
 
 const imagesData: { [key: string]: { caption: string; location: string; date: string } } = imagesRaw;
-const shuffleArray = <T,>(arr: T[]) => {
-  let i = arr.length - 1;
-  for (; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-  }
-  return arr;
-};
-
 const r = require.context('../../assets/images/gallery', false, /\.(png|jpe?g|svg)$/i);
 const imageDetails: Array<ImageDetail> = (shuffleArray(r.keys().map(r)) as string[]).map((src) => ({
   src: src,

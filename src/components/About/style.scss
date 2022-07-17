@@ -24,47 +24,41 @@
   }
 
   .about-links {
-    gap: 15px;
+    margin-top: 20px;
+    gap: 25px;
 
     .about-icon {
-      transition: transform 0.2s ease-out;
+      svg {
+        font-size: 30pt;
+        transition: transform 0.2s ease-out;
+      }
+
+      p {
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-5px);
+        font-weight: 500;
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+      }
 
       &:hover,
       &:focus {
-        color: #af4d54;
-        transform: translateY(-2px);
+        svg {
+          color: #af4d54;
+          transform: translateY(-5px);
+        }
+
+        p {
+          visibility: visible;
+          opacity: 1;
+          transform: translateY(0px);
+        }
       }
-    }
-  }
-
-  .about-link {
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 18px;
-    padding: 0.5em;
-
-    &:hover,
-    &:focus {
-      color: #af4d54;
-
-      &::after {
-        width: 100%;
-      }
-    }
-
-    &::after {
-      content: '';
-      display: block;
-      width: 0;
-      margin-top: 5px;
-      height: 2px;
-      background: #af4d54;
-      transition: width 0.2s ease-in-out;
     }
   }
 
   .about-desc {
-    margin-top: 50px;
+    margin-top: 20px;
     width: 60%;
     text-align: justify;
     line-height: 1.75;
@@ -101,6 +95,19 @@
 
     .about-role {
       font-size: 18pt;
+    }
+
+    .about-links {
+      gap: 10px;
+      .about-icon {
+        svg {
+          font-size: 20pt;
+        }
+
+        p {
+          font-size: 10pt;
+        }
+      }
     }
 
     .about-desc {

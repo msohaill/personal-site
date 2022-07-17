@@ -42,7 +42,9 @@ const Footer = () => {
   };
 
   useEffect(() => {
-    getRandomSong().then((retTrack) => setTrack(retTrack));
+    getRandomSong()
+      .then((retTrack) => setTrack(retTrack))
+      .catch((err) => console.error('Error getting Spotify Track', err));
   }, []);
 
   return (

@@ -18,7 +18,7 @@ const Header = ({ showMain }: { showMain: boolean }) => {
   return (
     <header className='center'>
       {window.location.pathname === '/' ? (
-        <button onClick={() => window.scrollTo(0, 0)}>{headerLogo}</button>
+        <button onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>{headerLogo}</button>
       ) : (
         <Link to='/'>{headerLogo}</Link>
       )}

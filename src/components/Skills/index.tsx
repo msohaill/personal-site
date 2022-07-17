@@ -1,33 +1,14 @@
 import MainSection from '../MainSection';
 import { motion } from 'framer-motion';
 import './style.scss';
+import { SettingsRounded } from '@mui/icons-material';
 
-const Skills = () => {
-  const skills = [
-    { name: 'Python', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-    { name: 'Git', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-    {
-      name: 'PostgreSQL',
-      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
-    },
-    { name: 'Java', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
-    {
-      name: 'JavaScript',
-      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-    },
-    {
-      name: 'TypeScript',
-      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-    },
-    { name: 'CSS', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
-    { name: 'HTML', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
-    { name: 'Django', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg' },
-    { name: 'C', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
-    { name: 'Bash', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg' },
-    { name: 'Unix/Linux', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
-    { name: 'React', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-  ];
+export type SkillInput = {
+  name: string;
+  src?: string;
+};
 
+const Skills = ({ skills }: { skills: Array<SkillInput> }) => {
   return (
     <MainSection heading='skills' headingId='skills'>
       <div className='skill-container'>
@@ -47,7 +28,7 @@ const Skills = () => {
               hidden: { y: 80 },
             }}
           >
-            <img className='skill-img' src={e.src} alt={e.name} />
+            {e.src ? <img className='skill-img' src={e.src} alt={e.name} /> : <SettingsRounded fontSize='large' />}
             <h4>{e.name}</h4>
           </motion.div>
         ))}
