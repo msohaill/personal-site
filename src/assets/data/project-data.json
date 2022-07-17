@@ -23,8 +23,16 @@
   {
     "name": "My Personal Site",
     "imageSrc": "personal-site.png",
-    "desc": "Pretty self explanatory, I made my website using TypeScript React and Sass to act like an online portfolio (and to also give me somewhere to host my photography). If you're wondering how Bash fits into all of this, I use a convenient script to add more photos to my gallery!",
+    "desc": "Pretty self explanatory, I made my website using TypeScript React and Sass to act like an online portfolio (and to also give me somewhere to host my photography). If you're wondering how Bash fits into all of this, I use a convenient script to add more photos to my gallery! The website is also set up with Google Analytics so I can better understand viewership.",
     "githubLink": "https://github.com/msohaill/personal-site",
     "tools": ["TypeScript", "React", "Sass", "Bash"]
+  },
+  {
+    "name": "Spotify Listening Dashboard",
+    "imageSrc": "spotify-tableau.png",
+    "desc": "A quick and cool dashboard I threw together while trying to learn some Tableau. I used my extended listening history to analyze my streams over my lifetime usage! I used Python to clean and filter the data and insert it into a PostgreSQL database, which I then connected to my workbook.",
+    "githubLink": "https://github.com/msohaill/spotify-tableau",
+    "externalLink": "https://public.tableau.com/app/profile/muhammad.sohail5951/viz/MySpotifyListening_16587328880640/Dashboard1",
+    "tools": ["PostgreSQL", "Python", "Tableau"]
   }
 ]
