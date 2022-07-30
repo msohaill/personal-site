@@ -8,12 +8,12 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    overflow-y: scroll;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
 
     &::-webkit-scrollbar {
       height: 3px;
-      width: 1px;
+      width: 0px;
     }
 
     &::-webkit-scrollbar-thumb {
