@@ -87,7 +87,7 @@ const About = () => {
           <p>GitHub</p>
         </a>
         <a
-          href='https://www.linkedin.com/in/mhsohail56/'
+          href='https://www.linkedin.com/in/msohaill/'
           target='_blank'
           rel='noopener noreferrer'
           className='about-icon'
