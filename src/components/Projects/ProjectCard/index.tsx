@@ -29,7 +29,7 @@ const ProjectCard = (project: ProjectInput) => {
             </a>
           )}
         </div>
-        <p>{project.desc}</p>
+        <p dangerouslySetInnerHTML={{ __html: project.desc }}></p>
         <ul className='project-tools'>
           {project.tools.map((tool) => (
             <li key={tool}>{tool}</li>

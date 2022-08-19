@@ -39,7 +39,7 @@ const ExperienceCard = (experience: ExperienceInput) => {
         </div>
       </div>
       <div className='experience-desc'>
-        <p>{experience.desc}</p>
+        <p dangerouslySetInnerHTML={{ __html: experience.desc }}></p>
       </div>
     </div>
   );
