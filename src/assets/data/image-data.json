@@ -399,11 +399,6 @@
     "location": "montréal",
     "date": "01-09-22"
   },
-  "IMG_2194.jpeg": {
-    "caption": "some murals on the boulevard",
-    "location": "montréal",
-    "date": "02-09-22"
-  },
   "IMG_2236.jpeg": {
     "caption": "a puffin!",
     "location": "montréal",
@@ -428,5 +423,10 @@
     "caption": "a glimpse of atwater",
     "location": "montréal",
     "date": "23-09-22"
+  },
+  "IMG_2193.jpeg": {
+    "caption": "murals on the boulevard",
+    "location": "montréal",
+    "date": "02-09-22"
   }
 }
