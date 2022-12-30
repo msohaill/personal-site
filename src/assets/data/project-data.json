@@ -21,6 +21,13 @@
     ]
   },
   {
+    "name": "Simple Shell, Thread Scheduler, and FUSE Filesystem",
+    "imageSrc": "os-projects.gif",
+    "desc": "These are three interesting projects I completed as a part of my operating systems course. The first of these projects is a simple Unix shell capable of most common tasks. The next project is a user-level thread scheduling library which offers an API to schedule both CPU and IO tasks on a first come, first serve basis. The final, and my favourite, project is a simple FUSE filesystem which can be mounted to any Unix directory! Of course, like the other projects, this one also has its limitations. Definitely check out the GitHub README to learn more!",
+    "githubLink": "https://github.com/msohaill/os-projects",
+    "tools": ["C", "Docker", "FUSE", "pthreads"]
+  },
+  {
     "name": "My Personal Site",
     "imageSrc": "personal-site.png",
     "desc": "Pretty self explanatory, I made my website using TypeScript React and Sass to act like an online portfolio (and to also give me somewhere to host my photography). If you're wondering how Bash fits into all of this, I use a convenient script to add more photos to my gallery! The website is also set up with Google Analytics so I can better understand viewership.",
