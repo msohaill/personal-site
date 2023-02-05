@@ -4,18 +4,15 @@
   import { fly } from 'svelte/transition';
   import type { LayoutData } from './$types';
   import '@fontsource/inter/variable.css';
-  import "../app.css";
-
+  import '@fontsource/cormorant-garamond/500-italic.css';
+  import '../app.css';
 
   export let data: LayoutData;
 </script>
 
-<Header/>
+<Header />
 {#key data.pathname}
-  <main
-    in:fly={{ x: -10, duration: 350, delay: 350 }}
-    out:fly={{ y: 5, duration: 350 }}
-  >
+  <main in:fly={{ x: -10, duration: 350, delay: 350 }} out:fly={{ y: 5, duration: 350 }}>
     <slot />
   </main>
 {/key}

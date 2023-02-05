@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { page } from '$app/stores';
 
   const pages = [
-    { name: "Projects", href: "/projects" },
-    { name: "Resume", href: "/resume" },
-    { name: "Photos", href: "/photos" },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Resume', href: '/resume' },
+    { name: 'Photos', href: '/photos' }
   ];
 
   let pageTitle: string | null = null;
@@ -12,15 +12,15 @@
   $: {
     const currentPage = pages.find(({ href }) => href === $page.url.pathname);
     pageTitle = currentPage?.name ?? null;
-  };
+  }
 </script>
 
 <header
-  class="layout flex justify-between items-start"
+  class="layout flex justify-between items-start mb-6"
   data-sveltekit-noscroll
   data-sveltekit-preload-code="eager"
 >
-  <h1 class="font-bold text-black text-2xl mb-6">
+  <h1 class="font-bold text-black text-2xl">
     <a href="/">Muhammad Sohail</a>
     {#if pageTitle}
       <span class="page-title">
