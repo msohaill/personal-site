@@ -5,19 +5,19 @@
   const mainProjects = [
     {
       name: 'Wrappedify',
-      href: '/projects',
-      desc: 'discover your Spotify listening habits'
+      href: '/projects#wrappedify',
+      desc: 'discover your Spotify listening habits',
     },
     {
       name: 'NES Emulator',
-      href: '/projects',
-      desc: 'wip emulator written in Rust'
+      href: '/projects#nes-emulator',
+      desc: 'wip emulator written in Rust',
     },
     {
       name: 'OS Items',
-      href: '/projects',
-      desc: 'shell, thread scheduler, and filesystem, written in C'
-    }
+      href: '/projects#os-items',
+      desc: 'shell, thread scheduler, and filesystem, written in C',
+    },
   ];
 </script>
 
@@ -35,18 +35,21 @@
 <div class="layout text-lg space-y-14">
   <div class="space-y-5">
     <p>
-      I study computers and the like at McGill, where I am still trying to figure out what I enjoy.
+      I study computers and the like at McGill, where I am still trying to figure out what I enjoy
+      most.
     </p>
 
     <p>
-      I hope to make software that people use, not only as a tool, but as a <em>creative</em>
-      and <em>exploratory</em> outlet - something that can be used to bring meaning, whether that is
-      through learning, collaboration, or simple fun.
+      I hope to make software that people use, not only as a tool, but as a <em class="keyword"
+        >creative</em
+      >
+      and <em class="keyword">exploratory</em> outlet — something that can be used to bring meaning,
+      whether that is through learning, collaboration, or simple fun.
     </p>
 
     <p>
       As such, I try to remain a generalist so that I can understand the innumerable facets of the <em
-        >systems</em
+        class="keyword">systems</em
       > that exist today.
     </p>
   </div>
@@ -79,7 +82,7 @@
       <a class="link" href="https://open.spotify.com/user/solomon123-ca">music</a>, biking in
       <a class="link" href="https://goo.gl/maps/y21867TsVit1S4Ne8">Montreal</a>, or partaking in
       some casual
-      <a class="link" href="/photos"> photography </a>. I even won a
+      <a class="link" href="/photos"> photography</a>. I even won a
       <a
         class="link"
         href="https://globalnews.ca/news/1143458/local-photo-contest-keeps-memory-of-calista-fleming-alive/"
@@ -92,10 +95,6 @@
 <style lang="postcss">
   #bio span {
     @apply text-neutral-400 text-lg leading-tight;
-  }
-
-  em {
-    @apply font-serif text-[120%] leading-[100%];
   }
 
   .project {

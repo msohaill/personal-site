@@ -4,7 +4,7 @@
   const pages = [
     { name: 'Projects', href: '/projects' },
     { name: 'Resume', href: '/resume' },
-    { name: 'Photos', href: '/photos' }
+    { name: 'Photos', href: '/photos' },
   ];
 
   let pageTitle: string | null = null;
