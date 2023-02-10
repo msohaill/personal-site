@@ -5,12 +5,13 @@
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { CalendarDays, Book } from 'lucide-svelte';
+  import { basename } from '$lib/utils';
 
   const projects = import.meta.glob('../../projects/*.md', {
     eager: true,
   }) as Record<string, ProjectType>;
 
-  const images = import.meta.glob('../../projects/*.{png,jpg,gif,svg}', {
+  const images = import.meta.glob('$static/images/projects/*.{png,jpg,gif,svg}', {
     eager: true,
   }) as Record<string, { default: string }>;
 
@@ -23,8 +24,6 @@
   });
 
   $: projectsByDate = Object.keys(projects).sort((a, b) => +projects[b].date - +projects[a].date);
-
-  const trimName = (name: string) => name.split(/[\\/]/).reverse()[0].slice(0, -3);
 
   onMount(() => {
     const selected = $page.url.hash.slice(1);
@@ -39,7 +38,7 @@
 </script>
 
 <Metadata
-  title="Muhammad Sohail | Projects"
+  title="Muhammad Sohail – Projects"
   description="A collection of software items I have worked on in the past."
 />
 
@@ -71,7 +70,7 @@
     <ul class="sm:columns-2">
       {#each projectsByName as id (id)}
         <li>
-          <a class="link" href="#{trimName(id)}">{projects[id].title}</a>
+          <a class="link" href="#{basename(id).slice(0, -3)}">{projects[id].title}</a>
         </li>
       {/each}
     </ul>
@@ -90,7 +89,7 @@
 </div>
 
 {#each sortOrder === 'date' ? projectsByDate : projectsByName as id (id)}
-  <section class="py-10" id={trimName(id)}>
+  <section class="py-10" id={basename(id).slice(0, -3)}>
     <div class="mx-auto max-w-[1152px] px-4 sm:px-6">
       <Project project={projects[id]} {images} />
     </div>

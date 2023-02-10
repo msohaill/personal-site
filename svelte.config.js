@@ -9,6 +9,10 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    appDir: 'app',
+    alias: {
+      $static: 'src/static',
+    },
   },
 };
 

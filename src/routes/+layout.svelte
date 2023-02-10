@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Header from '../lib/components/Header.svelte';
-  import Footer from '../lib/components/Footer.svelte';
+  import Header from '$lib/components/Header.svelte';
+  import Footer from '$lib/components/Footer.svelte';
   import { fly } from 'svelte/transition';
   import type { LayoutData } from './$types';
   import '@fontsource/inter/variable.css';

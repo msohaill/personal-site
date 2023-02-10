@@ -29,9 +29,9 @@
       </div>
     </div>
     <div class="col-span-3 md:col-span-1">
-      <a rel="external" href={images[`../../projects/${project.image}`]?.default}>
+      <a rel="external" href={images[`/src/static/images/projects/${project.image}`]?.default}>
         <img
-          src={images[`../../projects/${project.image}`]?.default}
+          src={images[`/src/static/images/projects/${project.image}`]?.default}
           alt="{project.title} preview image"
         />
       </a>
@@ -42,8 +42,11 @@
     <div class="grid grid-cols-3 gap-4 md:gap-8 lg:gap-12">
       {#each project.additionalImages as image}
         <div class="col-span-full md:col-span-1">
-          <a rel="external" href={images[`../../projects/${image}`]?.default}>
-            <img src={images[`../../projects/${image}`]?.default} alt="{project.title} subimage" />
+          <a rel="external" href={images[`/src/static/images/projects/${image}`]?.default}>
+            <img
+              src={images[`/src/static/images/projects/${image}`]?.default}
+              alt="{project.title} subimage"
+            />
           </a>
         </div>
       {/each}
