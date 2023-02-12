@@ -1,7 +1,7 @@
 <script lang="ts">
   import imageData from '$static/data/images.yaml';
   import { MasonryInfiniteGrid } from '@egjs/svelte-infinitegrid';
-  import { shuffleArray, basename } from '$lib/utils';
+  import { shuffleArray, unhasedBasename } from '$lib/utils';
   import Metadata from '$lib/components/Metadata.svelte';
   import Modal from '$lib/components/Modal.svelte';
 
@@ -16,9 +16,9 @@
     Object.values(imageImports).map((src, i) => ({
       key: i,
       img: src.default,
-      caption: imageData[basename(src.default)].caption,
-      location: imageData[basename(src.default)].location,
-      date: imageData[basename(src.default)].date.toLocaleDateString("en-CA"),
+      caption: imageData[unhasedBasename(src.default)].caption,
+      location: imageData[unhasedBasename(src.default)].location,
+      date: imageData[unhasedBasename(src.default)].date.toLocaleDateString("en-CA"),
     }))
   );
 
