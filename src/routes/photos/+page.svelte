@@ -1,7 +1,10 @@
 <script lang="ts">
   import imageData from '$static/data/images.yaml';
   import { MasonryInfiniteGrid } from '@egjs/svelte-infinitegrid';
+  import { ITEM_TYPE } from '@egjs/infinitegrid';
+  import type { OnRequestAppend } from '@egjs/infinitegrid';
   import { basename, shuffleArray } from '$lib/utils';
+  import { Diamonds } from 'svelte-loading-spinners';
   import Metadata from '$lib/components/Metadata.svelte';
   import Modal from '$lib/components/Modal.svelte';
 
@@ -31,8 +34,22 @@
   $: src = items[currentKey].img;
   $: alt = items[currentKey].caption;
 
-  const getImages = () => {
-    items = [...items, ...images.splice(0, 5)];
+  const getImages = ({ detail: e }: { detail: OnRequestAppend }) => {
+    if (images.length === 0) return;
+
+    e.wait();
+    const newItems = images.splice(0, 5);
+
+    newItems.forEach((item, i) => {
+      const img = new Image();
+      img.onload = () => {
+        if (i === newItems.length - 1) {
+          e.ready();
+          items = [...items, ...newItems];
+        }
+      };
+      img.src = item.img;
+    });
   };
 
   const openImage = (key: number) => {
@@ -64,22 +81,29 @@
     resizeDebounce={0}
     {items}
     useRecycle={false}
+    useLoading={true}
     on:requestAppend={getImages}
     let:visibleItems
   >
     {#each visibleItems as item (item.key)}
-      <div class="item">
-        <img
-          src={item.data.img}
-          alt={item.data.caption}
-          on:click={() => openImage(item.key)}
-          on:keydown={(e) => e.key === 'Enter' && openImage(item.key)}
-          loading="eager"
-        />
-        <p class="image-desc">
-          {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date}
-        </p>
-      </div>
+      {#if item.type === ITEM_TYPE.NORMAL}
+        <div class="item">
+          <img
+            src={item.data.img}
+            alt={item.data.caption}
+            on:click={() => openImage(item.key)}
+            on:keydown={(e) => e.key === 'Enter' && openImage(item.key)}
+            loading="eager"
+          />
+          <p class="image-desc">
+            {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date}
+          </p>
+        </div>
+      {:else if item.type === ITEM_TYPE.LOADING}
+        <div class="pt-12">
+          <Diamonds color="black" size={30} />
+        </div>
+      {/if}
     {/each}
   </MasonryInfiniteGrid>
 </div>
