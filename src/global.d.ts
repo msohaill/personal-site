@@ -5,7 +5,7 @@ declare module '$static/data/images.yaml' {
       caption: string;
       location: string;
       date: Date;
-    }
-  }
+    };
+  };
   export default t;
-};
+}

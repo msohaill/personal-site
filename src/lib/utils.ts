@@ -10,5 +10,3 @@ export const shuffleArray = <T>(arr: T[]) => {
 };
 
 export const basename = (name: string) => name.split(/[\\/]/).reverse()[0];
-export const unhasedBasename = (name: string) =>
-  basename(name).replace(/(.+)-.+(\.(png|jpe?g|svg))$/i, '$1$2');
