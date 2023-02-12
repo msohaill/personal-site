@@ -12,40 +12,48 @@
     }
   );
 
-  const images = shuffleArray(
-    Object.entries(imageImports).map(([filename, { default: src }], i) => ({
+  const images = shuffleArray(Object.entries(imageImports)).map(
+    ([filename, { default: src }], i) => ({
       key: i,
       img: src,
       caption: imageData[basename(filename)].caption,
       location: imageData[basename(filename)].location,
       date: imageData[basename(filename)].date.toLocaleDateString('en-CA'),
-    }))
+    })
   );
 
   let items = images.splice(0, 9);
+  let innerWidth = 0;
+  let openModal = false;
+  let currentKey = 0;
+
+  $: column = innerWidth < 640 ? 1 : innerWidth < 1024 ? 2 : 3;
+  $: src = items[currentKey].img;
+  $: alt = items[currentKey].caption;
 
   const getImages = () => {
     items = [...items, ...images.splice(0, 5)];
   };
 
-  let innerWidth = 0;
-  $: column = innerWidth < 640 ? 1 : innerWidth < 1024 ? 2 : 3;
-
-  let openModal = false;
-  let src = '';
-
-  const openImage = (e: Event) => {
+  const openImage = (key: number) => {
     openModal = true;
-    src = (e.target as HTMLImageElement).src;
+    currentKey = key;
+  };
+
+  const switchIamge = (e: KeyboardEvent) => {
+    if (!openModal || !['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+
+    if (e.key === 'ArrowLeft') currentKey = Math.max(currentKey - 1, 0);
+    else if (e.key === 'ArrowRight') currentKey = Math.min(currentKey + 1, items.length - 1);
   };
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth on:keyup={switchIamge} />
 
 <Metadata title="Muhammad Sohail – Photos" description="A gallery of photos I've captured." />
 
 <Modal bind:open={openModal}>
-  <img {src} alt="test" loading="eager" />
+  <img {src} {alt} loading="eager" />
 </Modal>
 
 <div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5">
@@ -64,11 +72,13 @@
         <img
           src={item.data.img}
           alt={item.data.caption}
-          on:click={openImage}
-          on:keydown={(e) => e.key === 'Enter' && openImage(e)}
+          on:click={() => openImage(item.key)}
+          on:keydown={(e) => e.key === 'Enter' && openImage(item.key)}
           loading="eager"
         />
-        <p class="image-desc">{item.data.caption} • {item.data.location} • {item.data.date}</p>
+        <p class="image-desc">
+          {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date}
+        </p>
       </div>
     {/each}
   </MasonryInfiniteGrid>

@@ -5,9 +5,7 @@
   export let open: boolean;
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      open = false;
-    }
+    if (e.key === 'Escape') open = false;
   };
 </script>
 
