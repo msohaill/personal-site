@@ -5,6 +5,7 @@
   import type { LayoutData } from './$types';
   import '@fontsource/inter/variable.css';
   import '@fontsource/cormorant-garamond/500-italic.css';
+  import '@fontsource/karla/300.css';
   import '../app.css';
 
   export let data: LayoutData;

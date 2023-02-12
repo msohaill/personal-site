@@ -1,7 +1,9 @@
 <script lang="ts">
+  import imageData from '$static/data/images.yaml';
   import { MasonryInfiniteGrid } from '@egjs/svelte-infinitegrid';
-  import { shuffleArray } from '$lib/utils';
+  import { shuffleArray, basename } from '$lib/utils';
   import Metadata from '$lib/components/Metadata.svelte';
+  import Modal from '$lib/components/Modal.svelte';
 
   const imageImports: Record<string, { default: string }> = import.meta.glob(
     '$static/images/gallery/*',
@@ -11,7 +13,13 @@
   );
 
   const images = shuffleArray(
-    Object.values(imageImports).map((src, i) => ({ key: i, img: src.default }))
+    Object.values(imageImports).map((src, i) => ({
+      key: i,
+      img: src.default,
+      caption: imageData[basename(src.default)].caption,
+      location: imageData[basename(src.default)].location,
+      date: imageData[basename(src.default)].date.toLocaleDateString("en-CA"),
+    }))
   );
 
   let items = images.splice(0, 9);
@@ -21,19 +29,30 @@
   };
 
   let innerWidth = 0;
+  $: column = innerWidth < 640 ? 1 : innerWidth < 1024 ? 2 : 3;
 
-  $: cols = innerWidth < 640 ? 1 : innerWidth < 1024 ? 2 : 3;
+  let openModal = false;
+  let src = '';
+
+  const openImage = (e: Event) => {
+    openModal = true;
+    src = (e.target as HTMLImageElement).src;
+  };
 </script>
 
 <svelte:window bind:innerWidth />
 
 <Metadata title="Muhammad Sohail – Photos" description="A gallery of photos I've captured." />
 
-<div class="flex flex-col items-center max-w-screen-lg mx-auto pt-10 px-5">
+<Modal bind:open={openModal}>
+  <img {src} alt="test" loading="eager" />
+</Modal>
+
+<div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5">
   <MasonryInfiniteGrid
     class="w-full h-full"
     gap={8}
-    column={cols}
+    {column}
     resizeDebounce={0}
     {items}
     useRecycle={false}
@@ -42,7 +61,14 @@
   >
     {#each visibleItems as item (item.key)}
       <div class="item">
-        <img src={item.data.img} alt="egjs" />
+        <img
+          src={item.data.img}
+          alt={item.data.caption}
+          on:click={openImage}
+          on:keydown={(e) => e.key === 'Enter' && openImage(e)}
+          loading="eager"
+        />
+        <p class="image-desc">{item.data.caption} • {item.data.location} • {item.data.date}</p>
       </div>
     {/each}
   </MasonryInfiniteGrid>
@@ -50,6 +76,28 @@
 
 <style lang="postcss">
   .item {
-    @apply w-full sm:w-1/2 lg:w-1/3;
+    @apply w-full sm:w-1/2 lg:w-1/3 bg-white;
+  }
+
+  .item * {
+    @apply transition-opacity ease-in duration-200;
+  }
+
+  .item img {
+    @apply cursor-pointer;
+  }
+
+  .image-desc {
+    @apply text-white absolute bottom-0 left-0 p-2 text-base w-full opacity-0;
+    font-family: 'Karla', sans-serif;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, transparent 80%);
+  }
+
+  .item:hover img {
+    @apply opacity-90;
+  }
+
+  .item:hover .image-desc {
+    @apply opacity-100;
   }
 </style>

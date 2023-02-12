@@ -7,7 +7,7 @@
   import { CalendarDays, Book } from 'lucide-svelte';
   import { basename } from '$lib/utils';
 
-  const projects = import.meta.glob('../../projects/*.md', {
+  const projects = import.meta.glob('$static/data/projects/*.md', {
     eager: true,
   }) as Record<string, ProjectType>;
 
