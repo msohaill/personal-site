@@ -7,6 +7,8 @@
   import { Diamonds } from 'svelte-loading-spinners';
   import Metadata from '$lib/components/Metadata.svelte';
   import Modal from '$lib/components/Modal.svelte';
+  import PhotoInfo from '$lib/components/PhotoInfo.svelte';
+  import { Info } from 'lucide-svelte';
 
   const imageImports: Record<string, { default: string }> = import.meta.glob(
     '$static/images/gallery/*',
@@ -15,24 +17,27 @@
     }
   );
 
-  const images = shuffleArray(Object.entries(imageImports)).map(
-    ([filename, { default: src }], i) => ({
-      key: i,
-      img: src,
+  const images = shuffleArray(
+    Object.entries(imageImports).map(([filename, { default: src }], i) => ({
+      id: i + 1,
+      src,
+      filename: basename(filename),
       caption: imageData[basename(filename)].caption,
       location: imageData[basename(filename)].location,
-      date: imageData[basename(filename)].date.toLocaleDateString('en-CA'),
-    })
-  );
+      date: imageData[basename(filename)].date,
+    }))
+  ).map((item, i) => ({ ...item, key: i }));
 
   let items = images.splice(0, 9);
   let innerWidth = 0;
-  let openModal = false;
   let currentKey = 0;
+  let openModal = false;
+  let openInfo = false;
 
   $: column = innerWidth < 640 ? 1 : innerWidth < 1024 ? 2 : 3;
-  $: src = items[currentKey].img;
+  $: src = items[currentKey].src;
   $: alt = items[currentKey].caption;
+  $: if (!openModal) openInfo = false;
 
   const getImages = ({ detail: e }: { detail: OnRequestAppend }) => {
     if (images.length === 0) return;
@@ -48,7 +53,7 @@
           items = [...items, ...newItems];
         }
       };
-      img.src = item.img;
+      img.src = item.src;
     });
   };
 
@@ -70,7 +75,12 @@
 <Metadata title="Muhammad Sohail – Photos" description="A gallery of photos I've captured." />
 
 <Modal bind:open={openModal}>
-  <img {src} {alt} loading="eager" />
+  <img {src} {alt} loading="eager" id="modal-image" />
+  <button
+    class="absolute right-5 bottom-5 p-2 rounded-lg text-stone-200 bg-gray-900 hover:bg-gray-800"
+    on:click={() => (openInfo = true)}><Info /></button
+  >
+  <PhotoInfo bind:open={openInfo} {...items[currentKey]} />
 </Modal>
 
 <div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5">
@@ -89,14 +99,17 @@
       {#if item.type === ITEM_TYPE.NORMAL}
         <div class="item">
           <img
-            src={item.data.img}
+            src={item.data.src}
             alt={item.data.caption}
             on:click={() => openImage(item.key)}
             on:keydown={(e) => e.key === 'Enter' && openImage(item.key)}
             loading="eager"
           />
           <p class="image-desc">
-            {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date}
+            {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date.toLocaleDateString(
+              'en-CA',
+              { timeZone: 'UTC' }
+            )}
           </p>
         </div>
       {:else if item.type === ITEM_TYPE.LOADING}

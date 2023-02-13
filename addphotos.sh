@@ -1,12 +1,5 @@
 #!/bin/bash
 
-which brew
-if [[ $? != 0 ]]
-then
-  echo brew not found. Please install brew.
-  exit 1
-fi
-
 gallerydir=src/static/images/gallery/
 imagedata=src/static/data/images.yaml
 
@@ -14,7 +7,7 @@ for file in "$@"
 do
 	if [ -f "$file" ] && [[ `echo "$file" | tr '[:upper:]' '[:lower:]'` =~ \.(jpe?g)$ ]]; then
 
-		name=`basename "$file" | perl -pe 's/([^.]*)$/\L\1/'
+		name=`basename "$file" | perl -pe 's/([^.]*)$/\L\1/'`
 
 		if [ -f "$gallerydir""$name" ]
 		then
@@ -43,7 +36,7 @@ do
 
 			npx mozjpeg -optimize "$file" > "$gallerydir$name"
 
-			echo -e "$name:\n  caption: $caption\n  location: $location\n  date:  $date" >> "$imagedata"
+			echo -e "$name:\n  caption: $caption\n  location: $location\n  date: $date" >> "$imagedata"
 
 			mv "$imagedata._" "$imagedata"
 
