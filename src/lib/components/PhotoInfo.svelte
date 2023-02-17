@@ -45,9 +45,8 @@
 
 {#if open}
   <aside
-    class="absolute inset-y-0 right-0 bg-gray-900 overflow-y-auto !max-h-screen !max-w-screen"
-    style:width="calc(min(100vw, 350px))"
-    transition:fly={{ x: 350, y: 0, duration: 300, easing: cubicOut }}
+    class="absolute inset-y-0 right-0 bg-gray-900 overflow-y-auto !max-h-screen !max-w-[100vw] w-screen sm:w-80"
+    transition:fly={{ x: 320, y: 0, duration: 300, easing: cubicOut }}
   >
     <div class="text-gray-200 p-6 z-50">
       <div class="mb-8">
