@@ -10,7 +10,11 @@
 />
 
 <div class="layout">
-  <p>Here is a <a href="/assets/Muhammad_Sohail_Resume.pdf" class="link"><em class="keyword">hardcopy</em></a> for those interested.</p>
+  <p>
+    Here is a <a href="/assets/Muhammad_Sohail_Resume.pdf" class="link"
+      ><em class="keyword">hard copy</em></a
+    > for those interested.
+  </p>
 </div>
 
 <section class="layout py-12">
@@ -29,14 +33,51 @@
 
   <h4 class="font-medium mt-4 mb-1">Technical coursework:</h4>
   <ul>
-    <li>Computer Systems (<a href="https://www.mcgill.ca/study/2021-2022/courses/comp-273" class="link">COMP 273</a>)</li>
-    <li>Honours Algorithms and Data Structures (<a href="https://www.mcgill.ca/study/2021-2022/courses/comp-252" class="link">COMP 252</a>)</li>
-    <li>Linear Algebra (<a href="https://www.mcgill.ca/study/2021-2022/courses/math-223" class="link">MATH 223</a>)</li>
-    <li>Operating Systems (<a href="https://www.mcgill.ca/study/2023-2023/courses/comp-310" class="link">COMP 310</a>)</li>
-    <li>Probability (<a href="https://www.mcgill.ca/study/2023-2023/courses/math-323" class="link">MATH 322</a>)</li>
-    <li>Programming Languages and Paradigms (<a href="https://www.mcgill.ca/study/2022-2023/courses/comp-302" class="link">COMP 302</a>)</li>
-    <li>Software Design (<a href="https://www.mcgill.ca/study/2022-2023/courses/comp-303" class="link">COMP 303</a>)</li>
-    <li>Theory of Computation (<a href="https://www.mcgill.ca/study/2023-2023/courses/comp-330" class="link">COMP 330</a>)</li>
+    <li>
+      Computer Systems (<a
+        href="https://www.mcgill.ca/study/2021-2022/courses/comp-273"
+        class="link">COMP 273</a
+      >)
+    </li>
+    <li>
+      Honours Algorithms and Data Structures (<a
+        href="https://www.mcgill.ca/study/2021-2022/courses/comp-252"
+        class="link">COMP 252</a
+      >)
+    </li>
+    <li>
+      Linear Algebra (<a href="https://www.mcgill.ca/study/2021-2022/courses/math-223" class="link"
+        >MATH 223</a
+      >)
+    </li>
+    <li>
+      Operating Systems (<a
+        href="https://www.mcgill.ca/study/2023-2023/courses/comp-310"
+        class="link">COMP 310</a
+      >)
+    </li>
+    <li>
+      Probability (<a href="https://www.mcgill.ca/study/2023-2023/courses/math-323" class="link"
+        >MATH 322</a
+      >)
+    </li>
+    <li>
+      Programming Languages and Paradigms (<a
+        href="https://www.mcgill.ca/study/2022-2023/courses/comp-302"
+        class="link">COMP 302</a
+      >)
+    </li>
+    <li>
+      Software Design (<a href="https://www.mcgill.ca/study/2022-2023/courses/comp-303" class="link"
+        >COMP 303</a
+      >)
+    </li>
+    <li>
+      Theory of Computation (<a
+        href="https://www.mcgill.ca/study/2023-2023/courses/comp-330"
+        class="link">COMP 330</a
+      >)
+    </li>
   </ul>
 </section>
 
@@ -50,8 +91,10 @@
     dates="January 2023 – Present"
     location="Montréal, QC"
   >
-    <li>Developing data transformation pipelines to provide normalized
-      and insightful models to internal and external stakeholders</li>
+    <li>
+      Developing data transformation pipelines to provide normalized and insightful models to
+      internal and external stakeholders
+    </li>
   </Occupation>
 
   <Occupation
@@ -62,16 +105,16 @@
     location="Toronto, ON"
   >
     <li>
-      Worked on backend services, cloud development, and data for a fast-growing startup
-      using TypeScript Node, AWS, Terraform, and dbt.
+      Worked on backend services, cloud development, and data for a fast-growing startup using
+      TypeScript Node, AWS, Terraform, and dbt.
     </li>
     <li>
-      Worked a lot on observability, setting up service monitoring, metric dashboards,
-      and trace propagation using Datadog.
+      Worked a lot on observability, setting up service monitoring, metric dashboards, and trace
+      propagation using Datadog.
     </li>
     <li>
-      Made key contributions to our new data platform, setting up ETL pipelines with dbt,
-      Snowflake, and Fivetran.
+      Made key contributions to our new data platform, setting up ETL pipelines with dbt, Snowflake,
+      and Fivetran.
     </li>
   </Occupation>
 </section>

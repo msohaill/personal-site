@@ -73,7 +73,7 @@
   <div class="space-y-5">
     <p>
       Currently, I am working with data at <a class="link" href="https://coveo.com">Coveo</a>. In
-      the past, I worked at <a class="link" href="https://patternjobs.com">Pattern</a>, devloping
+      the past, I worked at <a class="link" href="https://patternjobs.com">Pattern</a>, developing
       tools to empower the workforce.
     </p>
 
