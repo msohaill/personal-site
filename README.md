@@ -1,5 +1,10 @@
-# My Personal Website
+# Personal Site
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Source of my personal website. Powered by [`SvelteKit`](https://kit.svelte.dev/).
 
-My personal website I created using TypeScript React, Sass, and a bit of Bash believe it or not. You can visit it [here](https://msohail.vercel.app)! Hope you enjoy :)
+You can visit it [here](https://msohail.vercel.app)! To run locally:
+
+```bash
+npm i
+npm run dev -- --open
+```
