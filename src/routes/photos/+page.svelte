@@ -99,7 +99,7 @@
   </p>
 </section>
 
-<div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5">
+<div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5 mx-auto">
   <MasonryInfiniteGrid
     class="w-full h-full"
     gap={8}
