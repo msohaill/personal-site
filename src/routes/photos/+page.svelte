@@ -83,6 +83,22 @@
   <PhotoInfo bind:open={openInfo} {...items[currentKey]} />
 </Modal>
 
+<section class="layout py-12 space-y-4">
+  <h2 class="section-heading">A Casual Gallery</h2>
+
+  <p class="text-lg">
+    I got into photography when I was fifteen. Capturing moments in time, exactly as they are, is
+    something I consider quite important.
+  </p>
+
+  <p class="text-lg">What's beautiful is being able to share these moments with others.</p>
+
+  <p class="text-lg">
+    And so, here is a collection of some moments I've captured over the years. I hope that you enjoy
+    them as well.
+  </p>
+</section>
+
 <div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5">
   <MasonryInfiniteGrid
     class="w-full h-full"

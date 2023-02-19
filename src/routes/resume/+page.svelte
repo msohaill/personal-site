@@ -11,8 +11,11 @@
 
 <div class="layout">
   <p>
-    Here is a <a href="/assets/Muhammad_Sohail_Resume.pdf" class="link"
-      ><em class="keyword">hard copy</em></a
+    Here is a <a
+      href="/assets/Muhammad_Sohail_Resume.pdf"
+      class="link"
+      target="_blank"
+      rel="noopener noreferrer"><em class="keyword">hard copy</em></a
     > for those interested.
   </p>
 </div>
