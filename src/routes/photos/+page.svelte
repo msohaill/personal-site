@@ -9,6 +9,7 @@
   import Modal from '$lib/components/Modal.svelte';
   import PhotoInfo from '$lib/components/PhotoInfo.svelte';
   import { Info } from 'lucide-svelte';
+  import { onMount } from 'svelte';
 
   const imageImports: Record<string, { default: string }> = import.meta.glob(
     '$static/images/gallery/*',
@@ -68,6 +69,10 @@
     if (e.key === 'ArrowLeft') currentKey = Math.max(currentKey - 1, 0);
     else if (e.key === 'ArrowRight') currentKey = Math.min(currentKey + 1, items.length - 1);
   };
+
+  // Fix for observer glitch (Infinite Grid)
+  let fix = 0;
+  onMount(() => setTimeout(() => fix++ && setTimeout(() => fix++, 1), 350));
 </script>
 
 <svelte:window bind:innerWidth on:keyup={switchIamge} />
@@ -100,41 +105,43 @@
 </section>
 
 <div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5 mx-auto">
-  <MasonryInfiniteGrid
-    class="w-full h-full"
-    gap={8}
-    {column}
-    resizeDebounce={0}
-    {items}
-    useRecycle={false}
-    useLoading={true}
-    on:requestAppend={getImages}
-    let:visibleItems
-  >
-    {#each visibleItems as item (item.key)}
-      {#if item.type === ITEM_TYPE.NORMAL}
-        <div class="item">
-          <img
-            src={item.data.src}
-            alt={item.data.caption}
-            on:click={() => openImage(item.key)}
-            on:keydown={(e) => e.key === 'Enter' && openImage(item.key)}
-            loading="eager"
-          />
-          <p class="image-desc">
-            {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date.toLocaleDateString(
-              'en-CA',
-              { timeZone: 'UTC' }
-            )}
-          </p>
-        </div>
-      {:else if item.type === ITEM_TYPE.LOADING}
-        <div class="pt-12">
-          <Diamonds color="black" size={30} />
-        </div>
-      {/if}
-    {/each}
-  </MasonryInfiniteGrid>
+  {#key fix}
+    <MasonryInfiniteGrid
+      class="w-full h-full"
+      gap={8}
+      {column}
+      resizeDebounce={0}
+      {items}
+      useRecycle={false}
+      useLoading={true}
+      on:requestAppend={getImages}
+      let:visibleItems
+    >
+      {#each visibleItems as item (item.key)}
+        {#if item.type === ITEM_TYPE.NORMAL}
+          <div class="item">
+            <img
+              src={item.data.src}
+              alt={item.data.caption}
+              on:click={() => openImage(item.key)}
+              on:keydown={(e) => e.key === 'Enter' && openImage(item.key)}
+              loading="eager"
+            />
+            <p class="image-desc">
+              {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date.toLocaleDateString(
+                'en-CA',
+                { timeZone: 'UTC' }
+              )}
+            </p>
+          </div>
+        {:else if item.type === ITEM_TYPE.LOADING}
+          <div class="pt-12">
+            <Diamonds color="black" size={30} />
+          </div>
+        {/if}
+      {/each}
+    </MasonryInfiniteGrid>
+  {/key}
 </div>
 
 <style lang="postcss">
