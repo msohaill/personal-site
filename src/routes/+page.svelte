@@ -94,7 +94,7 @@
 
 <style lang="postcss">
   #bio span {
-    @apply text-neutral-400 text-lg leading-tight;
+    @apply text-neutral-500 text-lg leading-tight;
   }
 
   .project {
