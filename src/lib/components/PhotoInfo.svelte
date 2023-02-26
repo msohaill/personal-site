@@ -74,7 +74,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="link"
-            href={`https://www.google.com/maps/place/${location}`}>{location}</a
+            href="https://www.google.com/maps/place/{location}">{location}</a
           >
         </dd>
 
@@ -85,7 +85,7 @@
               target="_blank"
               rel="noopener noreferrer"
               class="link"
-              href={`https://www.google.com/maps/place/${coords.latitude},${coords.longitude}/@${coords.latitude},${coords.longitude},13z`}
+              href="https://www.google.com/maps/place/{coords.latitude},{coords.longitude}/@{coords.latitude},{coords.longitude},13z"
               >{coords.latitude.toFixed(2)}, {coords.longitude.toFixed(2)}</a
             >
           </dd>

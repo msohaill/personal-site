@@ -10,9 +10,7 @@
 </script>
 
 {#if open}
-  <!-- svelte-ignore a11y-autofocus -->
   <div
-    autofocus
     transition:fade={{ duration: 250 }}
     tabIndex="0"
     class="modal"
@@ -30,7 +28,7 @@
     bg-opacity-60 z-10 flex justify-center items-center;
   }
 
-  .modal > :global(*) {
+  .modal :global(*) {
     @apply max-w-[90vw] max-h-[90vh];
   }
 </style>

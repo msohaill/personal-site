@@ -8,8 +8,9 @@
   import Metadata from '$lib/components/Metadata.svelte';
   import Modal from '$lib/components/Modal.svelte';
   import PhotoInfo from '$lib/components/PhotoInfo.svelte';
-  import { Info } from 'lucide-svelte';
+  import { Lightbulb } from 'lucide-svelte';
   import { onMount } from 'svelte';
+  import ImageZoom from '$lib/components/ImageZoom.svelte';
 
   const imageImports: Record<string, { default: string }> = import.meta.glob(
     '$static/images/gallery/*',
@@ -80,10 +81,10 @@
 <Metadata title="Muhammad Sohail – Photos" description="A gallery of photos I've captured." />
 
 <Modal bind:open={openModal}>
-  <img {src} {alt} loading="eager" id="modal-image" />
+  <ImageZoom {src} {alt} />
   <button
-    class="absolute right-5 bottom-5 p-2 rounded-lg text-stone-200 bg-gray-900 hover:bg-gray-800"
-    on:click={() => (openInfo = true)}><Info /></button
+    class="absolute right-5 bottom-5 p-2 text-stone-200 hover:text-stone-300"
+    on:click={() => (openInfo = true)}><Lightbulb /></button
   >
   <PhotoInfo bind:open={openInfo} {...items[currentKey]} />
 </Modal>
