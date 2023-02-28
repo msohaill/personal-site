@@ -20,6 +20,7 @@
     getRandomSong().then((trackResponse) => {
       track.artists = trackResponse.artists.map((a: { name: string }) => a.name).join(', ');
       track.audio = new Audio(trackResponse.preview_url);
+      track.audio.volume = 0.25;
       track.link = trackResponse.external_urls.spotify;
       track.title = trackResponse.name;
     })
