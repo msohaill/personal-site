@@ -27,7 +27,7 @@
     <div class="flex justify-between items-end">
       <h3 class="text-black text-lg flex gap-2">
         McGill University
-        <a href="https://www.mcgill.ca"><img class="coat" src={mcgill} alt="mcgill logo" /></a>
+        <a href="https://www.mcgill.ca"><img class="coat" src={mcgill} alt="McGill Logo" /></a>
       </h3>
       <div class="text-neutral-500 mb-0.5">2020 — Present</div>
     </div>

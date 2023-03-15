@@ -32,7 +32,7 @@
       <a rel="external" href={images[`/src/static/images/projects/${project.image}`]?.default}>
         <img
           src={images[`/src/static/images/projects/${project.image}`]?.default}
-          alt="{project.title} preview image"
+          alt="{project.title} Preview Image"
         />
       </a>
     </div>
@@ -45,7 +45,7 @@
           <a rel="external" href={images[`/src/static/images/projects/${image}`]?.default}>
             <img
               src={images[`/src/static/images/projects/${image}`]?.default}
-              alt="{project.title} subimage"
+              alt="{project.title} Sub-Image"
             />
           </a>
         </div>
