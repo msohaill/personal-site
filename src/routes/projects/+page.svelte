@@ -3,6 +3,7 @@
   import type { Project as ProjectType } from '$lib/types';
   import Project from '$lib/components/Project.svelte';
   import { onMount } from 'svelte';
+  import { flip } from 'svelte/animate';
   import { page } from '$app/stores';
   import { CalendarDays, Book } from 'lucide-svelte';
   import { basename } from '$lib/utils';
@@ -89,7 +90,7 @@
 </div>
 
 {#each sortOrder === 'date' ? projectsByDate : projectsByName as id (id)}
-  <section class="py-10" id={basename(id).slice(0, -3)}>
+  <section class="py-10" id={basename(id).slice(0, -3)} animate:flip={{ duration: 1000 }} >
     <div class="mx-auto max-w-[1152px] px-4 sm:px-6">
       <Project project={projects[id]} {images} />
     </div>
