@@ -72,8 +72,9 @@
 
   <div class="space-y-5">
     <p>
-      Currently, I am working with data at <a class="link" href="https://coveo.com">Coveo</a>. In
-      the past, I worked at <a class="link" href="https://patternjobs.com">Pattern</a>, developing
+      Currently, I am working with data systems and operations at <a class="link" href="https://autodesk.com">
+      Autodesk</a>. In the past, I worked on data observability at <a class="link" href="https://coveo.com">Coveo
+      </a> and at <a class="link" href="https://patternjobs.com">Pattern</a>, developing
       tools to empower the workforce.
     </p>
 
