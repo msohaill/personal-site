@@ -94,9 +94,7 @@
     dates="May 2023 – Present"
     location="Montréal, QC"
   >
-    <li>
-      Developing backend solutions using Java, Spring Boot, and AWS.
-    </li>
+    <li>Developing backend solutions using Java, Spring Boot, and AWS.</li>
   </Occupation>
 
   <Occupation
@@ -106,23 +104,23 @@
     dates="January 2023 – April 2023"
     location="Montréal, QC"
   >
-  <li>
-    Did a lot of work on data monitoring and quality. Pioneered our team's data observability system with
-    Prefect and Snowflake.
-  </li>
-  <li>
-    Collaborated with stakeholders and other engineers to identify metrics for anomaly detection (a much
-    tougher task than you would expect). This offered observability to us but also enabled other teams to
-    identify issues in their own implementations.
-  </li>
-  <li>
-    Played around and revamped our Sentry notification system, which significantly increased time to
-    resolution and helped identify and address data quality issues.
-  </li>
-  <li>
-    Got a chance to work on some data pipelines with dbt. Mostly doing testing but also adding data
-    purges to help keep us frugal on resources.
-  </li>
+    <li>
+      Did a lot of work on data monitoring and quality. Pioneered our team's data observability
+      system with Prefect and Snowflake.
+    </li>
+    <li>
+      Collaborated with stakeholders and other engineers to identify metrics for anomaly detection
+      (a much tougher task than you would expect). This offered observability to us but also enabled
+      other teams to identify issues in their own implementations.
+    </li>
+    <li>
+      Played around and revamped our Sentry notification system, which significantly increased time
+      to resolution and helped identify and address data quality issues.
+    </li>
+    <li>
+      Got a chance to work on some data pipelines with dbt. Mostly doing testing but also adding
+      data purges to help keep us frugal on resources.
+    </li>
   </Occupation>
 
   <Occupation

@@ -19,14 +19,14 @@
   $: {
     exifr
       .gps(src)
-      .then((output) => {
+      .then(output => {
         if (output) coords = output;
         else coords = null;
       })
       .catch(() => (coords = null));
     exifr
       .parse(src, true)
-      .then((output) => {
+      .then(output => {
         if (output.Model) camera = output.Model;
         else camera = null;
         if (output.ExifImageHeight && output.ExifImageWidth)

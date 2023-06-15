@@ -125,7 +125,7 @@
               src={item.data.src}
               alt={item.data.caption}
               on:click={() => openImage(item.key)}
-              on:keydown={(e) => e.key === 'Enter' && openImage(item.key)}
+              on:keydown={e => e.key === 'Enter' && openImage(item.key)}
               loading="eager"
             />
             <p class="image-desc">

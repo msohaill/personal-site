@@ -90,7 +90,7 @@
 </div>
 
 {#each sortOrder === 'date' ? projectsByDate : projectsByName as id (id)}
-  <section class="py-10" id={basename(id).slice(0, -3)} animate:flip={{ duration: 1000 }} >
+  <section class="py-10" id={basename(id).slice(0, -3)} animate:flip={{ duration: 1000 }}>
     <div class="mx-auto max-w-[1152px] px-4 sm:px-6">
       <Project project={projects[id]} {images} />
     </div>
