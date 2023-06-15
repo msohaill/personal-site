@@ -37,7 +37,7 @@ export const getRandomSong = async () => {
       new URLSearchParams({
         market: 'CA',
         limit: '1',
-        offset: Math.floor(Math.random() ** 2 * 560).toString(),
+        offset: Math.floor(Math.random() ** 2 * 598).toString(),
       }),
     {
       headers: {
