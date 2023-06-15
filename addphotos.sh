@@ -38,8 +38,6 @@ do
 
 			echo -e "$name:\n  caption: $caption\n  location: $location\n  date: $date" >> "$imagedata"
 
-			mv "$imagedata._" "$imagedata"
-
 			unset name caption location date
 
 			echo -e "\033[32m###### Successfully processed: \033[4m$file\033[24m ######\033[0m"
