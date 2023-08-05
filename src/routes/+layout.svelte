@@ -4,7 +4,7 @@
   import { fly } from 'svelte/transition';
   import { dev, browser } from '$app/environment';
   import type { LayoutData } from './$types';
-  import '@fontsource/inter/variable.css';
+  import '@fontsource-variable/inter';
   import '@fontsource/cormorant-garamond/500-italic.css';
   import '@fontsource/karla/300.css';
   import '../app.css';

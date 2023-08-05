@@ -1,8 +1,9 @@
 import { Buffer } from 'buffer';
 import {
-  PUBLIC_CLIENT_ID as CLIENT_ID,
-  PUBLIC_CLIENT_SECRET as CLIENT_SECRET,
-  PUBLIC_REFRESH_TOKEN as REFRESH_TOKEN,
+  PUBLIC_CLIENT_ID as ClientId,
+  PUBLIC_CLIENT_SECRET as ClientSecret,
+  PUBLIC_REFRESH_TOKEN as RefreshToken,
+  PUBLIC_SONG_COUNT as SongCount,
 } from '$env/static/public';
 
 export const shuffleArray = <T>(arr: T[]) => {
@@ -22,12 +23,12 @@ export const getRandomSong = async () => {
   const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {
-      Authorization: `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+      Authorization: `Basic ${Buffer.from(`${ClientId}:${ClientSecret}`).toString('base64')}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
       grant_type: 'refresh_token',
-      refresh_token: REFRESH_TOKEN,
+      refresh_token: RefreshToken,
     }),
   });
   const token = (await tokenResponse.json())['access_token'];
@@ -37,7 +38,7 @@ export const getRandomSong = async () => {
       new URLSearchParams({
         market: 'CA',
         limit: '1',
-        offset: Math.floor(Math.random() ** 2 * 598).toString(),
+        offset: Math.floor(Math.random() ** 2 * Number(SongCount)).toString(),
       }),
     {
       headers: {

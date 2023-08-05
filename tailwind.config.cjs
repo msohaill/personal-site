@@ -9,7 +9,7 @@ module.exports = {
       fontFamily: {
         ...defaultTheme.fontFamily,
         serif: ['Cormorant Garamond', ...defaultTheme.fontFamily.serif],
-        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter Variable', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         ...defaultTheme.fontSize,
