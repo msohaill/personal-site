@@ -23,7 +23,7 @@
       track.audio.volume = 0.25;
       track.link = trackResponse.external_urls.spotify;
       track.title = trackResponse.name;
-    })
+    }),
   );
 
   $: showMusic = track.audio && !track.audio.paused;

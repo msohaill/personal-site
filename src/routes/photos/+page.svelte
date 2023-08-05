@@ -16,7 +16,7 @@
     '$static/images/gallery/*',
     {
       eager: true,
-    }
+    },
   );
 
   const images = shuffleArray(
@@ -27,7 +27,7 @@
       caption: imageData[basename(filename)].caption,
       location: imageData[basename(filename)].location,
       date: imageData[basename(filename)].date,
-    }))
+    })),
   ).map((item, i) => ({ ...item, key: i }));
 
   let items = images.splice(0, 9);
@@ -131,7 +131,7 @@
             <p class="image-desc">
               {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date.toLocaleDateString(
                 'en-CA',
-                { timeZone: 'UTC' }
+                { timeZone: 'UTC' },
               )}
             </p>
           </div>

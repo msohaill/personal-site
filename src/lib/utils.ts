@@ -45,7 +45,7 @@ export const getRandomSong = async () => {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-    }
+    },
   );
 
   const returnedTrack = await savedTrackResponse.json();
