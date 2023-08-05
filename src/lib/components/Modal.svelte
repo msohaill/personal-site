@@ -13,6 +13,7 @@
   <div
     transition:fade={{ duration: 250 }}
     tabIndex="0"
+    autofocus
     class="modal"
     on:click|self={() => (open = false)}
     on:keydown={handleKeyDown}

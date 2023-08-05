@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
-  import { ArrowRight } from 'lucide-svelte';
+  import { ArrowRight, CheckCheck, Send } from 'lucide-svelte';
   import exifr from 'exifr';
 
   export let open = false;
@@ -15,6 +15,8 @@
   let camera: null | string = null;
   let coords: null | { latitude: number; longitude: number } = null;
   let dimensions: null | { height: number; width: number } = null;
+  let shareText = 'Share';
+  let ShareIcon = Send;
 
   $: {
     exifr
@@ -41,6 +43,14 @@
 
   const truncateFilename = (filename: string) =>
     filename.length > 25 ? filename.slice(0, 25) + '...' : filename;
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(
+      `${window.location.protocol}//${window.location.host}/photos?id=${id}`,
+    );
+    shareText = 'Link copied!';
+    ShareIcon = CheckCheck;
+  };
 </script>
 
 {#if open}
@@ -106,6 +116,12 @@
         <button on:click={() => (open = false)} class="p-1 rounded-md hover:bg-gray-800"
           ><ArrowRight /></button
         >
+      </div>
+      <div class="dark absolute bottom-5 left-5">
+        <button class="link text-sm font-semibold flex items-center gap-1" on:click={copyLink}>
+          <svelte:component this={ShareIcon} size="15" />
+          {shareText}
+          <button>
       </div>
     </div>
   </aside>

@@ -11,6 +11,8 @@
   import { Lightbulb } from 'lucide-svelte';
   import { onMount } from 'svelte';
   import ImageZoom from '$lib/components/ImageZoom.svelte';
+  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
 
   const imageImports: Record<string, { default: string }> = import.meta.glob(
     '$static/images/gallery/*',
@@ -19,33 +21,42 @@
     },
   );
 
-  const images = shuffleArray(
-    Object.entries(imageImports).map(([filename, { default: src }], i) => ({
-      id: i + 1,
-      src,
-      filename: basename(filename),
-      caption: imageData[basename(filename)].caption,
-      location: imageData[basename(filename)].location,
-      date: imageData[basename(filename)].date,
-    })),
-  ).map((item, i) => ({ ...item, key: i }));
+  const images = Object.entries(imageImports).map(([filename, { default: src }], i) => ({
+    id: i + 1,
+    src,
+    filename: basename(filename),
+    caption: imageData[basename(filename)].caption,
+    location: imageData[basename(filename)].location,
+    date: imageData[basename(filename)].date,
+  }));
 
-  let items = images.splice(0, 9);
+  const imageFeeder = shuffleArray([...images]).map(item => ({ ...item, key: item.id - 1 }));
+
+  let items = imageFeeder.splice(0, 9);
   let innerWidth = 0;
   let currentKey = 0;
   let openModal = false;
   let openInfo = false;
+  let fromShare =
+    $page.url.searchParams.has('id') &&
+    Number($page.url.searchParams.get('id')) > 0 &&
+    Number($page.url.searchParams.get('id')) <= images.length;
+  let shareOpened = false;
+  let shareId = fromShare ? Number($page.url.searchParams.get('id')) - 1 : -1;
 
   $: column = innerWidth < 640 ? 1 : innerWidth < 1024 ? 2 : 3;
-  $: src = items[currentKey].src;
-  $: alt = items[currentKey].caption;
+  $: src = images[currentKey].src;
+  $: alt = images[currentKey].caption;
   $: if (!openModal) openInfo = false;
-
+  $: if (shareOpened && !openModal) {
+    fromShare = false;
+    goto('/photos');
+  }
   const getImages = ({ detail: e }: { detail: OnRequestAppend }) => {
-    if (images.length === 0) return;
+    if (imageFeeder.length === 0) return;
 
     e.wait();
-    const newItems = images.splice(0, 5);
+    const newItems = imageFeeder.splice(0, 5);
 
     newItems.forEach((item, i) => {
       const img = new Image();
@@ -71,14 +82,29 @@
     else if (e.key === 'ArrowRight') currentKey = Math.min(currentKey + 1, items.length - 1);
   };
 
-  // Fix for observer glitch (Infinite Grid)
   let fix = 0;
-  onMount(() => setTimeout(() => fix++ && setTimeout(() => fix++, 1), 350));
+  onMount(() => {
+    // Fix for observer glitch (Infinite Grid)
+    setTimeout(() => fix++ && setTimeout(() => fix++, 1), 350);
+
+    // Handling shared URL
+    if (fromShare) {
+      openImage(shareId);
+      shareOpened = true;
+    } else if ($page.url.searchParams.has('id')) {
+      // Incorrect ID
+      goto('/photos');
+    }
+  });
 </script>
 
 <svelte:window bind:innerWidth on:keyup={switchIamge} />
 
-<Metadata title="Muhammad Sohail – Photos" description="A gallery of photos I've captured." />
+<Metadata
+  title="Muhammad Sohail – {fromShare ? images[shareId].caption : 'Photos'}"
+  description="A gallery of photos I've captured."
+  cover={fromShare ? images[shareId].src : undefined}
+/>
 
 <Modal bind:open={openModal}>
   <ImageZoom {src} {alt} />
@@ -86,7 +112,7 @@
     class="absolute right-5 bottom-5 p-2 text-stone-200 hover:text-stone-300"
     on:click={() => (openInfo = true)}><Lightbulb /></button
   >
-  <PhotoInfo bind:open={openInfo} {...items[currentKey]} />
+  <PhotoInfo bind:open={openInfo} {...images[currentKey]} />
 </Modal>
 
 <section class="layout py-12 space-y-4">
