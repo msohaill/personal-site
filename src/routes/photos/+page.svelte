@@ -21,13 +21,13 @@
     },
   );
 
-  const images = Object.entries(imageImports).map(([filename, { default: src }], i) => ({
+  const images = Object.entries(imageData).map(([filename, { caption, location, date }], i) => ({
     id: i + 1,
-    src,
-    filename: basename(filename),
-    caption: imageData[basename(filename)].caption,
-    location: imageData[basename(filename)].location,
-    date: imageData[basename(filename)].date,
+    src: imageImports[`/src/static/images/gallery/${filename}`].default,
+    filename,
+    caption,
+    location,
+    date,
   }));
 
   const imageFeeder = shuffleArray([...images]).map(item => ({ ...item, key: item.id - 1 }));
