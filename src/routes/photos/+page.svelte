@@ -3,7 +3,7 @@
   import { MasonryInfiniteGrid } from '@egjs/svelte-infinitegrid';
   import { ITEM_TYPE } from '@egjs/infinitegrid';
   import type { OnRequestAppend } from '@egjs/infinitegrid';
-  import { basename, shuffleArray } from '$lib/utils';
+  import { shuffleArray } from '$lib/utils';
   import { Diamonds } from 'svelte-loading-spinners';
   import Metadata from '$lib/components/Metadata.svelte';
   import Modal from '$lib/components/Modal.svelte';
@@ -116,7 +116,7 @@
 </Modal>
 
 <section class="layout py-12 space-y-4">
-  <h2 class="section-heading">A Casual Gallery</h2>
+  <h2 class="section-heading">A Small Gallery 📸</h2>
 
   <p class="text-lg">
     I got into photography when I was fifteen. Capturing moments in time, exactly as they are, is
@@ -127,7 +127,7 @@
 
   <p class="text-lg">
     And so, here is a collection of some moments I've captured over the years. I hope that you enjoy
-    them as well.
+    them as well!
   </p>
 </section>
 

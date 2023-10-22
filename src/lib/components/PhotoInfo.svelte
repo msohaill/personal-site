@@ -55,13 +55,15 @@
 
 {#if open}
   <aside
-    class="absolute inset-y-0 right-0 bg-gray-900 overflow-y-auto !max-h-screen !max-w-[100vw] w-screen sm:w-80"
+    class="absolute inset-y-0 right-0 bg-pastel-blue overflow-y-auto !max-h-screen !max-w-[100vw] w-screen sm:w-80"
     transition:fly={{ x: 320, y: 0, duration: 300, easing: cubicOut }}
   >
     <div class="text-gray-200 p-6 z-50">
       <div class="mb-8">
         <h2 class="text-2xl fontvar-heading mb-1">No. {id}</h2>
-        <p class="text-gray-500">{truncateFilename(filename)}</p>
+        <a class="text-gray-200 text-xs" target="_blank" rel="noopener noreferrer" href={src}>
+          {truncateFilename(filename)}
+        </a>
       </div>
 
       <dl>
@@ -83,7 +85,7 @@
           <a
             target="_blank"
             rel="noopener noreferrer"
-            class="link"
+            class="photo-link"
             href="https://www.google.com/maps/place/{location}">{location}</a
           >
         </dd>
@@ -94,7 +96,7 @@
             <a
               target="_blank"
               rel="noopener noreferrer"
-              class="link"
+              class="photo-link"
               href="https://www.google.com/maps/place/{coords.latitude},{coords.longitude}/@{coords.latitude},{coords.longitude},13z"
               >{coords.latitude.toFixed(2)}, {coords.longitude.toFixed(2)}</a
             >
@@ -118,21 +120,29 @@
         >
       </div>
       <div class="dark absolute bottom-5 left-5">
-        <button class="link text-sm font-semibold flex items-center gap-1" on:click={copyLink}>
+        <button
+          class="photo-link text-sm font-semibold flex items-center gap-1"
+          on:click={copyLink}
+        >
           <svelte:component this={ShareIcon} size="15" />
           {shareText}
-          <button>
+        <button>
       </div>
     </div>
   </aside>
 {/if}
 
 <style lang="postcss">
+  .photo-link {
+    @apply text-neutral-300 underline underline-offset-[3px] decoration-neutral-400 hover:text-white;
+    @apply transition-colors hover:decoration-white;
+  }
+
   dt {
-    @apply text-xs font-semibold uppercase text-gray-400;
+    @apply text-xs font-semibold uppercase text-gray-300;
   }
   dd {
-    @apply text-gray-300 text-sm;
+    @apply text-gray-200 text-sm;
   }
   dd:not(:last-of-type) {
     @apply mb-5;

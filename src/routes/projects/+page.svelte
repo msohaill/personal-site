@@ -44,17 +44,16 @@
 />
 
 <section class="layout py-12 space-y-4">
-  <h2 class="section-heading">Open Source Items</h2>
+  <h2 class="section-heading">Some of My Projects</h2>
 
   <p class="text-lg">
-    Building applications is something I see as a means of <em class="keyword"
-      >creative exploration</em
-    >.
+    Building things is is definitely an art, and when it comes to technology, one might just be a
+    modern day van Gogh!
   </p>
 
   <p class="text-lg">
-    It allows me to pursue inspiration and delve into novel ideas, all while developing software
-    that not only benefits myself, but also others.
+    This sort of <em class="keyword">artistic exploration</em> is exciting and allows me to work on interesting
+    topics and explore the world of technology at the same time.
   </p>
 
   <p class="text-lg">
@@ -65,13 +64,13 @@
   </p>
 </section>
 
-<div class="bg-gray-900 text-neutral-200 dark">
+<div class="bg-pastel-blue text-neutral-100 dark">
   <section class="layout py-12">
-    <h2 class="section-heading text-white">Table of Contents</h2>
+    <h2 class="section-heading text-white">Items</h2>
     <ul class="sm:columns-2">
       {#each projectsByName as id (id)}
         <li>
-          <a class="link" href="#{basename(id).slice(0, -3)}">{projects[id].title}</a>
+          <a class="project-listing" href="#{basename(id).slice(0, -3)}">{projects[id].title}</a>
         </li>
       {/each}
     </ul>
@@ -98,11 +97,16 @@
 {/each}
 
 <style lang="postcss">
+  .project-listing {
+    @apply underline underline-offset-[3px] decoration-neutral-300 hover:text-white;
+    @apply hover:decoration-white transition-colors;
+  }
+
   button {
-    @apply flex items-center text-neutral-400 transition-colors hover:text-black;
+    @apply flex items-center text-neutral-400 transition-colors hover:text-pastel-blue;
   }
 
   button.active {
-    @apply text-black;
+    @apply text-pastel-blue;
   }
 </style>

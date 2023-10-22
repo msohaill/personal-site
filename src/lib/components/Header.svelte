@@ -20,10 +20,10 @@
   data-sveltekit-noscroll
   data-sveltekit-preload-code="eager"
 >
-  <h1 class="font-bold text-black text-2xl">
+  <h1 class="font-bold text-pastel-red text-2xl">
     <a href="/">Muhammad Sohail</a>
     {#if pageTitle}
-      <span class="page-title">
+      <span class="page-title text-black">
         <span class="text-neutral-400">—</span>
         {pageTitle}
       </span>
@@ -33,8 +33,8 @@
     {#each pages as sitePage (sitePage.href)}
       <a
         href={sitePage.href}
-        class="hover:text-black transition-colors"
-        class:text-black={$page.url.pathname === sitePage.href}
+        class="hover:text-pastel-red transition-colors"
+        class:text-pastel-red={$page.url.pathname === sitePage.href}
       >
         {sitePage.name.toLowerCase()}
       </a>

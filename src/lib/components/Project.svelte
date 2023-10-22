@@ -5,7 +5,7 @@
   export let images: Record<string, { default: string }>;
 </script>
 
-<h3 class="text-black text-xl font-semibold mb-2">
+<h3 class="text-pastel-blue text-xl font-semibold mb-2">
   <span class="mr-1">{project.title}</span>
   <small class="whitespace-nowrap text-neutral-500 text-base font-normal">
     {project.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}

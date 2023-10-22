@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Linkedin, Github, Mail, ExternalLink } from 'lucide-svelte';
+  import { page } from '$app/stores';
   import { getRandomSong } from '$lib/utils';
   import { onMount } from 'svelte';
   import { slide } from 'svelte/transition';
@@ -34,35 +35,15 @@
   };
 </script>
 
-<footer class="layout mt-20 flex flex-col">
-  <div class="text-lg space-y-2">
-    <div class="item">
-      <span>
-        <Linkedin />
-      </span>
-      <hr />
-      <a class="link" href="https://linkedin.com/in/msohaill">@msohaill</a>
-    </div>
-    <div class="item">
-      <span>
-        <Github />
-      </span>
-      <hr />
-      <a class="link" href="https://github.com/msohaill">@msohaill</a>
-    </div>
-    <div class="item">
-      <span>
-        <Mail />
-      </span>
-      <hr />
-      <a class="link" href="mailto:muhammad.sohail@mail.mcgill.ca">
-        muhammad.sohail@mail.mcgill.ca
-      </a>
-    </div>
+<footer class="layout mt-10 flex flex-col">
+  <div class="social-links {$page.url.pathname === '/' ? 'social-links-home' : null}">
+    <a class="link" href="https://linkedin.com/in/msohaill"><Linkedin /></a>
+    <a class="link" href="https://github.com/msohaill"><Github /></a>
+    <a class="link" href="mailto:muhammad.sohail@mail.mcgill.ca"><Mail /></a>
   </div>
   <p class="mx-auto mt-5 text-xs text-neutral-500">
     montréal • carpe diem • {new Date().getFullYear()} •
-    <span class="link cursor-pointer" on:click={handleClick} on:keydown={() => {}}>music!</span>
+    <em class="music cursor-pointer keyword" on:click={handleClick} on:keydown={() => {}}>music!</em>
   </p>
   {#if showMusic}
     <div
@@ -72,7 +53,7 @@
       <em class="text-sm tracking-wide text-neutral-500 font-serif">Something I'm listening to</em>
       <a href={track.link} target="_blank" rel="noopener noreferrer">
         <p class="text-xs text-neutral-500">
-          <strong>{track.title}</strong>
+          <strong class="link font-bold">{track.title}</strong>
           {track.artists}
           <ExternalLink size={10} class="inline align-baseline" />
         </p>
@@ -82,15 +63,16 @@
 </footer>
 
 <style lang="postcss">
-  .item {
-    @apply flex items-center space-x-2;
+  .social-links {
+    @apply space-y-0 space-x-2 flex flex-row justify-center items-center;
   }
 
-  .item span {
-    @apply h-6 w-6 shrink-0;
+  .music {
+    @apply underline underline-offset-[3px] decoration-neutral-400;
+    @apply hover:text-black hover:decoration-black transition-colors;
   }
 
-  .item hr {
-    @apply w-full mt-0.5 border-neutral-300;
+  .social-links-home {
+    @apply lg:fixed lg:right-10 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:space-y-10;
   }
 </style>

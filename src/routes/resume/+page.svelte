@@ -15,7 +15,7 @@
       href="/assets/Muhammad_Sohail_Resume.pdf"
       class="link"
       target="_blank"
-      rel="noopener noreferrer"><em class="keyword">hard copy</em></a
+      rel="noopener noreferrer"><em class="keyword underline underline-offset-[3px] decoration-1">hard copy</em></a
     > for those interested.
   </p>
 </div>
@@ -36,6 +36,35 @@
 
   <h4 class="font-medium mt-4 mb-1">Technical coursework:</h4>
   <ul>
+    <li>
+      Distributed Systems (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-512"
+        class="link">COMP 512</a
+      >)
+    </li>
+    <li>
+      Artificial Intelligence (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-424"
+        class="link">COMP 424</a
+      >)
+    </li>
+    <li>
+      Statistics (<a href="https://www.mcgill.ca/study/2023-2024/courses/math-324" class="link"
+        >MATH 324</a
+      >)
+    </li>
+    <li>
+      Numerical Computing (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-350"
+        class="link">COMP 350</a
+      >)
+    </li>
+    <li>
+      Project in Computer Science (static analysis of test suite quality) (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-400"
+        class="link">COMP 400</a
+      >)
+    </li>
     <li>
       Computer Systems (<a
         href="https://www.mcgill.ca/study/2021-2022/courses/comp-273"
@@ -91,10 +120,23 @@
     title="Software Engineering Intern"
     company="Autodesk"
     url="https://www.autodesk.com/"
-    dates="May 2023 – Present"
+    dates="May 2023 – August 2023"
     location="Montréal, QC"
   >
-    <li>Developing backend solutions using Java, Spring Boot, and AWS.</li>
+    <li>
+      Fiddled with DevOps work and backend development on our internal product data platform using
+      everything from Spring Boot to Bash to Scala and beyond.
+    </li>
+    <li>
+      Had some fun playing with concurrency and I/O optimizations in Gatling for Scala to improve
+      our load test performance by about 10 times. Unfortunately, I was able to break our system,
+      which I suppose is quite beneficial in the long run.
+    </li>
+    <li>
+      Got to work with some interesting metric and analytic tools like Kibana, Grafana, and
+      Prometheus + Thanos. Made some cool dashboards to improve visibility on usage and data
+      transfer trends.
+    </li>
   </Occupation>
 
   <Occupation

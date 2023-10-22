@@ -20,6 +20,11 @@ module.exports = {
         xl: '1.20rem',
         '2xl': '1.45rem',
       },
+      colors: {
+        'pastel-red': '#af4d54',
+        'pastel-red-light': '#e36d75',
+        'pastel-blue': '#2b3c5d',
+      },
     },
   },
   plugins: [],

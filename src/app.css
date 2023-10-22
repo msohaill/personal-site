@@ -10,9 +10,7 @@
 
 @layer components {
   .link {
-    @apply underline underline-offset-[3px] decoration-neutral-400 dark:decoration-neutral-500;
-    @apply hover:text-black hover:decoration-black transition-colors;
-    @apply dark:hover:text-white dark:hover:decoration-white;
+    @apply text-pastel-red hover:text-pastel-red-light transition-colors font-semibold;
   }
 
   .layout {
@@ -20,11 +18,11 @@
   }
 
   .section-heading {
-    @apply text-black text-xl font-semibold mb-4;
+    @apply text-pastel-blue text-xl font-semibold mb-4;
   }
 
   .keyword {
-    @apply font-serif text-[120%] leading-[100%];
+    @apply font-serif text-[120%] leading-[100%] font-thin;
   }
 }
 
@@ -33,7 +31,7 @@ html {
 }
 
 body {
-  @apply py-12 sm:py-24 md:py-32 text-neutral-700;
+  @apply py-12 sm:py-24 text-neutral-700;
 }
 
 ::selection {
