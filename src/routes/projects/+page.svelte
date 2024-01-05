@@ -55,13 +55,6 @@
     This sort of <em class="keyword">artistic exploration</em> is exciting and allows me to work on interesting
     topics and explore the world of technology at the same time.
   </p>
-
-  <p class="text-lg">
-    Have an idea of something you would like to work on?
-    <a class="link" href="mailto:muhammad.sohail@mail.mcgill.ca?subject=New%20software%20item"
-      >Let me know</a
-    >!
-  </p>
 </section>
 
 <div class="bg-pastel-blue text-neutral-100 dark">
