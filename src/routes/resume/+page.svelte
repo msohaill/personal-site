@@ -37,6 +37,30 @@
   <h4 class="font-medium mt-4 mb-1">Technical coursework:</h4>
   <ul>
     <li>
+      Compiler Design (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-520"
+        class="link">COMP 520</a
+      >)
+    </li>
+    <li>
+      Database Systems (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-421"
+        class="link">COMP 421</a
+      >)
+    </li>
+    <li>
+      Honours Algorithm Design (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-362"
+        class="link">COMP 362</a
+      >)
+    </li>
+    <li>
+      Algorithmic Game Theory (<a
+        href="https://www.mcgill.ca/study/2023-2024/courses/comp-553"
+        class="link">COMP 553</a
+      >)
+    </li>
+    <li>
       Distributed Systems (<a
         href="https://www.mcgill.ca/study/2023-2024/courses/comp-512"
         class="link">COMP 512</a
