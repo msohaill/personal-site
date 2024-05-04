@@ -43,7 +43,7 @@
   </div>
   <p class="mx-auto mt-5 text-xs text-neutral-500">
     montréal • carpe diem • {new Date().getFullYear()} •
-    <em class="music cursor-pointer keyword" on:click={handleClick} on:keydown={() => {}}>music!</em>
+    <button on:click={handleClick}><em class="music cursor-pointer keyword">music!</em></button>
   </p>
   {#if showMusic}
     <div

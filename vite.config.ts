@@ -1,24 +1,16 @@
 import yaml from 'js-yaml';
 import pluginYAML from '@rollup/plugin-yaml';
 import { marked } from 'marked';
+import { markedSmartypants } from 'marked-smartypants';
 import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig } from 'vite';
+import { defineConfig } from 'vite';
 import { dataToEsm } from '@rollup/pluginutils';
 
 const markdownPlugin = () => {
-  marked.use({
+  marked.use(markedSmartypants(), {
     renderer: {
-      link(href: string, title: string | null, text: string) {
-        return `
-        <a
-          rel="external"
-          href="${encodeURI(href)}"
-          class="link"
-          ${title ? ' title="' + title + '"' : ''}
-        >
-          ${text}
-        </a>
-        `;
+      link(href: string, title: string | null | undefined, text: string) {
+        return `<a rel="external" href="${encodeURI(href)}" class="link"${title ? ' title="' + title + '"' : ''}>${text}</a>`;
       },
     },
   });
@@ -40,10 +32,7 @@ const markdownPlugin = () => {
         rawBody = src.substring(end + 3).trim();
       }
 
-      const body = marked.parse(rawBody, {
-        smartLists: true,
-        smartypants: true,
-      });
+      const body = marked.parse(rawBody);
 
       return {
         code: dataToEsm({ ...fm, body }),
@@ -53,8 +42,6 @@ const markdownPlugin = () => {
   };
 };
 
-const config: UserConfig = {
+export default defineConfig({
   plugins: [sveltekit(), pluginYAML(), markdownPlugin()],
-};
-
-export default config;
+});

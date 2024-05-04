@@ -12,7 +12,8 @@
 {#if open}
   <div
     transition:fade={{ duration: 250 }}
-    tabIndex="0"
+    tabindex="0"
+    role="button"
     autofocus
     class="modal"
     on:click|self={() => (open = false)}

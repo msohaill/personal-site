@@ -15,7 +15,8 @@
       href="/assets/Muhammad_Sohail_Resume.pdf"
       class="link"
       target="_blank"
-      rel="noopener noreferrer"><em class="keyword underline underline-offset-[3px] decoration-1">hard copy</em></a
+      rel="noopener noreferrer"
+      ><em class="keyword underline underline-offset-[3px] decoration-1">hard copy</em></a
     > for those interested.
   </p>
 </div>
@@ -37,9 +38,8 @@
   <h4 class="font-medium mt-4 mb-1">Technical coursework:</h4>
   <ul>
     <li>
-      Compiler Design (<a
-        href="https://www.mcgill.ca/study/2023-2024/courses/comp-520"
-        class="link">COMP 520</a
+      Compiler Design (<a href="https://www.mcgill.ca/study/2023-2024/courses/comp-520" class="link"
+        >COMP 520</a
       >)
     </li>
     <li>
