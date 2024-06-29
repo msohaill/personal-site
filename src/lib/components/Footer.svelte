@@ -37,9 +37,9 @@
 
 <footer class="layout mt-10 flex flex-col">
   <div class="social-links {$page.url.pathname === '/' ? 'social-links-home' : null}">
-    <a class="link" href="https://linkedin.com/in/msohaill"><Linkedin /></a>
-    <a class="link" href="https://github.com/msohaill"><Github /></a>
-    <a class="link" href="mailto:muhammad.sohail@mail.mcgill.ca"><Mail /></a>
+    <a class="text-pastel-blue hover:text-pastel-blue-light" href="https://linkedin.com/in/msohaill"><Linkedin /></a>
+    <a class="text-pastel-blue hover:text-pastel-blue-light" href="https://github.com/msohaill"><Github /></a>
+    <a class="text-pastel-blue hover:text-pastel-blue-light" href="mailto:muhammad.sohail@mail.mcgill.ca"><Mail /></a>
   </div>
   <p class="mx-auto mt-5 text-xs text-neutral-500">
     montréal • carpe diem • {new Date().getFullYear()} •

@@ -24,6 +24,7 @@ module.exports = {
         'pastel-red': '#af4d54',
         'pastel-red-light': '#e36d75',
         'pastel-blue': '#2b3c5d',
+        'pastel-blue-light': '#536fa6',
       },
     },
   },
