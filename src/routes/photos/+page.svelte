@@ -115,19 +115,26 @@
   <PhotoInfo bind:open={openInfo} {...images[currentKey]} />
 </Modal>
 
-<section class="layout py-12 space-y-4">
-  <h2 class="section-heading">A Small Gallery 📸</h2>
+<section class="layout space-y-4">
+  <h1 class=" font-[orpheuspro] font-bold text-pastel-blue text-4xl">A Small Gallery 📸</h1>
 
-  <p class="text-lg">
+  <p>
     I got into photography when I was fifteen. Capturing moments in time, exactly as they are, is
     something I consider quite important.
   </p>
 
-  <p class="text-lg">What's beautiful is being able to share these moments with others.</p>
+  <p>What's beautiful is being able to share these moments with others.</p>
 
-  <p class="text-lg">
+  <p>
     And so, here is a collection of some moments I've captured over the years. I hope that you enjoy
     them as well!
+  </p>
+
+  <p>
+    <a
+      class="font-bold text-sm text-pastel-red hover:text-pastel-red-light transition-colors"
+      href="/">&lcub; home &rcub;</a
+    >
   </p>
 </section>
 
