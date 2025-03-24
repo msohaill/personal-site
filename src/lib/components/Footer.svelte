@@ -1,18 +1,15 @@
 <script lang="ts">
-  import { Linkedin, Github, Mail, ExternalLink } from 'lucide-svelte';
-  import { page } from '$app/stores';
+  import { ExternalLink } from 'lucide-svelte';
   import { getRandomSong } from '$lib/utils';
   import { onMount } from 'svelte';
   import { slide } from 'svelte/transition';
 
   const track: {
     artists: string;
-    audio: HTMLAudioElement | null;
     link: string;
     title: string;
   } = {
     artists: '',
-    audio: null,
     link: '',
     title: '',
   };
@@ -20,30 +17,20 @@
   onMount(() =>
     getRandomSong().then(trackResponse => {
       track.artists = trackResponse.artists.map((a: { name: string }) => a.name).join(', ');
-      track.audio = new Audio(trackResponse.preview_url);
-      track.audio.volume = 0.25;
       track.link = trackResponse.external_urls.spotify;
       track.title = trackResponse.name;
     }),
   );
 
-  $: showMusic = track.audio && !track.audio.paused;
-
-  const handleClick = () => {
-    track.audio?.paused && !showMusic ? track.audio.play() : track.audio?.pause();
-    track.audio = track.audio;
-  };
+  let showMusic = false;
 </script>
 
 <footer class="layout mt-10 flex flex-col">
-  <div class="social-links {$page.url.pathname === '/' ? 'social-links-home' : null}">
-    <a class="text-pastel-blue hover:text-pastel-blue-light" href="https://linkedin.com/in/msohaill"><Linkedin /></a>
-    <a class="text-pastel-blue hover:text-pastel-blue-light" href="https://github.com/msohaill"><Github /></a>
-    <a class="text-pastel-blue hover:text-pastel-blue-light" href="mailto:muhammad.sohail@mail.mcgill.ca"><Mail /></a>
-  </div>
   <p class="mx-auto mt-5 text-xs text-neutral-500">
     montréal • carpe diem • {new Date().getFullYear()} •
-    <button on:click={handleClick}><em class="music cursor-pointer keyword">music!</em></button>
+    <button on:click={() => (showMusic = !showMusic)}
+      ><em class="music cursor-pointer keyword">music!</em></button
+    >
   </p>
   {#if showMusic}
     <div
@@ -63,16 +50,8 @@
 </footer>
 
 <style lang="postcss">
-  .social-links {
-    @apply space-y-0 space-x-2 flex flex-row justify-center items-center;
-  }
-
   .music {
     @apply underline underline-offset-[3px] decoration-neutral-400;
     @apply hover:text-black hover:decoration-black transition-colors;
-  }
-
-  .social-links-home {
-    @apply lg:fixed lg:right-10 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:space-y-10;
   }
 </style>

@@ -126,8 +126,7 @@
         >
           <svelte:component this={ShareIcon} size="15" />
           {shareText}
-          <button> </button></button
-        >
+        </button>
       </div>
     </div>
   </aside>

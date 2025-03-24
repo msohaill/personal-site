@@ -17,8 +17,6 @@ export const shuffleArray = <T>(arr: T[]) => {
   return arr;
 };
 
-export const basename = (name: string) => name.split(/[\\/]/).reverse()[0];
-
 export const getRandomSong = async () => {
   const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',

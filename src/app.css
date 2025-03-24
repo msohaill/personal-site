@@ -2,23 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  hr {
-    @apply border-neutral-200;
-  }
-}
-
 @layer components {
   .link {
     @apply text-pastel-red hover:text-pastel-red-light transition-colors font-semibold;
   }
 
   .layout {
-    @apply max-w-screen-md mx-auto px-4 sm:px-6;
-  }
-
-  .section-heading {
-    @apply text-pastel-blue text-xl font-semibold mb-4;
+    @apply mx-[15vw] lg:mx-[25vw] mt-16 text-base lg:text-lg;
   }
 
   .keyword {
@@ -27,11 +17,11 @@
 }
 
 html {
-  @apply motion-safe:scroll-smooth;
+  @apply motion-safe:scroll-smooth antialiased flex h-full;
 }
 
 body {
-  @apply py-12 sm:py-24 text-neutral-700;
+  @apply lg:my-auto mx-auto text-neutral-700;
 }
 
 ::selection {
