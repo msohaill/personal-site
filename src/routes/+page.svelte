@@ -36,7 +36,7 @@
 
     <p>
       I'm from <a class="link" href="https://www.google.com/maps/place/Regina,+SK+S4S">Regina</a>
-      &#127806;, mais je vis maintenant à
+      &#127806;, but can now be found in
       <a class="link" href="https://www.google.ca/maps/place/Montreal,+QC+H3H/">Montréal</a>
       <img class="rosette" src={mtl} alt="Montréal Logo" />
     </p>
@@ -56,9 +56,7 @@
     <div class="links font-bold text-sm">
       <a href="https://linkedin.com/in/msohaill">&lcub; linkedin &rcub;</a>
       <a href="https://github.com/msohaill">&lcub; github &rcub;</a>
-      <a href="mailto:muhammad.sohail@mail.mcgill.ca">&lcub; mail &rcub;</a>
       <a href="/photos">&lcub; photography &rcub;</a>
-      <a data-sveltekit-reload href="/assets/Muhammad_Sohail_Resume.pdf">&lcub; resume &rcub;</a>
     </div>
   </div>
 
