@@ -2,17 +2,15 @@
   import Metadata from '$lib/components/Metadata.svelte';
   import mcgill from '$static/images/mcgill.svg';
   import mtl from '$static/images/mtl.svg';
-  import { onMount } from 'svelte';
 
   const images: Record<string, () => Promise<any>> = import.meta.glob('$static/images/gallery/*');
-
-  let coverSrc: string;
-
-  onMount(async () => {
-    coverSrc = (
-      await images[Object.keys(images)[Math.floor(Math.random() * Object.keys(images).length)]]()
-    ).default;
-  });
+  const loadImage = async () => {
+    const coverSrc = (await images[Object.keys(images)[Math.floor(Math.random() * Object.keys(images).length)]]()).default;
+    const image = new Image();
+    image.src = coverSrc;
+    await image.decode();
+    return coverSrc;
+  };
 </script>
 
 <Metadata title="Muhammad Sohail" description="Software engineer, student, and photographer." />
@@ -60,9 +58,9 @@
     </div>
   </div>
 
-  {#if coverSrc}
+  {#await loadImage() then coverSrc }
     <img class="cover" src={coverSrc} alt="A random sample from my gallery." />
-  {/if}
+  {/await}
 </div>
 
 <style lang="postcss">
