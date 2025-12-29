@@ -39,7 +39,7 @@
   }
 
   dialog::backdrop {
-    @apply bg-black/60;
+    @apply bg-black/80 backdrop-blur-sm;
   }
 
   .modal :global(*) {
