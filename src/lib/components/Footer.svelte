@@ -25,7 +25,7 @@
   let showMusic = $state(false);
 </script>
 
-<footer class="layout mt-10 flex flex-col">
+<footer class="layout mt-10 mb-5 flex flex-col">
   <p class="mx-auto mt-5 text-xs text-neutral-500">
     montréal • carpe diem • {new Date().getFullYear()} •
     <button onclick={() => (showMusic = !showMusic)}
