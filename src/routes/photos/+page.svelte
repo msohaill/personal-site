@@ -10,6 +10,7 @@
   import ImageZoom from '$lib/components/ImageZoom.svelte';
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
+  import type Macy from 'macy';
 
   const imageImports: Record<string, { default: string }> = import.meta.glob(
     '$static/images/gallery/*',
@@ -58,12 +59,15 @@
     }
   });
 
-  const loadImages = async (items: typeof imageFeeder) => {
+  const loadImages = async (items: typeof imageFeeder, macyInstance?: Macy) => {
     await Promise.all(items.map(item => {
       return new Promise<void>((resolve) => {
         const img = new Image();
         img.src = item.src;
-        img.onload = () => resolve();
+        img.onload = () => {
+          macyInstance?.recalculate(true);
+          resolve();
+        };
       });
     }));
   };
@@ -106,8 +110,7 @@
       }
     });
 
-    await loadImages(pageState.gallery);
-    macyInstance.recalculate(true, true);
+    await loadImages(pageState.gallery, macyInstance);
     pageState.imagesLoading = false;
 
     let observer = new IntersectionObserver(entries => {
