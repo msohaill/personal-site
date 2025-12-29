@@ -1,7 +1,8 @@
 import pluginYAML from '@rollup/plugin-yaml';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  plugins: [sveltekit(), pluginYAML()],
+  plugins: [tailwindcss(), sveltekit(), pluginYAML()],
 });

@@ -1,9 +1,8 @@
 <script lang="ts">
-  export let src = '';
-  export let alt = '';
+  let { src, alt }: { src: string; alt: string } = $props();
 
-  let zoomed = false;
-  let position = '50% 50%';
+  let zoomed = $state(false);
+  let position = $state('50% 50%');
 
   const zoomInPosition = (e: MouseEvent & { currentTarget: EventTarget & HTMLElement }) => {
     const bound = e.currentTarget.getBoundingClientRect();
@@ -26,25 +25,25 @@
   };
 </script>
 
-<figure
-  on:mousemove={e => zoomed && zoomInPosition(e)}
-  on:touchmove|preventDefault={e => zoomed && zoomInPositionTouch(e)}
-  on:click={toggleZoomImage}
-  on:keydown={() => {}}
-  on:mouseleave={() => {
-    zoomed = false;
-  }}
+<button
+  onmousemove={e => zoomed && zoomInPosition(e)}
+  ontouchmove={e => { e.preventDefault(); zoomed && zoomInPositionTouch(e); }}
+  onclick={toggleZoomImage}
+  onmouseleave={() => zoomed = false}
   style="background-size: 200%; background-position: {position}; background-image: url('{src}')"
 >
   <img style="opacity: {zoomed ? 0 : 1}" {src} {alt} />
-</figure>
+</button>
 
 <style lang="postcss">
-  figure {
+  @reference "tailwindcss";
+  @reference "../../app.css";
+
+  button {
     @apply cursor-zoom-in;
   }
 
   img {
-    @apply transition-opacity duration-300;
+    @apply transition-opacity duration-200;
   }
 </style>

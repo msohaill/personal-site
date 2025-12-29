@@ -1,33 +1,45 @@
 <script lang="ts">
   import { X } from 'lucide-svelte';
-  import { fade } from 'svelte/transition';
+  import { onMount, type Snippet } from 'svelte';
 
-  export let open = false;
+  let { opened = $bindable(), children }: { opened: boolean, children: Snippet } = $props();
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') open = false;
-  };
+  let dialog: HTMLDialogElement;
+
+  $effect(() => {
+    if (opened) {
+      dialog.showModal();
+      requestAnimationFrame(() => dialog.querySelector('button')?.focus());
+    } else {
+      dialog.close();
+    }
+  });
+
+  onMount(() => {
+    dialog.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      opened = false;
+    });
+  });
 </script>
 
-{#if open}
-  <div
-    transition:fade={{ duration: 250 }}
-    tabindex="0"
-    role="button"
-    autofocus
-    class="modal"
-    on:click|self={() => (open = false)}
-    on:keydown={handleKeyDown}
-  >
-    <button class="fixed right-5 top-5 text-white" on:click={() => (open = false)}><X /></button>
-    <slot />
+<dialog bind:this={dialog} onclick={e => e.target === e.currentTarget && (opened = false)} class="m-auto">
+  <div class="modal">
+    <button class="fixed right-5 top-5 text-white cursor-pointer" onclick={() => opened = false}><X /></button>
+    {@render children?.()}
   </div>
-{/if}
+</dialog>
 
 <style lang="postcss">
+  @reference "tailwindcss";
+  @reference "../../app.css";
+
   .modal {
-    @apply w-screen h-screen fixed top-0 left-0 bg-black
-    bg-opacity-60 z-10 flex justify-center items-center;
+    @apply m-auto flex justify-center items-center;
+  }
+
+  dialog::backdrop {
+    @apply bg-black/60;
   }
 
   .modal :global(*) {

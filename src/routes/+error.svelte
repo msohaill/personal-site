@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
   import { Bug } from 'lucide-svelte';
 </script>
 
 <div class="layout flex flex-col justify-center items-center gap-10">
   <div class="text-xl flex justify-center items-center">
     <Bug class="mr-2" />
-    <span class="font-medium">{$page.status}</span>
+    <span class="font-medium">{page.status}</span>
     <div class="mx-4 h-8 border-l border-black"></div>
-    {$page.error?.message}
+    {page.error?.message}
   </div>
   <p>
     <a

@@ -1,6 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Font Families */
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter Variable", sans-serif;
+
+  /* Font Sizes */
+  --text-xs: 0.70rem;
+  --text-xs--line-height: initial;
+  --text-sm: 0.825rem;
+  --text-sm--line-height: initial;
+  --text-base: 0.95rem;
+  --text-base--line-height: initial;
+  --text-lg: 1.075rem;
+  --text-lg--line-height: initial;
+  --text-xl: 1.20rem;
+  --text-xl--line-height: initial;
+  --text-2xl: 1.45rem;
+  --text-2xl--line-height: initial;
+
+  /* Custom Colors */
+  --color-pastel-red: #af4d54;
+  --color-pastel-red-light: #e36d75;
+  --color-pastel-blue: #2b3c5d;
+  --color-pastel-blue-light: #536fa6;
+}
 
 @layer components {
   .link {
@@ -26,8 +52,4 @@ body {
 
 ::selection {
   @apply bg-neutral-200 dark:bg-neutral-600;
-}
-
-.dark {
-  color-scheme: dark;
 }

@@ -58,12 +58,15 @@
     </div>
   </div>
 
-  {#await loadImage() then coverSrc }
+  {#await loadImage() then coverSrc}
     <img class="cover" src={coverSrc} alt="A random sample from my gallery." />
   {/await}
 </div>
 
 <style lang="postcss">
+  @reference "tailwindcss";
+  @reference "../app.css";
+
   .coat {
     @apply inline h-6 w-6;
   }

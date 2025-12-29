@@ -5,6 +5,9 @@
   import '@fontsource/cormorant-garamond/500-italic.css';
   import '@fontsource/karla/300.css';
   import '../app.css';
+  import type { Snippet } from 'svelte';
+
+  let { children }: { children: Snippet } = $props();
 </script>
 
 <svelte:head>
@@ -23,6 +26,6 @@
 </svelte:head>
 
 <main>
-  <slot />
+  {@render children?.()}
 </main>
 <Footer />

@@ -1,8 +1,5 @@
 <script lang="ts">
   import imageData from '$static/data/images.yaml';
-  import { MasonryInfiniteGrid } from '@egjs/svelte-infinitegrid';
-  import { ITEM_TYPE } from '@egjs/infinitegrid';
-  import type { OnRequestAppend } from '@egjs/infinitegrid';
   import { shuffleArray } from '$lib/utils';
   import { Diamonds } from 'svelte-loading-spinners';
   import Metadata from '$lib/components/Metadata.svelte';
@@ -11,8 +8,8 @@
   import { Lightbulb } from 'lucide-svelte';
   import { onMount } from 'svelte';
   import ImageZoom from '$lib/components/ImageZoom.svelte';
-  import { page } from '$app/stores';
   import { goto } from '$app/navigation';
+  import { page } from '$app/state';
 
   const imageImports: Record<string, { default: string }> = import.meta.glob(
     '$static/images/gallery/*',
@@ -32,87 +29,132 @@
 
   const imageFeeder = shuffleArray([...images]).map(item => ({ ...item, key: item.id - 1 }));
 
-  let items = imageFeeder.splice(0, 9);
-  let innerWidth = 0;
-  let currentKey = 0;
-  let openModal = false;
-  let openInfo = false;
-  let fromShare =
-    $page.url.searchParams.has('id') &&
-    Number($page.url.searchParams.get('id')) > 0 &&
-    Number($page.url.searchParams.get('id')) <= images.length;
-  let shareOpened = false;
-  let shareId = fromShare ? Number($page.url.searchParams.get('id')) - 1 : -1;
+  let loader: HTMLElement;
 
-  $: column = innerWidth < 640 ? 1 : innerWidth < 1024 ? 2 : 3;
-  $: src = images[currentKey].src;
-  $: alt = images[currentKey].caption;
-  $: if (!openModal) openInfo = false;
-  $: if (shareOpened && !openModal) {
-    fromShare = false;
-    goto('/photos');
-  }
-  const getImages = ({ detail: e }: { detail: OnRequestAppend }) => {
+  const pageState = $state({
+    gallery: [] as typeof imageFeeder,
+    currentKey: 0,
+    openModal: false,
+    openInfo: false,
+    fromShare: (page.url.searchParams.has('id') &&
+      Number(page.url.searchParams.get('id')) > 0 &&
+      Number(page.url.searchParams.get('id')) <= images.length),
+    shareOpened: false,
+    imagesLoading: true,
+  });
+
+  const shareId = $derived(pageState.fromShare ? Number(page.url.searchParams.get('id')) - 1 : -1);
+  const src = $derived(images[pageState.currentKey].src);
+  const alt = $derived(images[pageState.currentKey].caption);
+
+  $effect(() => {
+    if (!pageState.openModal) pageState.openInfo = false;
+  });
+  $effect(() => {
+    if (pageState.shareOpened && !pageState.openModal) {
+      pageState.fromShare = false;
+      pageState.shareOpened = false;
+      goto('/photos');
+    }
+  });
+
+  const loadImages = async (items: typeof imageFeeder) => {
+    await Promise.all(items.map(item => {
+      return new Promise<void>((resolve) => {
+        const img = new Image();
+        img.src = item.src;
+        img.onload = () => resolve();
+      });
+    }));
+  };
+
+  const getImages = async () => {
     if (imageFeeder.length === 0) return;
 
-    e.wait();
     const newItems = imageFeeder.splice(0, 5);
-
-    newItems.forEach((item, i) => {
-      const img = new Image();
-      img.onload = () => {
-        if (i === newItems.length - 1) {
-          e.ready();
-          items = [...items, ...newItems];
-        }
-      };
-      img.src = item.src;
-    });
+    await loadImages(newItems);
+    pageState.gallery = [...pageState.gallery, ...newItems];
   };
 
   const openImage = (key: number) => {
-    openModal = true;
-    currentKey = key;
+    pageState.openModal = true;
+    pageState.currentKey = key;
   };
 
   const switchIamge = (e: KeyboardEvent) => {
-    if (!openModal || !['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+    if (!pageState.openModal || !['ArrowLeft', 'ArrowRight', 'KeyI'].includes(e.code)) return;
 
-    if (e.key === 'ArrowLeft') currentKey = Math.max(currentKey - 1, 0);
-    else if (e.key === 'ArrowRight') currentKey = Math.min(currentKey + 1, items.length - 1);
+    if (e.code === 'ArrowLeft') pageState.currentKey = Math.max(pageState.currentKey - 1, 0);
+    else if (e.code === 'ArrowRight') pageState.currentKey = Math.min(pageState.currentKey + 1, images.length - 1);
+    else if (e.code === 'KeyI') pageState.openInfo = !pageState.openInfo;
   };
 
-  let fix = 0;
-  onMount(() => {
-    // Fix for observer glitch (Infinite Grid)
-    setTimeout(() => fix++ && setTimeout(() => fix++, 1), 350);
+  onMount(async () => {
+    // Dynamically import Macy to prevent SSR issues
+    const Macy = (await import('macy')).default;
+
+    pageState.gallery = imageFeeder.splice(0, 9);
+
+    let macyInstance = new Macy({
+      container: '.gallery',
+      columns: 3,
+      margin: 8,
+      waitForImages: true,
+      breakAt: {
+        1024: 2,
+        640: 1,
+      }
+    });
+
+    await loadImages(pageState.gallery);
+    macyInstance.recalculate(true, true);
+    pageState.imagesLoading = false;
+
+    let observer = new IntersectionObserver(entries => {
+      if (pageState.imagesLoading) return;
+      if (imageFeeder.length === 0) {
+        observer.disconnect();
+        return;
+      }
+
+      entries.forEach(async entry => {
+        if (entry.isIntersecting) {
+          pageState.imagesLoading = true;
+          await getImages();
+          macyInstance.recalculate(true, true);
+          pageState.imagesLoading = false;
+        }
+      });
+    });
+
+    observer.observe(loader);
 
     // Handling shared URL
-    if (fromShare) {
+    if (pageState.fromShare) {
       openImage(shareId);
-      shareOpened = true;
-    } else if ($page.url.searchParams.has('id')) {
+      pageState.shareOpened = true;
+    } else if (page.url.searchParams.has('id')) {
       // Incorrect ID
       goto('/photos');
     }
   });
 </script>
 
-<svelte:window bind:innerWidth on:keyup={switchIamge} />
+<svelte:window onkeyup={switchIamge} />
 
 <Metadata
-  title="Muhammad Sohail – {fromShare ? images[shareId].caption : 'Photos'}"
+  title="Muhammad Sohail – {pageState.fromShare ? images[shareId].caption : 'Photos'}"
   description="A gallery of photos I've captured."
-  cover={fromShare ? images[shareId].src : undefined}
+  cover={pageState.fromShare ? images[shareId].src : undefined}
 />
 
-<Modal bind:open={openModal}>
+<Modal bind:opened={pageState.openModal}>
   <ImageZoom {src} {alt} />
   <button
-    class="absolute right-5 bottom-5 p-2 text-stone-200 hover:text-stone-300"
-    on:click={() => (openInfo = true)}><Lightbulb /></button
+    class="fixed right-5 bottom-5 p-2 text-stone-200 hover:text-stone-300 cursor-pointer"
+    onclick={() => (pageState.openInfo = true)}><Lightbulb /></button
   >
-  <PhotoInfo bind:open={openInfo} {...images[currentKey]} />
+  <PhotoInfo bind:open={pageState.openInfo} {...images[pageState.currentKey]} />
 </Modal>
 
 <section class="layout space-y-4">
@@ -138,49 +180,40 @@
   </p>
 </section>
 
-<div class="flex flex-col items-center max-w-screen-2xl pt-10 px-5 mx-auto">
-  {#key fix}
-    <MasonryInfiniteGrid
-      class="w-full h-full"
-      gap={8}
-      {column}
-      resizeDebounce={0}
-      {items}
-      useRecycle={false}
-      useLoading={true}
-      on:requestAppend={getImages}
-      let:visibleItems
-    >
-      {#each visibleItems as item (item.key)}
-        {#if item.type === ITEM_TYPE.NORMAL}
-          <div class="item">
-            <img
-              src={item.data.src}
-              alt={item.data.caption}
-              on:click={() => openImage(item.key)}
-              on:keydown={e => e.key === 'Enter' && openImage(item.key)}
-              loading="eager"
-            />
-            <p class="image-desc">
-              {item.data.caption}&nbsp; • &nbsp;{item.data.location}&nbsp; • &nbsp;{item.data.date.toLocaleDateString(
-                'en-CA',
-                { timeZone: 'UTC' },
-              )}
-            </p>
-          </div>
-        {:else if item.type === ITEM_TYPE.LOADING}
-          <div class="pt-12">
-            <Diamonds color="black" size={30} />
-          </div>
-        {/if}
+<div class="flex flex-col items-center max-w-(--breakpoint-2xl) pt-10 px-3 mx-auto">
+  <div class="gallery w-full h-full">
+    {#each pageState.gallery as item (item.key)}
+      <div class="item">
+        <button
+          class="w-full p-0 m-0 block relative"
+          onclick={() => openImage(item.key)}
+        >
+          <img
+            src={item.src}
+            alt={item.caption}
+            loading="eager"
+          />
+        </button>
+        <p class="image-desc">
+          {item.caption}&nbsp; • &nbsp;{item.location}&nbsp; • &nbsp;{item.date.toLocaleDateString(
+            'en-CA',
+            { timeZone: 'UTC' },
+          )}
+        </p>
+      </div>
       {/each}
-    </MasonryInfiniteGrid>
-  {/key}
+  </div>
+  <div class="pt-12 {pageState.imagesLoading ? '' : 'opacity-0'}" bind:this={loader}>
+    <Diamonds color="black" size={30} />
+  </div>
 </div>
 
 <style lang="postcss">
+  @reference "tailwindcss";
+  @reference "../../app.css";
+
   .item {
-    @apply w-full sm:w-1/2 lg:w-1/3 bg-white;
+    @apply w-full bg-white;
   }
 
   .item * {
