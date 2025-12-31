@@ -255,11 +255,11 @@
   <h1 class=" font-[orpheuspro] font-bold text-pastel-blue text-4xl">A Small Gallery 📸</h1>
 
   <p>
-    I got into photography when I was fifteen. Capturing moments in time, exactly as they are, is
-    something I consider quite important.
+    I got into photography when I was fifteen. Being able to capture moments in time, exactly as they are, is
+    an incredible privilege.
   </p>
 
-  <p>What's beautiful is being able to share these moments with others.</p>
+  <p>What's truly special is being able to share those moments with others.</p>
 
   <p>
     And so, here is a collection of some moments I've captured over the years. I hope that you enjoy
