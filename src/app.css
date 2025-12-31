@@ -57,6 +57,10 @@ body {
   @apply lg:my-auto mx-auto text-neutral-700;
 }
 
+body:has(dialog[open]) {
+  @apply overflow-hidden;
+}
+
 ::selection {
   @apply bg-neutral-200 dark:bg-neutral-600;
 }
