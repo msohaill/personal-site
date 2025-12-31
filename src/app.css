@@ -40,6 +40,13 @@
   .keyword {
     @apply font-serif text-[120%] leading-[100%] font-thin;
   }
+
+  .filter {
+    @apply h-8 p-3 flex items-center text-sm
+    data-placeholder:text-gray-500 hover:border-pastel-red max-w-48
+    border-2 border-pastel-blue cursor-pointer
+    touch-none select-none transition-colors;
+  }
 }
 
 html {
